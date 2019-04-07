@@ -3,3 +3,4 @@
 /db/*.sqlite3-journal
 /log/*
 /tmp
+/statements_html/*.html
