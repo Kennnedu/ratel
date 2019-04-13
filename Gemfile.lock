@@ -21,6 +21,7 @@ GEM
     mustermann (1.0.3)
     nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
+    pg (1.1.4)
     rack (2.0.7)
     rack-protection (2.0.5)
       rack
@@ -33,7 +34,6 @@ GEM
     sinatra-activerecord (2.0.13)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
-    sqlite3 (1.4.0)
     thread_safe (0.3.6)
     tilt (2.0.9)
     tzinfo (1.2.5)
@@ -44,10 +44,10 @@ PLATFORMS
 
 DEPENDENCIES
   nokogiri
+  pg
   rake
   sinatra
   sinatra-activerecord
-  sqlite3
 
 RUBY VERSION
    ruby 2.6.0p0
