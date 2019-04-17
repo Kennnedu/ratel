@@ -5,3 +5,4 @@
 /tmp
 /statements_html/*.html
 config/database.yml
+node_modules/
