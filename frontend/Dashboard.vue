@@ -4,6 +4,7 @@
       <h1>Dashboard</h1>
       <h2>You can set different report about your statements</h2>
     </div>
+    <div class="content"></div>
   </div>
 </template>
 <script></script>

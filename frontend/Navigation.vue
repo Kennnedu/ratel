@@ -1,7 +1,13 @@
 <template>
-  <div id="layout">
-    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
-    <div id="menu">
+  <div id="layout" v-bind:class="{active: active}">
+    <a href="#menu"
+       id="menuLink"
+       class="menu-link"
+       v-on:click="active = !active"
+       v-bind:class="{active: active}">
+      <span></span>
+    </a>
+    <div id="menu" v-bind:class="{active: active}">
       <div class="pure-menu">
         <a class="pure-menu-heading" href="#">Ratel</a>
         <ul class="pure-menu-list">
@@ -17,7 +23,7 @@
         </ul>
       </div>
     </div>
-    <div id="main">
+    <div id="main" v-on:click="active = !active">
       <slot></slot>
     </div>
   </div>
