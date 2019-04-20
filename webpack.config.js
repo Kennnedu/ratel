@@ -2,16 +2,24 @@ const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
-  entry: './javascripts/index.js',
+  mode: 'development',
+  entry: './frontend/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public/js/')
+    path: path.resolve(__dirname, 'public/')
   },
   module: {
     rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader'
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
