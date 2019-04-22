@@ -1,9 +1,9 @@
 <template>
   <div id="ratel-app">
     <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo">
-      <Dashboard v-if="currentPage === 'Dashboard'"></Dashboard>
-      <Uploading v-if="currentPage === 'Uploading'"></Uploading>
-      <Statements v-if="currentPage === 'Statements'"></Statements>
+      <Dashboard v-if="currentPage === 'Dashboard'"/>
+      <Uploading v-if="currentPage === 'Uploading'"/>
+      <Statements v-if="currentPage === 'Statements'"/>
     </Navigation>
   </div>
 </template>

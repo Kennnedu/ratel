@@ -23,7 +23,7 @@
         </ul>
       </div>
     </div>
-    <div id="main" v-on:click="active = !active">
+    <div id="main" v-on:click="active ? active = false : false">
       <slot></slot>
     </div>
   </div>
