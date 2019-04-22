@@ -17,6 +17,10 @@ get '/records' do
   json Record.all.as_json(except: [:created_at, :updated_at])
 end
 
+get '/records/report' do
+  json Record.group(:name).sum(:amount).to_a
+end
+
 post '/records/bulk/parse' do
   parser = StatementTableParser.new
   parser.html_table = JSON.parse(request.body.read)['html_table']
