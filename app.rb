@@ -22,8 +22,7 @@ get '/records/report' do
 end
 
 post '/records/bulk/parse' do
-  parser = StatementTableParser.new
-  parser.html_table = JSON.parse(request.body.read)['html_table']
+  parser = StatementTableParser.new(JSON.parse(request.body.read)['html_table'])
   if parser.parse!
     json records: parser.result
   else
@@ -38,7 +37,9 @@ post '/records/bulk/validate' do
   unless new_records.map(&:valid?).include?(false)
     json records: new_records_json
   else
-    halt 400, {'Content-Type' => 'application/json'}, { messages: new_records.map(&:errors).map(&:messages) }.to_json
+    halt 400,
+      {'Content-Type' => 'application/json'},
+      { message: new_records.map(&:errors).map(&:full_messages).map { |m| m.join(', ') } }.to_json
   end
 end
 
@@ -48,6 +49,8 @@ post '/records/bulk' do
   unless saved_records.map(&:valid?).include?(false)
     halt 200
   else
-    halt 400, {'Content-Type' => 'application/json'}, { messages: saved_records.map(&:errors).map(&:messages) }.to_json
+    halt 400,
+      {'Content-Type' => 'application/json'},
+      { message: saved_records.map(&:errors).map(&:full_messages).map { |m| m.join(', ') } }.to_json
   end
 end
