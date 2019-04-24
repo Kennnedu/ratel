@@ -1,7 +1,7 @@
 require 'nokogiri'
 
 class StatementTableParser
-  attr_accessor :table_file
+  attr_accessor :html_table
   attr_reader :result
 
   def parse!
@@ -20,13 +20,15 @@ class StatementTableParser
     end
 
     @result
+  rescue
+    nil
   end
 
-  def table_file=(table_file = nil)
-    @table_file = table_file
-    @tr_nodes = Nokogiri::HTML(@table_file).css('tr')
+  def html_table=(html_table = nil)
+    @html_table = html_table
+    @tr_nodes = Nokogiri::HTML(@html_table).css('tr')
     @result = []
   end
 
-  alias initialize table_file=
+  alias initialize html_table=
 end
