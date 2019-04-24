@@ -5,6 +5,7 @@
       <h2>The page lets you know your all statements</h2>
     </div>
     <div class="content">
+      <h3>Total {{ records.length }}</h3>
       <table class="pure-table pure-table-bordered">
         <thead>
           <tr>
