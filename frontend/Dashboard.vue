@@ -16,7 +16,7 @@
         <tbody>
           <tr v-for="line in report">
             <td>{{ line[0] }}</td>
-            <td>{{ line[1] }}</td>
+            <td>{{ `${line[1]} BYN` }}</td>
           </tr>
         </tbody>
       </table>

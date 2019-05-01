@@ -21,6 +21,7 @@
   "homepage": "https://github.com/Kennnedu/ratel#readme",
   "dependencies": {
     "axios": "^0.18.0",
+    "moment": "^2.24.0",
     "purecss": "^1.0.0",
     "vue": "^2.6.10",
     "webpack": "^4.30.0",

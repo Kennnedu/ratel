@@ -21,9 +21,9 @@
               v-bind:key="record.id">
             <td>{{ record.name }}</td>
             <td>{{ record.card }}</td>
-            <td>{{ record.amount }}</td>
-            <td>{{ record.rest }}</td>
-            <td>{{ record.performed_at }}</td>
+            <td>{{ `${record.amount} BYN` }}</td>
+            <td>{{ `${record.rest} BYN` }}</td>
+            <td>{{ moment(record.performed_at).format('lll') }}</td>
           </tr>
         </tbody>
       </table>
@@ -32,11 +32,13 @@
 </template>
 <script>
   import axios from 'axios'
+  import moment from 'moment'
 
   export default {
     data: function() {
       return {
-        records: []
+        records: [],
+        moment: moment
       }
     },
     created: function() {

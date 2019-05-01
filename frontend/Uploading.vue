@@ -12,11 +12,9 @@
                     placeholder="Past your statements html table"
                     v-bind:disabled="isDisabledTextArea"
                     v-model="htmlTable"/>
-          <span class="pure-form-message pure-form-message-error"
-                v-for="(errorMessage, index) in errors"
-                v-if="errorMessage !== ''">
-                  {{ nubmerOfError === 1 ? errorMessage : `${index + 1} line - ${errorMessage}` }}
-                </span>
+          <span class="pure-form-message pure-form-message-error" v-for="(errorMessage, index) in errors" v-if="errorMessage !== ''">
+            {{ nubmerOfError === 1 ? errorMessage : `${index + 1} line - ${errorMessage}` }}
+          </span>
         </fieldset>
         <input type="submit"
                class="pure-button pure-button-primary"
