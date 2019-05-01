@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import './layout.css'
+  import '../navigation.css'
 
   export default {
     props: ['currentPage'],

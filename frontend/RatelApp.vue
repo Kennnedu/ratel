@@ -9,10 +9,10 @@
 </template>
 
 <script>
-  import Navigation from './Navigation.vue'
-  import Statements from './Statements.vue'
-  import Uploading from './Uploading.vue'
-  import Dashboard from './Dashboard.vue'
+  import Navigation from './components/Navigation.vue'
+  import Statements from './components/Statements.vue'
+  import Uploading from './components/Uploading.vue'
+  import Dashboard from './components/Dashboard.vue'
 
   export default {
     components: {
