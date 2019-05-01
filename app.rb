@@ -6,7 +6,7 @@ require 'pry'
 require_relative 'lib/statement_table_parser.rb'
 
 class Record < ActiveRecord::Base
-  validates_presence_of :name, :card, :amount, :rest, :performed_at
+  validates_presence_of :name, :amount, :performed_at
 end
 
 get '/' do
@@ -15,6 +15,15 @@ end
 
 get '/records' do
   json Record.all.as_json(except: [:created_at, :updated_at])
+end
+
+post '/records' do
+  record = Record.new(JSON.parse(request.body.read)['record'])
+  if record.save
+    halt 200
+  else
+    halt 400, {'Content-Type' => 'application/json'}, { message: record.errors }.to_json
+  end
 end
 
 get '/records/report' do
