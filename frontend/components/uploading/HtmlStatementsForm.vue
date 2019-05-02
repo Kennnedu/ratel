@@ -1,19 +1,21 @@
 <template>
-  <form class="pure-form pure-form-stacked">
+  <form class="pure-form pure-form-aligned" v-on:submit="submitForm">
     <fieldset>
-      <label for="statements-html">Statements HTML</label>
-      <textarea id="statements-html"
-                placeholder="Past your statements html table"
-                v-bind:disabled="isDisabledTextArea"
-                v-model="htmlTable"/>
-      <span class="pure-form-message pure-form-message-error" v-for="(errorMessage, index) in errors" v-if="errorMessage !== ''">
-        {{ nubmerOfError === 1 ? errorMessage : `${index + 1} line - ${errorMessage}` }}
-      </span>
+      <legend>HTML Statements Form</legend>
+      <div class="pure-control-group">
+        <label for="statements-html">Html table</label>
+        <textarea id="statements-html"
+                  placeholder="Past your statements html table"
+                  v-bind:disabled="isDisabledTextArea"
+                  v-model="htmlTable"/>
+        <span class="pure-form-message pure-form-message-error" v-for="(errorMessage, index) in errors" v-if="errorMessage !== ''">
+          {{ nubmerOfError === 1 ? errorMessage : `${index + 1} line - ${errorMessage}` }}
+        </span>
+      </div>
+      <div class="pure-controls">
+        <input type="submit" class="pure-button pure-button-primary" v-bind:value="saveButtonName">
+      </div>
     </fieldset>
-    <input type="submit"
-            class="pure-button pure-button-primary"
-            v-bind:value="saveButtonName"
-            v-on:click="saveStatements">
   </form>
 </template>
 <script>
@@ -28,11 +30,11 @@
       }
     },
     computed: {
-      isDisabledTextArea: function() { return this.saveButtonName !== 'Upload' },
-      nubmerOfError: function() { return this.errors.length },
+      isDisabledTextArea() { return this.saveButtonName !== 'Upload' },
+      nubmerOfError() { return this.errors.length },
     },
     methods: {
-      saveStatements: function(){
+      submitForm(){
         let _this = this;
         _this.errors = [];
 
@@ -60,7 +62,7 @@
           })
           .catch(error => _this.errorHandler(error.response));
       },
-      errorHandler: function(response){
+      errorHandler(response){
         console.log(response);
         this.saveButtonName = 'Upload';
         if(Array.isArray(response.data.message)) {
@@ -73,11 +75,6 @@
   }
 </script>
 <style lang="css" scoped>
-  #statements-html{
-    width: 100%;
-    height: 15vw;
-  }
-
   .pure-form-message.pure-form-message-error {
     color: red;
   }
