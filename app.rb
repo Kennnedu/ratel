@@ -18,7 +18,7 @@ get '/records' do
 end
 
 post '/records' do
-  record = Record.new(JSON.parse(request.body.read)['record'])
+  record = Record.new(JSON.parse(request.body.read)['newRecord'])
   if record.save
     halt 200
   else
