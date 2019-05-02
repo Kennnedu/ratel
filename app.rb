@@ -14,7 +14,7 @@ get '/' do
 end
 
 get '/records' do
-  json Record.all.as_json(except: [:created_at, :updated_at])
+  json Record.all.order(performed_at: :desc).as_json(except: [:created_at, :updated_at])
 end
 
 post '/records' do
