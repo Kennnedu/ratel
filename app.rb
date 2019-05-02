@@ -14,11 +14,11 @@ get '/' do
 end
 
 get '/records' do
-  json Record.all.as_json(except: [:created_at, :updated_at])
+  json Record.all.order(performed_at: :desc).as_json(except: [:created_at, :updated_at])
 end
 
 post '/records' do
-  record = Record.new(JSON.parse(request.body.read)['newRecord'])
+  record = Record.new(JSON.parse(request.body.read)['record'])
   if record.save
     halt 200
   else

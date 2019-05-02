@@ -60,7 +60,7 @@
       submitForm() {
         let _this = this;
         _this.saveButtonName = 'Saving...'
-        axios.post('/records', { newRecord: _this.newRecord })
+        axios.post('/records', { record: _this.newRecord })
           .then(function(resp){
             Object.assign(_this.newRecord, emptyNewRecord)
           })
