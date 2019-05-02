@@ -14,12 +14,12 @@
       </div>
       <div class="pure-control-group">
         <label for="record-amount">Amount</label>
-        <input type="number" id="record-amount" required v-model.number="newRecord.amount">
+        <input type="number" id="record-amount" step="0.01" required v-model.number="newRecord.amount">
         <span class="pure-form-message-inline"></span>
       </div>
       <div class="pure-control-group">
         <label for="record-rest">Rest</label>
-        <input type="number" id="record-rest" v-model.number="newRecord.rest">
+        <input type="number" id="record-rest" step="0.01" v-model.number="newRecord.rest">
         <span class="pure-form-message-inline"></span>
       </div>
       <div class="pure-control-group">
