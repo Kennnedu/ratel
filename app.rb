@@ -63,3 +63,12 @@ post '/records/bulk' do
       { message: saved_records.map(&:errors).map(&:full_messages).map { |m| m.join(', ') } }.to_json
   end
 end
+
+delete '/records/:id' do |id|
+  record = Record.find(id)
+  if record.delete
+    halt 200
+  else
+    halt 400
+  end
+end
