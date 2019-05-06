@@ -1,13 +1,7 @@
 <template>
-  <div id="uploading">
-    <div class="header">
-      <h1>Uploading</h1>
-      <h2>The page allows you to upload new statements</h2>
-    </div>
-    <div class="content">
-      <RecordForm/>
-      <HtmlStatementsForm/>
-    </div>
+  <div class="content">
+    <RecordForm/>
+    <HtmlStatementsForm/>
   </div>
 </template>
 <script>
