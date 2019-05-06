@@ -1,26 +1,24 @@
 <template>
-  <div id="dashboard">
-    <div class="header">
-      <h1>Dashboard</h1>
-      <h2>You can set different report about your statements</h2>
+  <div class="content">
+    <div class="pure-g">
+      <div class="pure-u-1">
+        <h3>Report</h3>
+      </div>
     </div>
-    <div class="content">
-      <h3>Report</h3>
-      <table class="pure-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Amount Sum</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="line in report">
-            <td>{{ line[0] }}</td>
-            <td>{{ `${line[1]} BYN` }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table class="pure-table">
+      <thead>
+        <tr>
+          <th>Operation</th>
+          <th>Amount Sum</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="line in report">
+          <td>{{ line[0] }}</td>
+          <td>{{ `${line[1]} BYN` }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 <script>
