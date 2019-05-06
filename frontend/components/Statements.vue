@@ -8,17 +8,19 @@
     <table class="pure-table pure-table-bordered">
       <thead>
         <tr>
-          <th>Operaion</th>
+          <th>Operation</th>
           <th>Card</th>
           <th>Amount</th>
           <th>Rest</th>
           <th>Performed At</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
         <Record v-for="record in records"
                 v-bind:key="record.id"
-                v-bind:record="record" />
+                v-bind:record="record"
+                v-on:destroy="destroyRecord" />
       </tbody>
     </table>
   </div>
@@ -43,6 +45,11 @@
       .catch(function(error){
         console.log(error);
       })
+    },
+    methods: {
+      destroyRecord(id){
+        this.records = this.records.filter(record => record.id !== id)
+      }
     }
   }
 </script>

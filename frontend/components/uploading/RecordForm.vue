@@ -4,7 +4,7 @@
       <legend>New Record Form</legend>
       <div class="pure-control-group">
         <label for="record-name">Operation</label>
-        <input type="text" id="record-name" placeholder="Enter record name" required v-model.trim="newRecord.name">
+        <input type="text" id="record-name" placeholder="Enter operation" required v-model.trim="newRecord.name">
         <span class="pure-form-message-inline"></span>
       </div>
       <div class="pure-control-group">
