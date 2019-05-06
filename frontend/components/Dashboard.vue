@@ -8,7 +8,7 @@
     <table class="pure-table">
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Operation</th>
           <th>Amount Sum</th>
         </tr>
       </thead>

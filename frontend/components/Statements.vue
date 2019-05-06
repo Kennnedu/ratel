@@ -8,7 +8,7 @@
     <table class="pure-table pure-table-bordered">
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Operaion</th>
           <th>Card</th>
           <th>Amount</th>
           <th>Rest</th>
