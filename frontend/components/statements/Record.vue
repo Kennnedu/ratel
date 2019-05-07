@@ -7,7 +7,7 @@
     <div class="card">{{ record.card }}</div>
     <div class="amount">{{ `${record.amount} BYN` }}</div>
     <div class="rest">{{ `${record.rest} BYN` }}</div>
-    <div class="performed-at" v-if="!editable">{{ moment(record.performed_at).format('lll') }}</div>
+    <div class="performed-at">{{ moment(record.performed_at).format('lll') }}</div>
   </div>
 </template>
 <script>

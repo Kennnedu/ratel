@@ -25,6 +25,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "axios": "^0.18.0",
     "i": "^0.3.6",
+    "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "npm": "^6.9.0",
     "purecss": "^1.0.0",

@@ -9,12 +9,42 @@ class Record < ActiveRecord::Base
   validates_presence_of :name, :amount, :performed_at
 end
 
+class QueryRecord
+  attr_reader :relation
+
+  def initialize(relation = Record.all)
+    @relation = relation
+  end
+
+  def filter(params)
+    @relation = @relation.where("name ILIKE ?", "%#{params['name']}%") if params['name'].present?
+    @relation = @relation.where("card ILIKE ?", "%#{params['card']}%") if params['card'].present?
+    @relation = @relation.where('performed_at > ?', params['from']) if valid_date?(params['from'])
+    @relation = @relation.where('performed_at < ?', params['to']) if valid_date?(params['to']) 
+    self
+  end
+
+  def perform_recent
+    @relation = @relation.order(performed_at: :desc)
+    self
+  end
+
+  private
+
+  def valid_date?(date_string)
+    Date.parse(date_string)
+  rescue
+    nil
+  end
+end
+
 get '/' do
   erb :application
 end
 
 get '/records' do
-  json Record.all.order(performed_at: :desc).as_json(except: [:created_at, :updated_at])
+  query_record = QueryRecord.new.filter(params).perform_recent.relation 
+  json query_record.as_json(except: [:created_at, :updated_at])
 end
 
 post '/records' do
