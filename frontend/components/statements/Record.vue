@@ -1,14 +1,14 @@
 <template>
-  <tr>
-    <td>{{ record.name }}</td>
-    <td>{{ record.card }}</td>
-    <td>{{ `${record.amount} BYN` }}</td>
-    <td>{{ `${record.rest} BYN` }}</td>
-    <td>{{ moment(record.performed_at).format('lll') }}</td>
-    <td>
+  <div class="record-card" v-bind:class="{ positive: record.amount > 0 }">
+    <div class="actions">
       <font-awesome-icon icon="trash-alt" v-on:click="destroy" />
-    </td>
-  </tr>
+    </div>
+    <div class="name">{{ record.name }}</div>
+    <div class="card">{{ record.card }}</div>
+    <div class="amount">{{ `${record.amount} BYN` }}</div>
+    <div class="rest">{{ `${record.rest} BYN` }}</div>
+    <div class="performed-at" v-if="!editable">{{ moment(record.performed_at).format('lll') }}</div>
+  </div>
 </template>
 <script>
 import moment from 'moment'
@@ -42,5 +42,34 @@ export default {
 
   .fa-edit {
     margin-right: 5px;
+  }
+
+  .record-card {
+    width: 230px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    padding: 5px;
+    border-radius: 7px;
+  }
+
+  .record-card .actions{
+    float: right;
+  }
+
+  .record-card.positive {
+    background-color: #ddfbdd;
+  }
+
+  .record-card .name, .record-card .amount {
+    font-weight: bold;
+  }
+
+  .record-card .performed-at {
+    float: right;
+  }
+
+  .record-card .name, .record-card .card, .record-card .performed-at, .record-card .rest {
+    font-size: 13px;
   }
 </style>

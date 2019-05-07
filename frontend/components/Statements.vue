@@ -5,24 +5,12 @@
         <h3>Total {{ records.length }}</h3>
       </div>
     </div>
-    <table class="pure-table pure-table-bordered">
-      <thead>
-        <tr>
-          <th>Operation</th>
-          <th>Card</th>
-          <th>Amount</th>
-          <th>Rest</th>
-          <th>Performed At</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <Record v-for="record in records"
+    <div class="record-cards">
+      <Record v-for="record in records"
                 v-bind:key="record.id"
                 v-bind:record="record"
                 v-on:destroy="destroyRecord" />
-      </tbody>
-    </table>
+    </div>
   </div>
 </template>
 <script>
@@ -53,4 +41,9 @@
     }
   }
 </script>
-<style></style>
+<style lang="css">
+  .record-cards {
+    display: flex;
+    flex-wrap: wrap;
+  }
+</style>
