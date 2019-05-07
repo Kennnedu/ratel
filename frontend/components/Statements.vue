@@ -1,10 +1,7 @@
 <template>
   <div class="content">
-    <div class="pure-g">
-      <div class="pure-u-1">
-        <h3>Total {{ records.length }}</h3>
-      </div>
-    </div>
+    <h2>Total Records {{ records.length }}</h2>
+    <RecordFilter v-on:assingRecords="assingRecords" />
     <div class="record-cards">
       <Record v-for="record in records"
                 v-bind:key="record.id"
@@ -14,27 +11,20 @@
   </div>
 </template>
 <script>
-  import axios from 'axios'
   import Record from './statements/Record.vue'
+  import RecordFilter from './statements/RecordFilter.vue'
 
   export default {
-    components: { Record },
+    components: { Record, RecordFilter },
     data: function() {
       return {
         records: []
       }
     },
-    created: function() {
-      let _this = this;
-
-      axios.get('/records').then(function(data){
-        _this.records = data.data
-      })
-      .catch(function(error){
-        console.log(error);
-      })
-    },
     methods: {
+      assingRecords(records){
+        this.records = records
+      },
       destroyRecord(id){
         this.records = this.records.filter(record => record.id !== id)
       }
@@ -45,5 +35,6 @@
   .record-cards {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 10px;
   }
 </style>
