@@ -1,13 +1,15 @@
 <template>
-  <div class="record-card" v-bind:class="{ positive: record.amount > 0 }">
-    <div class="actions">
-      <font-awesome-icon icon="trash-alt" v-on:click="destroy" />
+  <div class="pure-u-1 pure-u-md-1-3">
+    <div class="record-card" v-bind:class="{ positive: record.amount > 0 }">
+      <div class="actions">
+        <font-awesome-icon icon="trash-alt" v-on:click="destroy" />
+      </div>
+      <div class="name">{{ record.name }}</div>
+      <div class="card">{{ record.card }}</div>
+      <div class="amount">{{ `${record.amount} BYN` }}</div>
+      <div class="rest">{{ `${record.rest} BYN` }}</div>
+      <div class="performed-at">{{ moment(record.performed_at).format('lll') }}</div>
     </div>
-    <div class="name">{{ record.name }}</div>
-    <div class="card">{{ record.card }}</div>
-    <div class="amount">{{ `${record.amount} BYN` }}</div>
-    <div class="rest">{{ `${record.rest} BYN` }}</div>
-    <div class="performed-at">{{ moment(record.performed_at).format('lll') }}</div>
   </div>
 </template>
 <script>
@@ -45,15 +47,14 @@ export default {
   }
 
   .record-card {
-    width: 230px;
-    margin-right: 15px;
-    margin-bottom: 15px;
     border: 1px solid #e0e0e0;
     padding: 5px;
     border-radius: 7px;
+    margin-right: 15px;
+    margin-top: 15px;
   }
 
-  .record-card .actions{
+  .record-card .actions {
     float: right;
   }
 
@@ -63,10 +64,6 @@ export default {
 
   .record-card .name, .record-card .amount {
     font-weight: bold;
-  }
-
-  .record-card .performed-at {
-    float: right;
   }
 
   .record-card .name, .record-card .card, .record-card .performed-at, .record-card .rest {

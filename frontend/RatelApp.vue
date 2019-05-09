@@ -23,7 +23,7 @@
     },
     data: function(){
       return {
-        currentPage: 'Dashboard'
+        currentPage: 'Statements'
       }
     },
     methods: {
