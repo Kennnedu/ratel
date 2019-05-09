@@ -19,8 +19,15 @@ class QueryRecord
   def filter(params)
     @relation = @relation.where("name ILIKE ?", "%#{params['name']}%") if params['name'].present?
     @relation = @relation.where("card ILIKE ?", "%#{params['card']}%") if params['card'].present?
-    @relation = @relation.where('performed_at >= ?', params['from']) if valid_date?(params['from'])
-    @relation = @relation.where('performed_at <= ?', params['to']) if valid_date?(params['to'])
+
+    if date_from = valid_date?(params['from'])
+      @relation = @relation.where('performed_at > ?', date_from + 1.day)
+    end
+
+    if date_to = valid_date?(params['to'])
+      @relation = @relation.where('performed_at < ?', date_to + 1.day)
+    end
+
     self
   end
 
