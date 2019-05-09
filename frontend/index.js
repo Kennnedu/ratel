@@ -1,4 +1,5 @@
 import 'purecss'
+import './stylesheets/pure_responsive_grid.css'
 import Vue from 'vue'
 import RatelApp from './RatelApp.vue'
 import { library } from '@fortawesome/fontawesome-svg-core'

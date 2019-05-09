@@ -30,14 +30,14 @@
 </template>
 
 <script>
-  import '../navigation.css'
+  import '../stylesheets/navigation.css'
 
   export default {
     props: ['currentPage'],
     data: function(){
       return {
         active: false,
-        navigationMenu: ['Dashboard', 'Uploading', 'Statements']
+        navigationMenu: ['Statements', 'Uploading', 'Dashboard']
       }
     }
   }

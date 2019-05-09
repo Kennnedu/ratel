@@ -1,27 +1,39 @@
 <template>
-  <div class="pure-g">
-    <div class="pure-u-1-5">
-      <h3>Filtering:</h3>
+  <form class="pure-form pure-form-stacked">
+    <fieldset>
+      <legend>Filter</legend>
+    <div class="pure-g">
+      <div class="pure-u-1 pure-u-md-2-5">
+        <label for="filter-operation">By operation</label>
+        <input type="text"
+                id="filter-operation"
+                class="pure-u-23-24"
+                v-model="filter.name" />
+      </div>
+      <div class="pure-u-1 pure-u-md-2-5">
+        <label for="filter-card">By card</label>
+        <input type="text"
+                id="filter-card"
+                class="pure-u-23-24"
+                v-model="filter.card" />
+      </div>
+      <div class="pure-u-1 pure-u-md-2-5">
+        <label for="filter-from">From</label>
+        <input type="date"
+                id="filter-from"
+                class="pure-u-23-24"
+                v-model="filter.from" />
+      </div>
+      <div class="pure-u-1 pure-u-md-2-5">
+        <label for="filter-to">To</label>
+        <input type="date"
+                id="filter-to"
+                class="pure-u-23-24"
+                v-model="filter.to" />
+      </div>
     </div>
-    <form class="pure-u-4-5 pure-form pure-g">
-      <input type="string"
-             class="pure-u-1-3 pure-input-rounded"
-             placeholder="By operation"
-             v-model="filter.name" />
-      <input type="string"
-             class="pure-u-1-3 pure-input-rounded"
-             placeholder="By card"
-             v-model="filter.card" />
-      <fieldset class="pure-u-1">
-        From <input type="date"
-                    class="pure-u-1-3" 
-                    v-model="filter.from" /> 
-        To <input type="date"
-                  class="pure-u-1-3" 
-                  v-model="filter.to" />
-      </fieldset>
-    </form>
-  </div>
+    </fieldset>
+  </form>
 </template>
 <script>
 import axios from 'axios'
