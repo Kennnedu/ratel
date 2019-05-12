@@ -1,7 +1,7 @@
 <template>
   <div class="content">
     <h2>Total Records: {{ records.length }}</h2>
-    <h2>Total Sum: {{ totalSum }}</h2>
+    <h2 v-on:click="">Total Sum: {{ totalSum }}</h2>
     <RecordFilter v-on:assingRecords="assingRecords" />
     <div class="pure-g record-cards">
       <Record v-for="record in records"
