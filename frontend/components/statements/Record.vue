@@ -62,6 +62,15 @@ export default {
     background-color: #ddfbdd;
   }
 
+  .record-card.positive:hover {
+    background-color: #a7f592;
+  }
+
+  .record-card:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
+  }
+
   .record-card .name, .record-card .amount {
     font-weight: bold;
   }
