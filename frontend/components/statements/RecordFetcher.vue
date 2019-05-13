@@ -41,6 +41,7 @@ import moment from 'moment'
 import lodash from 'lodash'
 
 export default {
+  props: ['isOutdated'],
   data: function(){
     return {
       filter: {
@@ -57,6 +58,11 @@ export default {
         this.debouncedFetchRecords()
       },
       deep: true
+    },
+    isOutdated: function(newValue, oldValue){
+      if(newValue){
+        this.fetchRecords()
+      }
     }
   },
   created: function() {
@@ -69,7 +75,7 @@ export default {
 
       axios.get('/records', { params: _this.filter})
       .then(function(data){
-        _this.$emit('assingRecords', data.data);
+        _this.$emit('updateStatement', data.data);
       })
       .catch(function(error){
         console.log(error);

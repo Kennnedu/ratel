@@ -1,26 +1,32 @@
 <template>
   <div class="pure-u-1 pure-u-md-1-3">
-    <div class="record-card" v-bind:class="{ positive: record.amount > 0 }">
-      <div class="actions">
-        <font-awesome-icon icon="trash-alt" v-on:click="destroy" />
-      </div>
+    <div class="record-card" v-bind:class="{ positive: record.amount > 0 }"
+         v-on:click="isOpenEditDialog = true">
       <div class="name">{{ record.name }}</div>
       <div class="card">{{ record.card }}</div>
       <div class="amount">{{ `${record.amount} BYN` }}</div>
       <div class="rest">{{ `${record.rest} BYN` }}</div>
       <div class="performed-at">{{ moment(record.performed_at).format('lll') }}</div>
     </div>
+    <ModalWindow v-if="isOpenEditDialog" v-on:close="isOpenEditDialog = false">
+      <h3 slot="header">Edit {{record.name}} record</h3>
+      <RecordForm slot="body" v-bind:record="record" v-on:destroy="destroy" v-on:save="hasChanges" />
+    </ModalWindow>
   </div>
 </template>
 <script>
 import moment from 'moment'
 import axios from 'axios'
+import ModalWindow from '../ModalWindow.vue'
+import RecordForm from './RecordForm.vue'
 
 export default {
+  components: { ModalWindow, RecordForm },
   props: ['record'],
   data: function(){
     return {
-      moment: moment
+      moment: moment,
+      isOpenEditDialog: false,
     }
   },
   methods: {
@@ -28,10 +34,14 @@ export default {
       let rec = this
 
       axios.delete(`/records/${rec.record.id}`).then(function(res){
-        rec.$emit("destroy", rec.record.id)
+        rec.hasChanges();
       }).catch(function(error){
         console.log(error)
       });
+    },
+    hasChanges(){ 
+      this.isOpenEditDialog = false;
+      this.$emit("hasChanges");
     }
   }
 
@@ -60,6 +70,15 @@ export default {
 
   .record-card.positive {
     background-color: #ddfbdd;
+  }
+
+  .record-card.positive:hover {
+    background-color: #a7f592;
+  }
+
+  .record-card:hover {
+    background-color: #e0e0e0;
+    cursor: pointer;
   }
 
   .record-card .name, .record-card .amount {
