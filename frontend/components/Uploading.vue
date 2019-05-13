@@ -1,16 +1,13 @@
 <template>
   <div class="content">
-    <RecordForm/>
     <HtmlStatementsForm/>
   </div>
 </template>
 <script>
-  import axios from 'axios'
-  import RecordForm from './uploading/RecordForm.vue'
   import HtmlStatementsForm from './uploading/HtmlStatementsForm.vue'
 
   export default {
-    components: { HtmlStatementsForm, RecordForm }
+    components: { HtmlStatementsForm }
   }
 </script>
 <style lang="css" scoped>

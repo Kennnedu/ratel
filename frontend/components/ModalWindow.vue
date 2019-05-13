@@ -1,31 +1,33 @@
 <template>
-  <div class="modal-mask">
-    <div class="modal-wrapper">
-      <div class="modal-container">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
+          <font-awesome-icon class="modal-close-button"
+                              icon="times"
+                              size="lg"
+                              v-on:click="$emit('close')" />
+          <div class="modal-header">
+            <slot name="header" />
+          </div>
 
-        <div class="modal-header">
-          <slot name="header" />
-            <button class="modal-close-button" @click="$emit('close')">
-              OK
-            </button>
-        </div>
+          <div class="modal-body">
+            <slot name="body" />
+          </div>
 
-        <div class="modal-body">
-          <slot name="body" />
-        </div>
-
-        <div class="modal-footer">
-          <slot name="footer" />
+          <div class="modal-footer">
+            <slot name="footer" />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 <script>
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-// library.add(faTimesCircle)
+library.add(faTimes)
 
 export default {}
 </script>
@@ -60,7 +62,7 @@ export default {}
 
 .modal-header h3 {
   margin-top: 0;
-  color: #42b983;
+  color: #1f8dd6 !important;
 }
 
 .modal-body {
@@ -69,6 +71,9 @@ export default {}
 
 .modal-close-button {
   float: right;
+  cursor: pointer;
+  margin-top: -14px;
+  margin-right: -20px;
 }
 
 /*
