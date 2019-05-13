@@ -102,6 +102,16 @@ post '/records/bulk' do
   end
 end
 
+put '/records/:id' do |id|
+  updating_attributes = JSON.parse(request.body.read)['record']
+  record = Record.find(id)
+  if record.update(updating_attributes)
+    halt 200
+  else
+    halt 400, {'Content-Type' => 'application/json'}, { message: record.errors }.to_json
+  end
+end
+
 delete '/records/:id' do |id|
   record = Record.find(id)
   if record.delete
