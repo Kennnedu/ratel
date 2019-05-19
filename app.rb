@@ -65,7 +65,8 @@ post '/records' do
 end
 
 get '/records/report' do
-  json Record.group(:name).sum(:amount).to_a
+  json group_by_name: Record.group(:name).sum(:amount).to_a,
+       group_by_card: Record.group(:card).sum(:amount).to_a
 end
 
 post '/records/bulk/parse' do
