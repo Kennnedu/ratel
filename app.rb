@@ -17,8 +17,8 @@ class QueryRecord
   end
 
   def filter(params)
-    @relation = @relation.where("name ILIKE ?", "%#{params['name']}%") if params['name'].present?
-    @relation = @relation.where("card ILIKE ?", "%#{params['card']}%") if params['card'].present?
+    @relation = @relation.where("name ILIKE ANY (array[?])", params['name'].split('&').map { |c| "%#{c}%" }) if params['name'].present?
+    @relation = @relation.where("card ILIKE ANY (array[?])", params['card'].split('&').map { |c| "%#{c}%" }) if params['card'].present?
 
     if date_from = valid_date?(params['from'])
       @relation = @relation.where('performed_at > ?', date_from + 1.day)
@@ -50,7 +50,7 @@ get '/' do
 end
 
 get '/records' do
-  query_record = QueryRecord.new.filter(params).perform_recent.relation 
+  query_record = QueryRecord.new.filter(params).perform_recent.relation
   json records: query_record.as_json(except: [:created_at, :updated_at]),
        total_sum: query_record.sum(:amount)
 end
