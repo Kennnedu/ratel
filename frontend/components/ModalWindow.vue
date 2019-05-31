@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <div class="modal-mask">
+    <div class="modal-mask" v-on:keyup.esc="$emit('close')" tabindex="0">
       <div class="modal-wrapper">
         <div class="modal-container">
           <font-awesome-icon class="modal-close-button"
@@ -29,7 +29,11 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 library.add(faTimes)
 
-export default {}
+export default {
+  mounted(){
+    this.$el.focus()
+  }
+}
 </script>
 <style lang="css">
 .modal-mask {
