@@ -9,6 +9,10 @@ class Record < ActiveRecord::Base
   validates_presence_of :name, :amount, :performed_at
 end
 
+class User < ActiveRecord::Base
+  has_secure_password
+end
+
 class QueryRecord
   attr_reader :relation
 

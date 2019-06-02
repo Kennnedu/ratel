@@ -5,6 +5,8 @@ source "https://rubygems.org"
 ruby '2.6.0'
 
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+# The bcrypt Ruby gem provides a simple wrapper for safely handling passwords.
+gem 'bcrypt'
 # Nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support. http://nokogiri.org/
 gem 'nokogiri'
 # The 'pg' Ruby library, an interface to the PostgreSQL Relational Database Management System.
