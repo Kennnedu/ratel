@@ -13,6 +13,7 @@
   import Statements from './components/Statements.vue'
   import Uploading from './components/Uploading.vue'
   import Dashboard from './components/Dashboard.vue'
+  import axios from 'axios'
 
   export default {
     components: {
@@ -23,8 +24,17 @@
     },
     data: function(){
       return {
-        currentPage: 'Statements'
+        currentPage: 'Statements',
+        logged: true
       }
+    },
+    created() {
+      let _this = this;
+
+      axios.interceptors.response.use(function(response){
+      }, function(error){
+        if(error.response.status === 401) _this.logged = false;
+      })
     },
     methods: {
       navigateTo: function(page){

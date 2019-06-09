@@ -65,7 +65,7 @@ export default {
       }
     }
   },
-  created: function() {
+  mounted() {
     this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
     this.fetchRecords();
   },
