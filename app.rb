@@ -1,11 +1,15 @@
 require 'sinatra'
 require 'sinatra/json'
+require 'sinatra/cookies'
 require 'sinatra/activerecord'
 require 'pry'
+require 'jwt'
 
 require_relative 'lib/statement_table_parser.rb'
 
 class Record < ActiveRecord::Base
+  belongs_to :user
+
   validates_presence_of :name, :amount, :performed_at
 end
 
@@ -47,6 +51,12 @@ class QueryRecord
   rescue
     nil
   end
+end
+
+def auth_user
+  JWT.decode(request.cookies['session_token'], 'secret', true, { algorithm: 'HS256' }).first
+rescue JWT::DecodeError, JWT::ExpiredSignature
+  halt 401
 end
 
 get '/' do
@@ -124,4 +134,13 @@ delete '/records/:id' do |id|
   else
     halt 400
   end
+end
+
+post '/session' do
+  user = User.find_by(username: params[:username]) if params[:username].present?
+
+  return halt(400) unless user && user.authenticate(params[:password])
+  exp = (DateTime.current + (params[:secure_login].present? ? 10.minutes : 1.month)).to_i
+  response.set_cookie('session_token', value: JWT.encode({ user_id: user.id, exp: exp }, 'secret', 'HS256'))
+  halt 200
 end
