@@ -54,7 +54,7 @@ export default {
   },
   watch: {
     filter: {
-      handler: function(){ 
+      handler: function(){
         this.debouncedFetchRecords()
       },
       deep: true
@@ -65,7 +65,7 @@ export default {
       }
     }
   },
-  created: function() {
+  mounted() {
     this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
     this.fetchRecords();
   },
@@ -78,7 +78,7 @@ export default {
         _this.$emit('updateStatement', data.data);
       })
       .catch(function(error){
-        console.log(error);
+        console.log(error.response);
       })
     }
   }
