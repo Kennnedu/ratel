@@ -153,10 +153,11 @@ delete '/records/:id' do |id|
 end
 
 post '/session' do
-  user = User.find_by(username: params[:username]) if params[:username].present?
+  params = JSON.parse(request.body.read)
+  user = User.find_by(username: params['username']) if params['username'].present?
 
-  return halt(400) unless user && user.authenticate(params[:password])
-  exp = (DateTime.current + (params[:secure_login].present? ? 10.minutes : 1.month)).to_i
+  return halt(400) unless user && user.authenticate(params['password'])
+  exp = (DateTime.current + (params['secure_login'] ? 10.minutes : 1.month)).to_i
   response.set_cookie('session_token', value: JWT.encode({ user_id: user.id, exp: exp }, 'secret', 'HS256'))
   halt 200
 end
