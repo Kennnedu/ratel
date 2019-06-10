@@ -4,8 +4,11 @@ require 'sinatra/cookies'
 require 'sinatra/activerecord'
 require 'pry'
 require 'jwt'
+require 'dotenv'
 
 require_relative 'lib/statement_table_parser.rb'
+
+Dotenv.load
 
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
@@ -59,7 +62,7 @@ class QueryRecord
 end
 
 def auth_user
-  JWT.decode(request.cookies['session_token'], 'secret', true, { algorithm: 'HS256' }).first
+  JWT.decode(request.cookies['session_token'], ENV.fetch('SECRET_KEY'), true, { algorithm: 'HS256' }).first
 rescue JWT::DecodeError, JWT::ExpiredSignature
   halt 401
 end
@@ -158,6 +161,6 @@ post '/session' do
 
   return halt(400) unless user && user.authenticate(params['password'])
   exp = (DateTime.current + (params['secure_login'] ? 10.minutes : 1.month)).to_i
-  response.set_cookie('session_token', value: JWT.encode({ user_id: user.id, exp: exp }, 'secret', 'HS256'))
+  response.set_cookie('session_token', value: JWT.encode({ user_id: user.id, exp: exp }, ENV.fetch('SECRET_KEY'), 'HS256'))
   halt 200
 end
