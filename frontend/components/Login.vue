@@ -1,17 +1,17 @@
 <template>
   <div class="content">
-    <form class="pure-form">
+    <form class="pure-form" v-on:submit="submitForm">
       <h1>Log In</h1>
       <fieldset class="pure-group">
-        <input type="text" name="username" placeholder="Username" />
+        <input type="text" name="username" placeholder="Username" required v-model="username" />
       </fieldset>
       <fieldset class="pure-group">
-        <input type="password" name="password" placeholder="Password" />
+        <input type="password" name="password" placeholder="Password" required v-model.password="password" />
       </fieldset>
 
       <fieldset class="pure-group">
         <label for="remember" class="pure-checkbox">
-          <input id="remember" type="checkbox"> Secure Login
+          <input id="remember" type="checkbox" v-model="secureLogin" /> Secure Login
         </label>
       </fieldset>
       <input type="submit" class="pure-button pure-button-primary" value="Login" />
@@ -19,7 +19,32 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
+
   export default {
+    data: function(){
+      return {
+        username: "",
+        password: "",
+        secureLogin: false
+      }
+    },
+    methods: {
+      submitForm(e){
+        e.preventDefault();
+
+        let _this = this;
+        axios.post("/session", {
+          username: _this.username,
+          password: _this.password,
+          secure_login: _this.secureLogin
+        }).then(function(resp){
+          _this.$emit('login');
+        }).catch(function(error){
+          console.log(error.response)
+        })
+      }
+    }
   }
 </script>
 <style lang="css" scoped>
