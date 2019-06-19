@@ -30,39 +30,42 @@
   import axios from 'axios'
   import moment from 'moment'
 
-  let emptyNewRecord = {
-    name: '',
-    card: '',
-    amount: 0.0,
-    rest: 0.0,
-    performed_at: moment().format('YYYY-MM-DDTHH:mm')
+  const emptyNewRecord = () => {
+    return {
+      name: '',
+      card: '',
+      amount: 0.0,
+      rest: 0.0,
+      performed_at: moment().format('YYYY-MM-DDTHH:mm')
+    }
+  }
+
+  const initCurrentRecord = (record) => {
+    if (record) {
+      return Object.assign({}, record, { performed_at: moment(record.performed_at).format('YYYY-MM-DDTHH:mm')});
+    } else {
+      return Object.assign({}, emptyNewRecord());
+    }
   }
 
   export default {
     props: ['record'],
     data: function(){
       return {
-        currentRecord: (function(record){
-          if (record) {
-            return Object.assign({}, record, { performed_at: moment(record.performed_at).format('YYYY-MM-DDTHH:mm')})
-          } else {
-            return Object.assign({}, emptyNewRecord)
-          }
-        })(this.record),
+        currentRecord: initCurrentRecord(this.record),
         errors: [],
-        saveButtonName: this.record ? 'Update' : 'Save',
-        moment: moment
+        saveButtonName: this.record ? 'Update' : 'Save'
       }
     },
     computed: {
       savingRecord: function(){
-        return Object.assign({}, this.currentRecord, { performed_at: this.moment(this.currentRecord.performed_at) })
+        return Object.assign({}, this.currentRecord, { performed_at: moment(this.currentRecord.performed_at) })
       }
     },
     methods: {
       submitForm(e){
         e.preventDefault();
-        
+
         if(this.currentRecord.id){
           this.updateExistingRecord();
         } else {
@@ -75,7 +78,7 @@
         axios.post('/records', { record: _this.savingRecord })
         .then(function(resp){
           _this.$emit("save");
-          Object.assign(_this.currentRecord, emptyNewRecord);
+          Object.assign(_this.currentRecord, emptyNewRecord());
         })
         .catch(function(error){
           console.log(error.response)
