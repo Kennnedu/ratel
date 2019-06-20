@@ -3,8 +3,8 @@
     <Login v-if="!logged" v-on:login="logged = true" />
     <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo" v-if="logged">
       <Dashboard v-if="currentPage === 'Dashboard'"/>
-      <Uploading v-if="currentPage === 'Uploading'"/>
-      <Statements v-if="currentPage === 'Statements'"/>
+      <Uploading v-show="currentPage === 'Uploading'"/>
+      <Statements v-show="currentPage === 'Statements'"/>
     </Navigation>
   </div>
 </template>
