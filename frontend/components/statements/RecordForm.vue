@@ -59,7 +59,8 @@
     },
     computed: {
       savingRecord: function(){
-        return Object.assign({}, this.currentRecord, { performed_at: moment() })
+        let performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
+        return Object.assign({}, this.currentRecord, { performed_at: performedAt })
       }
     },
     methods: {
