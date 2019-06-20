@@ -39,7 +39,7 @@ export default {
         console.log(error)
       });
     },
-    hasChanges(){ 
+    hasChanges(){
       this.isOpenEditDialog = false;
       this.$emit("hasChanges");
     }
