@@ -28,8 +28,15 @@ class QueryRecord
   end
 
   def filter(params)
-    @relation = @relation.where("name ILIKE ANY (array[?])", params['name'].split('&').map { |c| "%#{c}%" }) if params['name'].present?
-    @relation = @relation.where("card ILIKE ANY (array[?])", params['card'].split('&').map { |c| "%#{c}%" }) if params['card'].present?
+    if params['name'].present?
+      query_string = ilike_query_patterns('name', params['name'].split('&')).join(' OR ')
+      @relation = @relation.where query_string
+    end
+
+    if params['card'].present?
+      query_string = ilike_query_patterns('card', params['card'].split('&')).join(' OR ')
+      @relation = @relation.where query_string
+    end
 
     if date_from = valid_date?(params['from'])
       @relation = @relation.where('performed_at > ?', date_from + 1.day)
@@ -58,6 +65,16 @@ class QueryRecord
     Date.parse(date_string)
   rescue
     nil
+  end
+
+  def ilike_query_patterns(field, values)
+    values.map do |val|
+      if val[0].eql? '!'
+        "NOT #{field} ILIKE '%#{val[1..-1]}%'"
+      else
+        "#{field} ILIKE '%#{val}%'"
+      end
+    end
   end
 end
 
