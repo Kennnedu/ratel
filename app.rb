@@ -29,13 +29,29 @@ class QueryRecord
 
   def filter(params)
     if params['name'].present?
-      query_string = ilike_query_patterns('name', params['name'].split('&')).join(' OR ')
-      @relation = @relation.where query_string
+      include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
+      exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
+
+      if include_name_list.present?
+        @relation = @relation.where('name ILIKE ANY (array[?])', include_name_list)
+      end
+
+      if exclude_name_list.present?
+        exclude_name_list.each { |name|  @relation = @relation.where.not('name ILIKE ?', name) }
+      end
     end
 
     if params['card'].present?
-      query_string = ilike_query_patterns('card', params['card'].split('&')).join(' OR ')
-      @relation = @relation.where query_string
+      include_card_list = params['card'].split('&').reject { |card| card.eql? '!' }.map { |card| "%#{card}%" }
+      exclude_card_list = params['card'].split('&').select { |card| card.eql? '!' }.map { |card| "%#{card[1..-1]}%" }
+
+      if include_card_list.present?
+        @relation = @relation.where('card ILIKE ANY (array[?])', include_card_list)
+      end
+
+      if exclude_card_list.present?
+        exclude_card_list.each { |card| @relation = @relation.where.not('card ILIKE ?', card) }
+      end
     end
 
     if date_from = valid_date?(params['from'])
@@ -65,16 +81,6 @@ class QueryRecord
     Date.parse(date_string)
   rescue
     nil
-  end
-
-  def ilike_query_patterns(field, values)
-    values.map do |val|
-      if val[0].eql? '!'
-        "NOT #{field} ILIKE '%#{val[1..-1]}%'"
-      else
-        "#{field} ILIKE '%#{val}%'"
-      end
-    end
   end
 end
 
