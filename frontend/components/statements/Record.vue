@@ -1,7 +1,12 @@
 <template>
   <div class="pure-u-1 pure-u-md-1-3">
     <div class="record-card">
-      <div class="head">{{ record.name }}</div>
+      <div class="head">
+        <span
+          v-on:click="$emit('addFilteringName', `!${record.name}`)">
+          {{ record.name }}
+        </span>
+      </div>
       <div class="body"
            v-bind:class="{ positive: record.amount > 0 }"
            v-on:click="isOpenEditDialog = true">
@@ -61,6 +66,11 @@ export default {
   .record-card .head {
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
+  }
+
+  .record-card .head span:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
 
   .record-card .body, .record-card .head {

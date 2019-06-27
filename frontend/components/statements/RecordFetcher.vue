@@ -8,28 +8,32 @@
         <input type="text"
                 id="filter-operation"
                 class="pure-u-23-24"
-                v-model="filter.name" />
+                v-bind:value="filter.name"
+                v-on:change="e => $emit('updateFilter', { name: e.target.value })"/>
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-card">By card</label>
         <input type="text"
                 id="filter-card"
                 class="pure-u-23-24"
-                v-model="filter.card" />
+                v-bind:value="filter.card"
+                v-on:change="e => $emit('updateFilter', { card: e.target.value })" />
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-from">From</label>
         <input type="date"
                 id="filter-from"
                 class="pure-u-23-24"
-                v-model="filter.from" />
+                v-bind:value="filter.from"
+                v-on:change="e => $emit('updateFilter', { from: e.target.value })" />
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-to">To</label>
         <input type="date"
                 id="filter-to"
                 class="pure-u-23-24"
-                v-model="filter.to" />
+                v-bind:value="filter.to"
+                v-on:change="e => $emit('updateFilter', { to: e.target.value })" />
       </div>
     </div>
     </fieldset>
@@ -37,21 +41,11 @@
 </template>
 <script>
 import axios from 'axios'
-import moment from 'moment'
 import lodash from 'lodash'
 
 export default {
-  props: ['isOutdated'],
-  data: function(){
-    return {
-      filter: {
-        name: "",
-        card: "",
-        from: moment().set('month', moment().get('month') - 1).format('YYYY-MM-DD'),
-        to: moment().format('YYYY-MM-DD')
-      }
-    }
-  },
+  props: ['isOutdated', 'filter'],
+
   watch: {
     filter: {
       handler: function(){
@@ -59,16 +53,19 @@ export default {
       },
       deep: true
     },
+
     isOutdated: function(newValue, oldValue){
       if(newValue){
         this.fetchRecords()
       }
     }
   },
+
   mounted() {
     this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
     this.fetchRecords();
   },
+
   methods: {
     fetchRecords(){
       let _this = this;
