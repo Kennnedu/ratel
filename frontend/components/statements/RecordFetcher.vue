@@ -9,7 +9,7 @@
                 id="filter-operation"
                 class="pure-u-23-24"
                 v-bind:value="filter.name"
-                v-on:change="e => $emit('updateFilter', { name: e.target.value })"/>
+                v-on:input="$emit('updateFilter', { name: $event.target.value })"/>
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-card">By card</label>
@@ -17,7 +17,7 @@
                 id="filter-card"
                 class="pure-u-23-24"
                 v-bind:value="filter.card"
-                v-on:change="e => $emit('updateFilter', { card: e.target.value })" />
+                v-on:input="$emit('updateFilter', { card: $event.target.value })" />
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-from">From</label>
@@ -25,7 +25,7 @@
                 id="filter-from"
                 class="pure-u-23-24"
                 v-bind:value="filter.from"
-                v-on:change="e => $emit('updateFilter', { from: e.target.value })" />
+                v-on:input="$emit('updateFilter', { from: $event.target.value })" />
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-to">To</label>
