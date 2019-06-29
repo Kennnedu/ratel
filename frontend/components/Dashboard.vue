@@ -2,7 +2,7 @@
   <div class="content">
     <div class="pure-g">
       <div class="pure-u-1">
-        <h3>Group by cards</h3>
+        <h3>Card balances</h3>
         <table class="pure-table">
           <thead>
             <tr>
@@ -19,16 +19,34 @@
         </table>
       </div>
       <div class="pure-u-1">
-        <h3>Group by names</h3>
+        <h3>Replenishments sums</h3>
         <table class="pure-table">
           <thead>
             <tr>
               <th>Name</th>
-              <th>Amount Sum</th>
+              <th>Sum</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="line in groupByName">
+            <tr v-for="line in groupByReplenishmentName">
+              <td>{{ line[0] }}</td>
+              <td>{{ `${line[1]} BYN` }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pure-u-1">
+        <h3>Expenses sums</h3>
+        <table class="pure-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Sum</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="line in groupByExpencesName">
               <td>{{ line[0] }}</td>
               <td>{{ `${line[1]} BYN` }}</td>
             </tr>
@@ -44,7 +62,8 @@
   export default {
     data: function(){
       return {
-        groupByName: [],
+        groupByReplenishmentName: [],
+        groupByExpencesName: [],
         groupByCard: []
       }
     },
@@ -53,7 +72,8 @@
 
       axios.get('/records/report').then(function(data){
         console.log(data.data);
-        _this.groupByName = data.data.group_by_name
+        _this.groupByReplenishmentName = data.data.group_by_replenishment_name
+        _this.groupByExpencesName = data.data.group_by_expences_name
         _this.groupByCard = data.data.group_by_card
       })
       .catch(function(error){
