@@ -2,8 +2,7 @@
   <div class="pure-u-1 pure-u-md-1-3">
     <div class="record-card">
       <div class="head">
-        <span
-          v-on:click="$emit('addFilteringName', `!${record.name}`)">
+        <span v-on:click="filterByTheName">
           {{ record.name }}
         </span>
       </div>
@@ -27,6 +26,7 @@ import moment from 'moment'
 import axios from 'axios'
 import ModalWindow from '../ModalWindow.vue'
 import RecordForm from './RecordForm.vue'
+import { mapActions, mapMutations, mapState } from 'vuex'
 
 export default {
   components: { ModalWindow, RecordForm },
@@ -41,6 +41,11 @@ export default {
   },
 
   methods: {
+
+    ...mapActions(['fetchRecords']),
+
+    ...mapMutations(['addFilteringName']),
+
     destroy(){
       let rec = this
 
@@ -53,7 +58,11 @@ export default {
 
     hasChanges(){
       this.isOpenEditDialog = false;
-      this.$emit('updateRecords');
+      this.fetchRecords();
+    },
+
+    filterByTheName() {
+      this.addFilteringName({name: `!${this.record.name}`})
     }
   }
 

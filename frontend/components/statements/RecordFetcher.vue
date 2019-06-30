@@ -9,7 +9,7 @@
                 id="filter-operation"
                 class="pure-u-23-24"
                 v-bind:value="filter.name"
-                v-on:input="$emit('updateFilter', { name: $event.target.value })"/>
+                v-on:input="e => updateFilter({changes: { name: e.target.value }})"/>
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-card">By card</label>
@@ -17,7 +17,7 @@
                 id="filter-card"
                 class="pure-u-23-24"
                 v-bind:value="filter.card"
-                v-on:input="$emit('updateFilter', { card: $event.target.value })" />
+                v-on:input="e => updateFilter({changes: { card: e.target.value }})" />
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-from">From</label>
@@ -25,7 +25,7 @@
                 id="filter-from"
                 class="pure-u-23-24"
                 v-bind:value="filter.from"
-                v-on:input="$emit('updateFilter', { from: $event.target.value })" />
+                v-on:input="e => updateFilter({changes: { from: e.target.value }})" />
       </div>
       <div class="pure-u-1 pure-u-md-2-5">
         <label for="filter-to">To</label>
@@ -33,7 +33,7 @@
                 id="filter-to"
                 class="pure-u-23-24"
                 v-bind:value="filter.to"
-                v-on:change="$emit('updateFilter', { to: $event.target.value })" />
+                v-on:change="e => updateFilter({changes: { to: e.target.value }})" />
       </div>
     </div>
     </fieldset>
@@ -42,9 +42,12 @@
 <script>
 import axios from 'axios'
 import lodash from 'lodash'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
-  props: ['filter'],
+  computed: {
+    ...mapState(['filter'])
+  },
 
   watch: {
     filter: {
@@ -56,14 +59,14 @@ export default {
   },
 
   mounted() {
-    this.debouncedFetchRecords = _.debounce(this.updateRecords, 500);
-    this.updateRecords()
+    this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
+    this.fetchRecords()
   },
 
   methods: {
-    updateRecords() {
-      return this.$emit('updateRecords')
-    }
+    ...mapMutations(['updateFilter']),
+
+    ...mapActions(['fetchRecords'])
   }
 }
 </script>
