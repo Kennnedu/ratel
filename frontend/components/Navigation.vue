@@ -11,6 +11,11 @@
       <div class="pure-menu">
         <a class="pure-menu-heading" href="#">Ratel</a>
         <ul class="pure-menu-list">
+          <li class="pure-menu-item">
+            <a href="#" class="pure-menu-link" v-on:click="isOpenNewRecordModal = true">
+              + Add record
+            </a>
+          </li>
           <li
             class="pure-menu-item"
             v-for="page in navigationMenuPages"
@@ -34,20 +39,31 @@
     <div id="main" v-on:click="active ? active = false : false">
       <slot></slot>
     </div>
+    <ModalWindow v-if='isOpenNewRecordModal' v-on:close='isOpenNewRecordModal = false'>
+      <h3 slot="header">New Record</h3>
+      <RecordForm
+        slot='body'
+        v-on:save='isOpenNewRecordModal = false'/>
+    </ModalWindow>
   </div>
 </template>
 
 <script>
   import '../stylesheets/navigation.css'
+  import ModalWindow from './ModalWindow.vue'
+  import RecordForm from './statements/RecordForm.vue'
   import { mapState } from 'vuex'
 
   export default {
+    components: { ModalWindow, RecordForm },
+
     props: ['currentPage'],
 
     data: function(){
       return {
         active: false,
         navigationMenuPages: ['Uploading', 'Dashboard', 'Records'],
+        isOpenNewRecordModal: false
       }
     },
 
