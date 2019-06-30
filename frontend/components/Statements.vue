@@ -5,7 +5,6 @@
       + Add new Record
     </button>
     <h2>Total Records: {{ totalCount }}</h2>
-    <h2>Total Sum: {{ totalSum }}</h2>
     <RecordFetcher
       v-bind:filter="filter"
       v-on:updateRecords="updateRecords"

@@ -4,7 +4,7 @@
     <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo" v-if="logged">
       <Dashboard v-if="currentPage === 'Dashboard'"/>
       <Uploading v-show="currentPage === 'Uploading'"/>
-      <Statements v-show="currentPage === 'Statements'"/>
+      <Statements v-show="currentPage === 'Records'"/>
     </Navigation>
   </div>
 </template>
@@ -27,7 +27,7 @@
     },
     data: function(){
       return {
-        currentPage: 'Statements',
+        currentPage: 'Records',
         logged: true
       }
     },
