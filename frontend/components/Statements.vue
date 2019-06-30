@@ -4,25 +4,25 @@
             v-on:click="isOpenNewRecordModal = true">
       + Add new Record
     </button>
-    <h2>Total Records: {{ records.length }}</h2>
+    <h2>Total Records: {{ totalCount }}</h2>
     <h2>Total Sum: {{ totalSum }}</h2>
     <RecordFetcher
-      v-bind:isOutdated="isOutdated"
       v-bind:filter="filter"
-      v-on:updateStatement="updateStatement"
+      v-on:updateRecords="updateRecords"
       v-on:updateFilter="updateFilter"/>
-
     <div class="pure-g record-cards">
       <Record
         v-for="record in records"
         v-bind:key="record.id"
         v-bind:record="record"
-        v-on:hasChanges="isOutdated = true"
+        v-on:updateRecords="updateRecords"
         v-on:addFilteringName="addFilteringName" />
     </div>
     <ModalWindow v-if='isOpenNewRecordModal' v-on:close='isOpenNewRecordModal = false'>
       <h3 slot="header">New Record</h3>
-      <RecordForm slot='body' v-on:save="isOutdated = true; isOpenNewRecordModal = false"/>
+      <RecordForm
+        slot='body'
+        v-on:save='() => { isOpenNewRecordModal = false; updateRecords() }'/>
     </ModalWindow>
   </div>
 </template>
@@ -32,15 +32,13 @@
   import ModalWindow from './ModalWindow.vue'
   import RecordForm from './statements/RecordForm.vue'
   import moment from 'moment'
+  import { mapState, mapGetters, mapActions } from 'vuex';
 
   export default {
     components: { Record, RecordFetcher, ModalWindow, RecordForm },
 
     data: function() {
       return {
-        records: [],
-        totalSum: 0,
-        isOutdated: false,
         isOpenNewRecordModal: false,
         filter: {
           name: "",
@@ -51,11 +49,16 @@
       }
     },
 
+    computed: {
+      ...mapState(['records', 'totalSum']),
+      ...mapGetters(['totalCount'])
+    },
+
     methods: {
-      updateStatement(respond) {
-        this.records = respond.records;
-        this.totalSum = respond.total_sum;
-        this.isOutdated = false;
+      ...mapActions([ 'fetchRecords' ]),
+
+      updateRecords() {
+        this.fetchRecords(this.filter)
       },
 
       updateFilter(changes) {

@@ -1,6 +1,7 @@
 import 'purecss'
 import './stylesheets/pure_responsive_grid.css'
 import Vue from 'vue'
+import store from './store.js'
 import RatelApp from './RatelApp.vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -11,6 +12,7 @@ Vue.config.productionTip = false
 window.onload = function(){
   new Vue({
     el: '#ratel-app',
+    store,
     render: createElement => createElement(RatelApp)
   });
 }

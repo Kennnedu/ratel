@@ -30,13 +30,16 @@ import RecordForm from './RecordForm.vue'
 
 export default {
   components: { ModalWindow, RecordForm },
+
   props: ['record'],
+
   data: function(){
     return {
       moment: moment,
       isOpenEditDialog: false,
     }
   },
+
   methods: {
     destroy(){
       let rec = this
@@ -47,9 +50,10 @@ export default {
         console.log(error)
       });
     },
+
     hasChanges(){
       this.isOpenEditDialog = false;
-      this.$emit("hasChanges");
+      this.$emit('updateRecords');
     }
   }
 

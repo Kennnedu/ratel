@@ -33,7 +33,7 @@
                 id="filter-to"
                 class="pure-u-23-24"
                 v-bind:value="filter.to"
-                v-on:change="e => $emit('updateFilter', { to: e.target.value })" />
+                v-on:change="$emit('updateFilter', { to: $event.target.value })" />
       </div>
     </div>
     </fieldset>
@@ -44,7 +44,7 @@ import axios from 'axios'
 import lodash from 'lodash'
 
 export default {
-  props: ['isOutdated', 'filter'],
+  props: ['filter'],
 
   watch: {
     filter: {
@@ -53,30 +53,16 @@ export default {
       },
       deep: true
     },
-
-    isOutdated: function(newValue, oldValue){
-      if(newValue){
-        this.fetchRecords()
-      }
-    }
   },
 
   mounted() {
-    this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
-    this.fetchRecords();
+    this.debouncedFetchRecords = _.debounce(this.updateRecords, 500);
+    this.updateRecords()
   },
 
   methods: {
-    fetchRecords(){
-      let _this = this;
-
-      axios.get('/records', { params: _this.filter})
-      .then(function(data){
-        _this.$emit('updateStatement', data.data);
-      })
-      .catch(function(error){
-        console.log(error.response);
-      })
+    updateRecords() {
+      return this.$emit('updateRecords')
     }
   }
 }
