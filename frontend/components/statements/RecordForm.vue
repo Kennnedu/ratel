@@ -29,6 +29,7 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
+  import { mapActions } from 'vuex'
 
   const emptyNewRecord = () => {
     return {
@@ -50,6 +51,7 @@
 
   export default {
     props: ['record'],
+
     data: function(){
       return {
         currentRecord: initCurrentRecord(this.record),
@@ -57,13 +59,18 @@
         saveButtonName: this.record ? 'Update' : 'Save'
       }
     },
+
     computed: {
       savingRecord: function(){
         let performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
         return Object.assign({}, this.currentRecord, { performed_at: performedAt })
       }
     },
+
     methods: {
+
+      ...mapActions(['fetchRecords']),
+
       submitForm(e){
         e.preventDefault();
 
@@ -73,12 +80,14 @@
           this.createNewRecord();
         }
       },
+
       createNewRecord(){
         let _this = this;
         _this.saveButtonName = 'Saving...'
         axios.post('/records', { record: _this.savingRecord })
         .then(function(resp){
           _this.$emit("save");
+          _this.fetchRecords()
           Object.assign(_this.currentRecord, emptyNewRecord());
         })
         .catch(function(error){
@@ -88,11 +97,13 @@
           _this.saveButtonName = 'Save'
         })
       },
+
       updateExistingRecord(){
         let _this = this;
         _this.saveButtonName = 'Updating...';
         axios.put(`/records/${_this.currentRecord.id}`, { record: _this.savingRecord }).then(function(res){
           _this.$emit("save");
+          _this.fetchRecords()
         }).catch(function(error){
           console.log(error.response)
         }).then(function(){
