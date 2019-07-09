@@ -3,8 +3,7 @@
     <Login v-if="!logged" v-on:login="logged = true" />
     <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo" v-if="logged">
       <Dashboard v-if="currentPage === 'Dashboard'"/>
-      <Uploading v-show="currentPage === 'Uploading'"/>
-      <Statements v-show="currentPage === 'Records'"/>
+      <Statements v-show="currentPage === 'State'"/>
     </Navigation>
   </div>
 </template>
@@ -12,7 +11,6 @@
 <script>
   import Navigation from './components/Navigation.vue'
   import Statements from './components/Statements.vue'
-  import Uploading from './components/Uploading.vue'
   import Dashboard from './components/Dashboard.vue'
   import Login from './components/Login.vue'
   import axios from 'axios'
@@ -21,13 +19,12 @@
     components: {
       Navigation,
       Statements,
-      Uploading,
       Dashboard,
       Login
     },
     data: function(){
       return {
-        currentPage: 'Records',
+        currentPage: 'State',
         logged: true
       }
     },

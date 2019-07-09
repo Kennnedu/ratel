@@ -16,6 +16,11 @@
               + Add record
             </a>
           </li>
+          <li class="pure-menu-item">
+            <a href="#" class="pure-menu-link" v-on:click="isOpenHtmlRecordsUploadModal = true">
+              Upload Records
+            </a>
+          </li>
           <li
             class="pure-menu-item"
             v-for="page in navigationMenuPages"
@@ -28,7 +33,7 @@
               <span
                 class="total-sum"
                 v-bind:class="{'positive': parseFloat(totalSum) > 0, 'negative': parseFloat(totalSum) < 0}"
-                v-if="page === 'Records'">
+                v-if="page === 'State'">
                 {{totalSum}}
               </span>
             </a>
@@ -45,6 +50,12 @@
         slot='body'
         v-on:save='isOpenNewRecordModal = false'/>
     </ModalWindow>
+    <ModalWindow v-if='isOpenHtmlRecordsUploadModal' v-on:close='isOpenHtmlRecordsUploadModal = false'>
+      <h3 slot="header">Upload records(html table)</h3>
+      <HtmlRecordsUploadForm
+        slot='body'
+        v-on:save='isOpenHtmlRecordsUploadModal = false'/>
+    </ModalWindow>
   </div>
 </template>
 
@@ -52,18 +63,20 @@
   import '../stylesheets/navigation.css'
   import ModalWindow from './ModalWindow.vue'
   import RecordForm from './statements/RecordForm.vue'
+  import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
   import { mapState } from 'vuex'
 
   export default {
-    components: { ModalWindow, RecordForm },
+    components: { ModalWindow, RecordForm, HtmlRecordsUploadForm },
 
     props: ['currentPage'],
 
     data: function(){
       return {
         active: false,
-        navigationMenuPages: ['Uploading', 'Dashboard', 'Records'],
-        isOpenNewRecordModal: false
+        navigationMenuPages: ['State', 'Dashboard'],
+        isOpenNewRecordModal: false,
+        isOpenHtmlRecordsUploadModal: false
       }
     },
 
