@@ -1,7 +1,6 @@
 <template>
-  <form class="pure-form pure-form-aligned" v-on:submit="submitForm">
+  <form class="pure-form pure-form-stacked" v-on:submit="submitForm">
     <fieldset>
-      <legend>HTML Statements Form</legend>
       <div class="pure-control-group">
         <label for="statements-html">Html table</label>
         <textarea id="statements-html"
@@ -12,14 +11,15 @@
           {{ nubmerOfError === 1 ? errorMessage : `${index + 1} line - ${errorMessage}` }}
         </span>
       </div>
-      <div class="pure-controls">
-        <input type="submit" class="pure-button pure-button-primary" v-bind:value="saveButtonName">
-      </div>
     </fieldset>
+    <div class="pure-controls">
+      <input type="submit" class="pure-button pure-button-primary" v-bind:value="saveButtonName">
+    </div>
   </form>
 </template>
 <script>
   import axios from 'axios'
+  import { mapActions } from 'vuex'
 
   export default {
     data: function(){
@@ -29,11 +29,15 @@
         saveButtonName: 'Upload'
       }
     },
+
     computed: {
       isDisabledTextArea() { return this.saveButtonName !== 'Upload' },
       nubmerOfError() { return this.errors.length },
     },
+
     methods: {
+      ...mapActions(['fetchRecords']),
+
       submitForm(){
         let _this = this;
         _this.errors = [];
@@ -55,6 +59,8 @@
                     console.log(response);
                     _this.saveButtonName = 'Upload';
                     _this.htmlTable = '';
+                    _this.fetchRecords();
+                    _this.$emit('save');
                   })
                   .catch(error => _this.errorHandler(error.response));
               })
@@ -62,6 +68,7 @@
           })
           .catch(error => _this.errorHandler(error.response));
       },
+
       errorHandler(response){
         console.log(response);
         this.saveButtonName = 'Upload';
