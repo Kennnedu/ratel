@@ -117,9 +117,9 @@ end
 get '/records/report' do
   session = auth_user
   records_report = Record.where(user_id: session['user_id'])
-  json group_by_replenishment_name: records_report.where('amount > ?', 0).group(:name).sum(:amount).to_a,
-       group_by_expences_name: records_report.where('amount < ?', 0).group(:name).sum(:amount).to_a,
-       group_by_card: records_report.group(:card).sum(:amount).to_a
+  json group_by_replenishment_name: records_report.where('amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount).to_a,
+       group_by_expences_name: records_report.where('amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount).to_a,
+       group_by_card: records_report.group(:card).order('sum_amount DESC').sum(:amount).to_a
 end
 
 post '/records/bulk/parse' do
