@@ -2,7 +2,6 @@
   <div class="content">
     <h2>Total Records: {{ totalCount }}</h2>
     <h2>Total Sum: {{ totalSum }}</h2>
-    <RecordFetcher/>
     <div class="pure-g record-cards">
       <Record
         v-for="record in records"
@@ -13,12 +12,10 @@
 </template>
 <script>
   import Record from './statements/Record.vue'
-  import RecordFetcher from './statements/RecordFetcher.vue'
-  import moment from 'moment'
   import { mapState, mapGetters } from 'vuex';
 
   export default {
-    components: { Record, RecordFetcher },
+    components: { Record },
 
     data: function() {
       return {

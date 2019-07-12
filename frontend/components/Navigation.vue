@@ -13,12 +13,17 @@
         <ul class="pure-menu-list">
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link" v-on:click="isOpenNewRecordModal = true">
-              + Add record
+              Add new record
+            </a>
+          </li>
+          <li class="pure-menu-item">
+            <a href="#" class="pure-menu-link" v-on:click="isOpenRecordFilterModal = true">
+              Filter records
             </a>
           </li>
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link" v-on:click="isOpenHtmlRecordsUploadModal = true">
-              Upload Records
+              Upload records
             </a>
           </li>
           <li
@@ -56,6 +61,12 @@
         slot='body'
         v-on:save='isOpenHtmlRecordsUploadModal = false'/>
     </ModalWindow>
+    <ModalWindow v-if='isOpenRecordFilterModal' v-on:close='isOpenRecordFilterModal = false'>
+      <h3 slot="header">Filter records</h3>
+      <RecordFilter
+        slot='body'
+        v-on:close='isOpenRecordFilterModal = false'/>
+    </ModalWindow>
   </div>
 </template>
 
@@ -63,19 +74,21 @@
   import '../stylesheets/navigation.css'
   import ModalWindow from './ModalWindow.vue'
   import RecordForm from './statements/RecordForm.vue'
+  import RecordFilter from './statements/RecordFilter.vue'
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
   import { mapState } from 'vuex'
 
   export default {
-    components: { ModalWindow, RecordForm, HtmlRecordsUploadForm },
+    components: { ModalWindow, RecordForm, HtmlRecordsUploadForm, RecordFilter },
 
     props: ['currentPage'],
 
     data: function(){
       return {
         active: false,
-        navigationMenuPages: ['State', 'Dashboard'],
+        navigationMenuPages: ['Dashboard', 'State'],
         isOpenNewRecordModal: false,
+        isOpenRecordFilterModal: false,
         isOpenHtmlRecordsUploadModal: false
       }
     },
