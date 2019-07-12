@@ -13,17 +13,17 @@
         <ul class="pure-menu-list">
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link" v-on:click="isOpenNewRecordModal = true">
-              Add new record
+              <font-awesome-icon icon="plus" /> New record
             </a>
           </li>
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link" v-on:click="isOpenRecordFilterModal = true">
-              Filter records
+              <font-awesome-icon icon="filter" /> Filtering
             </a>
           </li>
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link" v-on:click="isOpenHtmlRecordsUploadModal = true">
-              Upload records
+              <font-awesome-icon icon="upload" /> Uploading
             </a>
           </li>
           <li
@@ -34,7 +34,7 @@
             <a href="#"
                class="pure-menu-link"
                v-on:click="$emit('navigateTo', page)">
-              {{page}}
+              <font-awesome-icon icon="tachometer-alt" v-if="page==='Dashboard'" /> {{page}}
               <span
                 class="total-sum"
                 v-bind:class="{'positive': parseFloat(totalSum) > 0, 'negative': parseFloat(totalSum) < 0}"
@@ -76,7 +76,11 @@
   import RecordForm from './statements/RecordForm.vue'
   import RecordFilter from './statements/RecordFilter.vue'
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
+  import { library } from '@fortawesome/fontawesome-svg-core'
+  import { faUpload, faPlus, faFilter, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
   import { mapState, mapActions } from 'vuex'
+
+  library.add(faUpload, faPlus, faFilter, faTachometerAlt)
 
   export default {
     components: { ModalWindow, RecordForm, HtmlRecordsUploadForm, RecordFilter },
