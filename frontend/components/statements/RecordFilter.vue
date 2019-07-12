@@ -39,31 +39,15 @@
 </template>
 <script>
 import lodash from 'lodash'
-import { mapState, mapMutations, mapActions } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   computed: {
     ...mapState(['filter'])
   },
 
-  watch: {
-    filter: {
-      handler: function(){
-        this.debouncedFetchRecords()
-      },
-      deep: true
-    },
-  },
-
-  mounted() {
-    this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
-    this.fetchRecords()
-  },
-
   methods: {
-    ...mapMutations(['updateFilter']),
-
-    ...mapActions(['fetchRecords'])
+    ...mapMutations(['updateFilter'])
   }
 }
 </script>

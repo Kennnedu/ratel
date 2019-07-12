@@ -76,7 +76,7 @@
   import RecordForm from './statements/RecordForm.vue'
   import RecordFilter from './statements/RecordFilter.vue'
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
-  import { mapState } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     components: { ModalWindow, RecordForm, HtmlRecordsUploadForm, RecordFilter },
@@ -93,8 +93,26 @@
       }
     },
 
+    mounted() {
+      this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
+      this.fetchRecords()
+    },
+
     computed: {
-      ...mapState(['totalSum'])
+      ...mapState(['totalSum', 'filter'])
+    },
+
+    watch: {
+      filter: {
+        handler: function(){
+          this.debouncedFetchRecords()
+        },
+        deep: true
+      },
+    },
+
+    methods: {
+      ...mapActions(['fetchRecords'])
     }
   }
 </script>
