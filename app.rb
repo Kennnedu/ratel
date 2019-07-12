@@ -65,6 +65,21 @@ class QueryRecord
     self
   end
 
+  def replenishments_data
+    @relation = @relation.where('amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
+    self
+  end
+
+  def expences_data
+    @relation = @relation.where('amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
+    self
+  end
+
+  def cards_data
+    @relation = @relation.group(:card).order('sum_amount DESC').sum(:amount)
+    self
+  end
+
   def belongs_to_user(user_id)
     @relation = @relation.where(user_id: user_id) if user_id.present?
     self
@@ -96,12 +111,13 @@ end
 
 get '/records' do
   session = auth_user
-  query_record = QueryRecord.new
-                            .belongs_to_user(session['user_id'])
-                            .filter(params)
-                            .perform_recent.relation
-  json records: query_record.as_json(except: [:created_at, :updated_at, :user_id]),
-       total_sum: query_record.sum(:amount)
+  query_record = QueryRecord.new.belongs_to_user(session['user_id']).filter(params)
+
+  json records: query_record.dup.perform_recent.relation.as_json(except: [:created_at, :updated_at, :user_id]),
+       total_sum: query_record.dup.relation.sum(:amount),
+       replenishments_data: query_record.dup.replenishments_data.relation.to_a,
+       expences_data: query_record.dup.expences_data.relation.to_a,
+       cards_data: query_record.dup.cards_data.relation.to_a
 end
 
 post '/records' do
@@ -112,14 +128,6 @@ post '/records' do
   else
     halt 400, {'Content-Type' => 'application/json'}, { message: record.errors }.to_json
   end
-end
-
-get '/records/report' do
-  session = auth_user
-  records_report = Record.where(user_id: session['user_id'])
-  json group_by_replenishment_name: records_report.where('amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount).to_a,
-       group_by_expences_name: records_report.where('amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount).to_a,
-       group_by_card: records_report.group(:card).order('sum_amount DESC').sum(:amount).to_a
 end
 
 post '/records/bulk/parse' do

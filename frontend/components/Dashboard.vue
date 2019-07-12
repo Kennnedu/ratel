@@ -11,7 +11,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="line in groupByCard">
+            <tr v-for="line in dashboardData.cardsData">
               <td>{{ line[0] }}</td>
               <td>{{ `${line[1]} BYN` }}</td>
             </tr>
@@ -28,7 +28,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="line in groupByReplenishmentName">
+            <tr v-for="line in dashboardData.replenishmentsData">
               <td>{{ line[0] }}</td>
               <td>{{ `${line[1]} BYN` }}</td>
             </tr>
@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="line in groupByExpencesName">
+            <tr v-for="line in dashboardData.expencesData">
               <td>{{ line[0] }}</td>
               <td>{{ `${line[1]} BYN` }}</td>
             </tr>
@@ -57,28 +57,11 @@
   </div>
 </template>
 <script>
-  import axios from 'axios'
+  import { mapState } from 'vuex';
 
   export default {
-    data: function(){
-      return {
-        groupByReplenishmentName: [],
-        groupByExpencesName: [],
-        groupByCard: []
-      }
-    },
-    created: function(){
-      let _this = this;
-
-      axios.get('/records/report').then(function(data){
-        console.log(data.data);
-        _this.groupByReplenishmentName = data.data.group_by_replenishment_name
-        _this.groupByExpencesName = data.data.group_by_expences_name
-        _this.groupByCard = data.data.group_by_card
-      })
-      .catch(function(error){
-        console.log(error);
-      })
+    computed: {
+      ...mapState(['dashboardData'])
     }
   }
 </script>

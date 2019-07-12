@@ -14,6 +14,11 @@ export default new Vuex.Store({
       card: "",
       from: moment().set('month', moment().get('month') - 1).format('YYYY-MM-DD'),
       to: moment().format('YYYY-MM-DD')
+    },
+    dashboardData: {
+      cardsData: [],
+      expencesData: [],
+      replenishmentsData: []
     }
   },
 
@@ -38,6 +43,10 @@ export default new Vuex.Store({
 
     addFilteringName(state, payload) {
       state.filter.name = `${state.filter.name}&${payload.name}`
+    },
+
+    updateDashboardData(state, payload) {
+      state.dashboardData = payload
     }
   },
 
@@ -48,6 +57,11 @@ export default new Vuex.Store({
         .then(function(data){
           context.commit('updateRecords', { records: data.data.records });
           context.commit('updateTotalSum', { totalSum: data.data.total_sum });
+          context.commit('updateDashboardData', {
+            cardsData: data.data.cards_data,
+            expencesData: data.data.expences_data,
+            replenishmentsData: data.data.replenishments_data
+          })
           resolve();
         })
         .catch(function(error){
