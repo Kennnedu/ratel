@@ -27,18 +27,24 @@
             </a>
           </li>
           <li
-            class="pure-menu-item"
-            v-for="page in navigationMenuPages"
-            v-bind:class="{'pure-menu-selected': currentPage === page,
-                           'menu-item-divided': navigationMenuPages[0] === page}">
+            class="pure-menu-item menu-item-divided"
+            v-bind:class="{'pure-menu-selected': currentPage === 'Dashboard'}">
             <a href="#"
                class="pure-menu-link"
-               v-on:click="$emit('navigateTo', page)">
-              <font-awesome-icon icon="tachometer-alt" v-if="page==='Dashboard'" /> {{page}}
+               v-on:click="$emit('navigateTo', 'Dashboard')">
+              <font-awesome-icon icon="tachometer-alt" /> Dashboard
+            </a>
+          </li>
+          <li
+            class="pure-menu-item"
+            v-bind:class="{'pure-menu-selected': currentPage === 'Records'}">
+            <a href="#"
+               class="pure-menu-link"
+               v-on:click="$emit('navigateTo', 'Records')">
+              <font-awesome-icon icon="receipt" /> Records
               <span
                 class="total-sum"
-                v-bind:class="{'positive': parseFloat(totalSum) > 0, 'negative': parseFloat(totalSum) < 0}"
-                v-if="page === 'State'">
+                v-bind:class="{'positive': parseFloat(totalSum) > 0, 'negative': parseFloat(totalSum) < 0}">
                 {{totalSum}}
               </span>
             </a>
@@ -77,10 +83,10 @@
   import RecordFilter from './statements/RecordFilter.vue'
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faUpload, faPlus, faFilter, faTachometerAlt } from '@fortawesome/free-solid-svg-icons'
+  import { faUpload, faPlus, faFilter, faTachometerAlt, faReceipt } from '@fortawesome/free-solid-svg-icons'
   import { mapState, mapActions } from 'vuex'
 
-  library.add(faUpload, faPlus, faFilter, faTachometerAlt)
+  library.add(faUpload, faPlus, faFilter, faTachometerAlt, faReceipt)
 
   export default {
     components: { ModalWindow, RecordForm, HtmlRecordsUploadForm, RecordFilter },
@@ -90,7 +96,7 @@
     data: function(){
       return {
         active: false,
-        navigationMenuPages: ['Dashboard', 'State'],
+        navigationMenuPages: ['Dashboard', 'Records'],
         isOpenNewRecordModal: false,
         isOpenRecordFilterModal: false,
         isOpenHtmlRecordsUploadModal: false

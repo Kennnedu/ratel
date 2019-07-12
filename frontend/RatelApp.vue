@@ -3,7 +3,7 @@
     <Login v-if="!logged" v-on:login="logged = true" />
     <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo" v-if="logged">
       <Dashboard v-if="currentPage === 'Dashboard'"/>
-      <Statements v-show="currentPage === 'State'"/>
+      <Statements v-show="currentPage === 'Records'"/>
     </Navigation>
   </div>
 </template>
@@ -24,7 +24,7 @@
     },
     data: function(){
       return {
-        currentPage: 'State',
+        currentPage: 'Records',
         logged: true
       }
     },
