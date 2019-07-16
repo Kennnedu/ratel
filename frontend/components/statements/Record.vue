@@ -1,13 +1,13 @@
 <template>
   <div class="pure-u-1 pure-u-md-1-3">
-    <div class="record-card">
+    <div class="record-card"
+         v-bind:class="{ positive: record.amount > 0 }">
       <div class="head">
         <span v-on:click="filterByTheName">
           {{ record.name }}
         </span>
       </div>
       <div class="body"
-           v-bind:class="{ positive: record.amount > 0 }"
            v-on:click="isOpenEditDialog = true">
         <div class="card">{{ record.card }}</div>
         <div class="amount">{{ `${record.amount} BYN` }}</div>
@@ -78,7 +78,6 @@ export default {
 
   .record-card .head {
     text-align: center;
-    border-bottom: 1px solid #e0e0e0;
   }
 
   .record-card .head span:hover {
@@ -90,16 +89,15 @@ export default {
     padding: 5px;
   }
 
-  .record-card .body.positive {
+  .record-card.positive {
     background-color: #ddfbdd;
   }
 
-  .record-card .body.positive:hover {
-    background-color: #a7f592;
+  .record-card:hover, .record-card:focus {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
   }
 
   .record-card .body:hover {
-    background-color: #e0e0e0;
     cursor: pointer;
   }
 
