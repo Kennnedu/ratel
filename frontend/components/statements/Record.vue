@@ -93,8 +93,10 @@ export default {
     background-color: #ddfbdd;
   }
 
-  .record-card:hover, .record-card:focus {
+  .record-card:hover, .record-card:focus, .record-card:active {
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    transform: scale(1.04);
+    transition: box-shadow 0.2s, transform 0.2s;
   }
 
   .record-card .body:hover {
