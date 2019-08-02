@@ -32,6 +32,12 @@
     </fieldset>
     <input
       type="button"
+      value="Reset"
+      class="pure-button"
+      v-on:click="resetFilter" 
+    />
+    <input
+      type="button"
       value="Close"
       class="pure-button pure-button-primary"
       v-on:click="$emit('close')" />
@@ -47,7 +53,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['updateFilter'])
+    ...mapMutations(['updateFilter', 'resetFilter'])
   }
 }
 </script>

@@ -5,16 +5,18 @@ import moment from 'moment'
 
 Vue.use(Vuex)
 
+const defaultFilter = {
+  name: "",
+  card: "",
+  from: moment().set('month', moment().get('month') - 1).format('YYYY-MM-DD'),
+  to: moment().format('YYYY-MM-DD')
+}
+
 export default new Vuex.Store({
   state: {
     records: [],
     totalSum: 0,
-    filter: {
-      name: "",
-      card: "",
-      from: moment().set('month', moment().get('month') - 1).format('YYYY-MM-DD'),
-      to: moment().format('YYYY-MM-DD')
-    },
+    filter: defaultFilter,
     dashboardData: {
       cardsData: [],
       expencesData: [],
@@ -39,6 +41,10 @@ export default new Vuex.Store({
 
     updateFilter(state, payload) {
       state.filter = Object.assign({}, state.filter, payload.changes)
+    },
+
+    resetFilter(state) {
+      state.filter = defaultFilter
     },
 
     addFilteringName(state, payload) {
