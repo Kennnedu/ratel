@@ -36,6 +36,8 @@ class QueryRecord
   end
 
   def filter(params)
+    @relation = @relation.joins(:card)
+
     if params['name'].present?
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
       exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
@@ -54,11 +56,11 @@ class QueryRecord
       exclude_card_list = params['card'].split('&').select { |card| card.eql? '!' }.map { |card| "%#{card[1..-1]}%" }
 
       if include_card_list.present?
-        @relation = @relation.where('card ILIKE ANY (array[?])', include_card_list)
+        @relation = @relation.where('cards.name ILIKE ANY (array[?])', include_card_list)
       end
 
       if exclude_card_list.present?
-        exclude_card_list.each { |card| @relation = @relation.where.not('card ILIKE ?', card) }
+        exclude_card_list.each { |card| @relation = @relation.where.not('cards.name ILIKE ?', card) }
       end
     end
 
@@ -84,7 +86,7 @@ class QueryRecord
   end
 
   def cards_data
-    @relation = @relation.group(:card).order('sum_amount DESC').sum(:amount)
+    @relation = @relation.group('cards.name').order('sum_amount DESC').sum(:amount)
     self
   end
 
@@ -121,7 +123,8 @@ get '/records' do
   session = auth_user
   query_record = QueryRecord.new.belongs_to_user(session['user_id']).filter(params)
 
-  json records: query_record.dup.perform_recent.relation.as_json(except: [:created_at, :updated_at, :user_id]),
+  json records: query_record.dup.perform_recent.relation.as_json(except: [:created_at, :updated_at, :user_id, :card_id],
+                                                                 include: { card: { only: [:name, :id]}}),
        total_sum: query_record.dup.relation.sum(:amount),
        replenishments_data: query_record.dup.replenishments_data.relation.to_a,
        expences_data: query_record.dup.expences_data.relation.to_a,
