@@ -12,6 +12,7 @@ Dotenv.load
 
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
+  belongs_to :card, required: true
 
   validates_presence_of :name, :amount, :performed_at
 end
@@ -19,6 +20,13 @@ end
 class User < ActiveRecord::Base
   has_secure_password
 end
+
+class Card < ActiveRecord::Base
+  belongs_to :user, required: true
+
+  validates_presence_of :name
+end
+
 
 class QueryRecord
   attr_reader :relation
