@@ -1,0 +1,33 @@
+<template>
+  <select
+    required
+    v-model="currentCardId"
+    v-on:change="$emit('selectCard', cardList.filter(card => currentCardId === card.id)[0])">
+    <option
+      v-for="card in cardList"
+      v-bind:key="card.id"
+      v-bind:value="card.id"
+      v-bind:selected="currentCardId === card.id">
+      {{card.name}}
+    </option>
+  </select>
+</template>
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  props: ['card'],
+
+  data: function(){
+    return {
+      currentCardId: this.card.id || null,
+    }
+  },
+
+  computed: {
+    ...mapState(['cardList'])
+  }
+}
+</script>
+<style lang="css" scoped>
+</style>

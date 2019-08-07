@@ -105,7 +105,8 @@
 
     mounted() {
       this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
-      this.fetchRecords()
+      this.fetchRecords();
+      this.fetchCardList();
     },
 
     computed: {
@@ -122,7 +123,7 @@
     },
 
     methods: {
-      ...mapActions(['fetchRecords'])
+      ...mapActions(['fetchRecords', 'fetchCardList'])
     }
   }
 </script>

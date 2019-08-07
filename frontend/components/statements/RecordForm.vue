@@ -5,7 +5,10 @@
       <input type="text" id="record-name" placeholder="Enter operation" required v-model.trim="currentRecord.name">
 
       <label for="record-card">Card</label>
-      <input type="text" id="record-card" placeholder="Enter record card" v-model.trim="currentRecord.card">
+
+      <CardSelector
+        v-bind:card="currentRecord.card"
+        v-on:selectCard="newCard => currentRecord.card = newCard"/>
 
       <label for="record-amount">Amount</label>
       <input type="number" id="record-amount" step="0.01" required v-model.number="currentRecord.amount">
@@ -30,11 +33,12 @@
   import axios from 'axios'
   import moment from 'moment'
   import { mapActions } from 'vuex'
+  import CardSelector from '../CardSelector.vue'
 
   const emptyNewRecord = () => {
     return {
       name: '',
-      card: '',
+      card: {},
       amount: 0.0,
       rest: 0.0,
       performed_at: moment().format('YYYY-MM-DDTHH:mm')
@@ -50,6 +54,8 @@
   }
 
   export default {
+    components: { CardSelector },
+
     props: ['record'],
 
     data: function(){
@@ -62,8 +68,13 @@
 
     computed: {
       savingRecord: function(){
-        let performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
-        return Object.assign({}, this.currentRecord, { performed_at: performedAt })
+        const performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
+        let savingRecord = Object.assign({}, this.currentRecord, { performed_at: performedAt },
+                            { card_id: this.currentRecord.card.id })
+
+        delete savingRecord.card
+        delete savingRecord.card_name_old
+        return savingRecord
       }
     },
 

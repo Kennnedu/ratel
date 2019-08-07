@@ -36,7 +36,7 @@ class QueryRecord
   end
 
   def filter(params)
-    @relation = @relation.joins(:card)
+    @relation = @relation.joins(:card).includes(:card)
 
     if params['name'].present?
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
@@ -197,6 +197,12 @@ delete '/records/:id' do |id|
   else
     halt 400
   end
+end
+
+get '/card_list' do
+  session = auth_user
+
+  json cards: Card.where(user_id: session['user_id']).as_json(except: [:updated_at, :created_at, :user_id])
 end
 
 post '/session' do
