@@ -71,7 +71,7 @@
         const performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
         let savingRecord = Object.assign({}, this.currentRecord, { performed_at: performedAt },
                             { card_id: this.currentRecord.card.id })
-
+        console.log(savingRecord);
         delete savingRecord.card
         delete savingRecord.card_name_old
         return savingRecord
@@ -127,11 +127,5 @@
 <style lang="css" scoped>
   .pure-form-message.pure-form-message-error {
     color: red;
-  }
-
-  .button-error {
-    background: rgb(202, 60, 60);
-    color: white;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   }
 </style>

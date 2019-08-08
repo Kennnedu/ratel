@@ -4,6 +4,7 @@
     <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo" v-if="logged">
       <Dashboard v-if="currentPage === 'Dashboard'"/>
       <Statements v-show="currentPage === 'Records'"/>
+      <Cards v-if="currentPage === 'Cards'" />
     </Navigation>
   </div>
 </template>
@@ -12,6 +13,7 @@
   import Navigation from './components/Navigation.vue'
   import Statements from './components/Statements.vue'
   import Dashboard from './components/Dashboard.vue'
+  import Cards from './components/Cards.vue'
   import Login from './components/Login.vue'
   import axios from 'axios'
 
@@ -20,11 +22,12 @@
       Navigation,
       Statements,
       Dashboard,
+      Cards,
       Login
     },
     data: function(){
       return {
-        currentPage: 'Records',
+        currentPage: 'Cards',
         logged: true
       }
     },
@@ -46,5 +49,10 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="css">
+  .button-error {
+    background: rgb(202, 60, 60);
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  }
 </style>

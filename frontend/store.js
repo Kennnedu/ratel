@@ -22,7 +22,7 @@ export default new Vuex.Store({
       expencesData: [],
       replenishmentsData: []
     },
-    cardList: []
+    cards: []
   },
 
   getters: {
@@ -36,8 +36,8 @@ export default new Vuex.Store({
       state.records = payload.records
     },
 
-    updateCardList(state, payload) {
-      state.cardList = payload.cardList
+    updateCards(state, payload) {
+      state.cards = payload.cards
     },
 
     updateTotalSum(state, payload) {
@@ -82,10 +82,10 @@ export default new Vuex.Store({
       })
     },
 
-    fetchCardList(context){
+    fetchCards(context){
       return new Promise((resolve, reject) => {
-        axios.get('/card_list').then(data => {
-          context.commit('updateCardList', { cardList: data.data.cards });
+        axios.get('/cards').then(data => {
+          context.commit('updateCards', data.data);
           resolve();
         })
         .catch(error => {

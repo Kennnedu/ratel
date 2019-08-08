@@ -2,9 +2,9 @@
   <select
     required
     v-model="currentCardId"
-    v-on:change="$emit('selectCard', cardList.filter(card => currentCardId === card.id)[0])">
+    v-on:change="$emit('selectCard', cards.filter(card => currentCardId === card.id)[0])">
     <option
-      v-for="card in cardList"
+      v-for="card in cards"
       v-bind:key="card.id"
       v-bind:value="card.id"
       v-bind:selected="currentCardId === card.id">
@@ -25,7 +25,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['cardList'])
+    ...mapState(['cards'])
   }
 }
 </script>

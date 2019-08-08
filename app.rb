@@ -199,7 +199,7 @@ delete '/records/:id' do |id|
   end
 end
 
-get '/card_list' do
+get '/cards' do
   session = auth_user
 
   json cards: Card.where(user_id: session['user_id']).as_json(except: [:updated_at, :created_at, :user_id])
