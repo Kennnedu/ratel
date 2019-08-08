@@ -5,18 +5,14 @@
         <h2>Cards</h2>
       </div>
       <div class="pure-u-1">
+        <a
+          href="#"
+          class="pure-button pure-button-primary new-card-btn"
+          v-on:click="() => openingCardModal({name: ''})">
+          <font-awesome-icon icon="plus" />
+          New card
+        </a>
         <table class="pure-table pure-table-horizontal">
-          <thead>
-            <tr>
-              <th>
-                <a href="#"
-                  v-on:click="() => openingCardModal({name: ''})">
-                  <font-awesome-icon icon="plus" />
-                  New card
-                </a>
-              </th>
-            </tr>
-          </thead>
           <tbody>
             <tr v-for="card in cards">
               <td>
@@ -77,7 +73,12 @@ export default {
 }
 </script>
 <style lang="css" scoped>
-  th {
-    text-align: center;
+  .new-card-btn {
+    width: inherit;
   }
+
+  td a {
+    color: #777;
+  }
+
 </style>
