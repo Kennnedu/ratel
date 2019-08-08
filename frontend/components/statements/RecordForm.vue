@@ -71,7 +71,6 @@
         const performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
         let savingRecord = Object.assign({}, this.currentRecord, { performed_at: performedAt },
                             { card_id: this.currentRecord.card.id })
-        console.log(savingRecord);
         delete savingRecord.card
         delete savingRecord.card_name_old
         return savingRecord
