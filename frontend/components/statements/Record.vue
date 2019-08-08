@@ -9,7 +9,7 @@
       </div>
       <div class="body"
            v-on:click="isOpenEditDialog = true">
-        <div class="card">{{ record.card }}</div>
+        <div class="card">{{ record.card.name }}</div>
         <div class="amount">{{ `${record.amount} BYN` }}</div>
         <div class="rest">{{ `${record.rest} BYN` }}</div>
         <div class="performed-at">{{ moment(record.performed_at).format('lll') }}</div>

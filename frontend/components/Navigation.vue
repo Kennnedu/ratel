@@ -49,6 +49,16 @@
               </span>
             </a>
           </li>
+          <li
+            class="pure-menu-item menu-item-divided"
+            v-bind:class="{'pure-menu-selected': currentPage === 'Cards'}"
+            v-on:click="$emit('navigateTo', 'Cards')">
+            <a
+              href="#"
+              class="pure-menu-link">
+              <font-awesome-icon icon="credit-card" /> Cards
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -83,10 +93,10 @@
   import RecordFilter from './statements/RecordFilter.vue'
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faUpload, faPlus, faFilter, faTachometerAlt, faReceipt } from '@fortawesome/free-solid-svg-icons'
+  import { faUpload, faPlus, faFilter, faTachometerAlt, faReceipt, faCreditCard } from '@fortawesome/free-solid-svg-icons'
   import { mapState, mapActions } from 'vuex'
 
-  library.add(faUpload, faPlus, faFilter, faTachometerAlt, faReceipt)
+  library.add(faUpload, faPlus, faFilter, faTachometerAlt, faReceipt, faCreditCard)
 
   export default {
     components: { ModalWindow, RecordForm, HtmlRecordsUploadForm, RecordFilter },
@@ -105,7 +115,8 @@
 
     mounted() {
       this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
-      this.fetchRecords()
+      this.fetchRecords();
+      this.fetchCards();
     },
 
     computed: {
@@ -122,7 +133,7 @@
     },
 
     methods: {
-      ...mapActions(['fetchRecords'])
+      ...mapActions(['fetchRecords', 'fetchCards'])
     }
   }
 </script>

@@ -21,7 +21,8 @@ export default new Vuex.Store({
       cardsData: [],
       expencesData: [],
       replenishmentsData: []
-    }
+    },
+    cards: []
   },
 
   getters: {
@@ -33,6 +34,10 @@ export default new Vuex.Store({
   mutations: {
     updateRecords(state, payload) {
       state.records = payload.records
+    },
+
+    updateCards(state, payload) {
+      state.cards = payload.cards
     },
 
     updateTotalSum(state, payload) {
@@ -60,7 +65,7 @@ export default new Vuex.Store({
     fetchRecords(context){
       return new Promise((resolve, reject) => {
         axios.get('/records', { params: context.state.filter})
-        .then(function(data){
+        .then(data => {
           context.commit('updateRecords', { records: data.data.records });
           context.commit('updateTotalSum', { totalSum: data.data.total_sum });
           context.commit('updateDashboardData', {
@@ -70,7 +75,20 @@ export default new Vuex.Store({
           })
           resolve();
         })
-        .catch(function(error){
+        .catch(error => {
+          console.log(error.response);
+          reject(error.response);
+        })
+      })
+    },
+
+    fetchCards(context){
+      return new Promise((resolve, reject) => {
+        axios.get('/cards').then(data => {
+          context.commit('updateCards', data.data);
+          resolve();
+        })
+        .catch(error => {
           console.log(error.response);
           reject(error.response);
         })

@@ -12,15 +12,28 @@ Dotenv.load
 
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
+  belongs_to :card, required: true
 
   validates_presence_of :name, :amount, :performed_at
+
+  def as_json
+    result = super(except: [:created_at, :updated_at, :user_id, :card_id], include: { card: { only: [:name, :id]}})
+    return result if card
+    result.merge(card: Card.new(id: 0, name: '').as_json(only: [:name, :id]))
+  end
 end
 
 class User < ActiveRecord::Base
   has_secure_password
 end
 
-class QueryRecord
+class Card < ActiveRecord::Base
+  belongs_to :user, required: true
+
+  validates_presence_of :name
+end
+
+class RecordQuery
   attr_reader :relation
 
   def initialize(relation = Record.all)
@@ -28,6 +41,8 @@ class QueryRecord
   end
 
   def filter(params)
+    @relation = @relation.left_joins(:card).includes(:card)
+
     if params['name'].present?
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
       exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
@@ -46,11 +61,11 @@ class QueryRecord
       exclude_card_list = params['card'].split('&').select { |card| card.eql? '!' }.map { |card| "%#{card[1..-1]}%" }
 
       if include_card_list.present?
-        @relation = @relation.where('card ILIKE ANY (array[?])', include_card_list)
+        @relation = @relation.where('cards.name ILIKE ANY (array[?])', include_card_list)
       end
 
       if exclude_card_list.present?
-        exclude_card_list.each { |card| @relation = @relation.where.not('card ILIKE ?', card) }
+        exclude_card_list.each { |card| @relation = @relation.where.not('cards.name ILIKE ?', card) }
       end
     end
 
@@ -76,7 +91,7 @@ class QueryRecord
   end
 
   def cards_data
-    @relation = @relation.group(:card).order('sum_amount DESC').sum(:amount)
+    @relation = @relation.group('cards.name').order('sum_amount DESC').sum(:amount)
     self
   end
 
@@ -111,9 +126,9 @@ end
 
 get '/records' do
   session = auth_user
-  query_record = QueryRecord.new.belongs_to_user(session['user_id']).filter(params)
+  query_record = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
 
-  json records: query_record.dup.perform_recent.relation.as_json(except: [:created_at, :updated_at, :user_id]),
+  json records: query_record.dup.perform_recent.relation.as_json,
        total_sum: query_record.dup.relation.sum(:amount),
        replenishments_data: query_record.dup.replenishments_data.relation.to_a,
        expences_data: query_record.dup.expences_data.relation.to_a,
@@ -182,6 +197,44 @@ delete '/records/:id' do |id|
   auth_user
   record = Record.find(id)
   if record.delete
+    halt 200
+  else
+    halt 400
+  end
+end
+
+get '/cards' do
+  session = auth_user
+
+  json cards: Card.where(user_id: session['user_id']).as_json(except: [:updated_at, :created_at, :user_id])
+end
+
+post '/cards' do
+  session = auth_user
+  card = Card.new(JSON.parse(request.body.read)['card'].merge(user_id: session['user_id']))
+  if card.save
+    halt 200
+  else
+    halt 400
+  end
+end
+
+put '/cards/:id' do |id|
+  session = auth_user
+  updating_attributes = JSON.parse(request.body.read)['card']
+  card = Card.find_by(id: id, user_id: session['user_id'])
+  if card.update(updating_attributes)
+    halt 200
+  else
+    halt 400, {'Content-Type' => 'application/json'}, { message: card.errors }.to_json
+  end
+end
+
+delete '/cards/:id' do |id|
+  session = auth_user
+
+  card = Card.find_by(id: id, user_id: session['user_id'])
+  if card.delete
     halt 200
   else
     halt 400
