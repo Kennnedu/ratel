@@ -27,7 +27,7 @@
     },
     data: function(){
       return {
-        currentPage: 'Cards',
+        currentPage: 'Records',
         logged: true
       }
     },
