@@ -13,14 +13,24 @@ Dotenv.load
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
   belongs_to :card, required: true
+  has_and_belongs_to_many :tags
 
-  validates_presence_of :name, :amount, :performed_at
+  validates :name, :amount, :performed_at, uniqueness: true, presence: true
+
+  accepts_nested_attributes_for :tags, allow_destroy: true
 
   def as_json
     result = super(except: [:created_at, :updated_at, :user_id, :card_id], include: { card: { only: [:name, :id]}})
     return result if card
     result.merge(card: Card.new(id: 0, name: '').as_json(only: [:name, :id]))
   end
+end
+
+class Tag < ActiveRecord::Base
+  belongs_to :user, required: true
+  has_and_belongs_to_many :records
+
+  validates :name, uniqueness: true, presence: true
 end
 
 class User < ActiveRecord::Base
