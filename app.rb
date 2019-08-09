@@ -15,12 +15,13 @@ class Record < ActiveRecord::Base
   belongs_to :card, required: true
   has_and_belongs_to_many :tags
 
-  validates :name, :amount, :performed_at, uniqueness: true, presence: true
+  # validates :name, :amount, :performed_at, :user_id, uniqueness: true, presence: true
 
   accepts_nested_attributes_for :tags, allow_destroy: true
 
   def as_json
-    result = super(except: [:created_at, :updated_at, :user_id, :card_id], include: { card: { only: [:name, :id]}})
+    result = super(except: [:created_at, :updated_at, :user_id, :card_id],
+                   include: { card: { only: [:name, :id]}, tags: { only: [:id, :name]}})
     return result if card
     result.merge(card: Card.new(id: 0, name: '').as_json(only: [:name, :id]))
   end
@@ -30,7 +31,7 @@ class Tag < ActiveRecord::Base
   belongs_to :user, required: true
   has_and_belongs_to_many :records
 
-  validates :name, uniqueness: true, presence: true
+  # validates :name, :user_id, uniqueness: true, presence: true
 end
 
 class User < ActiveRecord::Base
@@ -51,7 +52,7 @@ class RecordQuery
   end
 
   def filter(params)
-    @relation = @relation.left_joins(:card).includes(:card)
+    @relation = @relation.left_joins(:card).includes(:card).includes(:tags)
 
     if params['name'].present?
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
@@ -225,7 +226,7 @@ post '/cards' do
   if card.save
     halt 200
   else
-    halt 400
+    halt 400, {'Content-Type' => 'application/json'}, { message: card.errors }.to_json
   end
 end
 
@@ -248,6 +249,23 @@ delete '/cards/:id' do |id|
     halt 200
   else
     halt 400
+  end
+end
+
+get '/tags' do
+  session = auth_user
+
+  json tags: Tag.where(user_id: session['user_id']).as_json(except: [:updated_at, :created_at])
+end
+
+post '/tags' do
+  session = auth_user
+
+  tag = Tag.new(JSON.parse(request.body.read)['tag'].merge(user_id: session['user_id']))
+  if tag.save
+    halt 200
+  else
+    halt 400, {'Content-Type' => 'application/json'}, { message: tag.errors }.to_json
   end
 end
 
