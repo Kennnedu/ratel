@@ -1,6 +1,9 @@
 <template>
   <form class="pure-form pure-form-stacked" v-on:submit="submitForm">
     <fieldset>
+      <TagsInput
+        v-bind:recordsTags="currentRecord.records_tags"
+        v-on:change="newRecordsTags => currentRecord.records_tags = newRecordsTags" />
       <label for="record-name">Operation</label>
       <input type="text" id="record-name" placeholder="Enter operation" required v-model.trim="currentRecord.name">
 
@@ -34,6 +37,7 @@
   import moment from 'moment'
   import { mapActions } from 'vuex'
   import CardSelector from '../CardSelector.vue'
+  import TagsInput from '../TagsInput.vue'
 
   const emptyNewRecord = () => {
     return {
@@ -41,6 +45,7 @@
       card: {},
       amount: 0.0,
       rest: 0.0,
+      records_tags: [],
       performed_at: moment().format('YYYY-MM-DDTHH:mm')
     }
   }
@@ -54,7 +59,7 @@
   }
 
   export default {
-    components: { CardSelector },
+    components: { CardSelector, TagsInput },
 
     props: ['record'],
 
@@ -71,6 +76,11 @@
         const performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
         let savingRecord = Object.assign({}, this.currentRecord, { performed_at: performedAt },
                             { card_id: this.currentRecord.card.id })
+        savingRecord.records_tags_attributes = savingRecord.records_tags.map(recTag => {
+          delete recTag.tag
+          return recTag
+        })
+        delete savingRecord.records_tags
         delete savingRecord.card
         delete savingRecord.card_name_old
         return savingRecord
