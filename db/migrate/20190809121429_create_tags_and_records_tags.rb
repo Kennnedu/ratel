@@ -7,7 +7,7 @@ class CreateTagsAndRecordsTags < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    create_table :records_tags, id: false do |t|
+    create_table :records_tags do |t|
       t.belongs_to :tag
       t.belongs_to :record
 

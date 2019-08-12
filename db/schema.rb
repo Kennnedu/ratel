@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_121429) do
     t.index ["name"], name: "index_records_on_name"
   end
 
-  create_table "records_tags", id: false, force: :cascade do |t|
+  create_table "records_tags", force: :cascade do |t|
     t.bigint "tag_id"
     t.bigint "record_id"
     t.datetime "created_at", null: false

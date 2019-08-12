@@ -13,7 +13,8 @@ Dotenv.load
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
   belongs_to :card, required: true
-  has_and_belongs_to_many :tags
+  has_many :records_tags
+  has_many :tags, through: :records_tags
 
   # validates :name, :amount, :performed_at, :user_id, uniqueness: true, presence: true
 
@@ -29,9 +30,15 @@ end
 
 class Tag < ActiveRecord::Base
   belongs_to :user, required: true
-  has_and_belongs_to_many :records
+  has_many :records_tags
+  has_many :records, through: :records_tags
 
   # validates :name, :user_id, uniqueness: true, presence: true
+end
+
+class RecordsTag < ActiveRecord::Base
+  belongs_to :record
+  belongs_to :tag
 end
 
 class User < ActiveRecord::Base
