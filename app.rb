@@ -68,7 +68,7 @@ class RecordQuery
       exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
 
       if include_name_list.present?
-        @relation = @relation.where('name ILIKE ANY (array[?])', include_name_list)
+        @relation = @relation.where('records.name ILIKE ANY (array[?])', include_name_list)
       end
 
       if exclude_name_list.present?
@@ -90,23 +90,23 @@ class RecordQuery
     end
 
     if date_from = valid_date?(params['from'])
-      @relation = @relation.where('performed_at > ?', date_from + 1.day)
+      @relation = @relation.where('records.performed_at > ?', date_from + 1.day)
     end
 
     if date_to = valid_date?(params['to'])
-      @relation = @relation.where('performed_at < ?', date_to + 1.day)
+      @relation = @relation.where('records.performed_at < ?', date_to + 1.day)
     end
 
     self
   end
 
   def replenishments_data
-    @relation = @relation.where('amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
+    @relation = @relation.where('records.amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
     self
   end
 
   def expences_data
-    @relation = @relation.where('amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
+    @relation = @relation.where('records.amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
     self
   end
 
