@@ -106,7 +106,6 @@
     data: function(){
       return {
         active: false,
-        navigationMenuPages: ['Dashboard', 'Records'],
         isOpenNewRecordModal: false,
         isOpenRecordFilterModal: false,
         isOpenHtmlRecordsUploadModal: false

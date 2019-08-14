@@ -2,8 +2,11 @@
   <div id="ratel-app">
     <Login v-if="!logged" v-on:login="logged = true" />
     <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo" v-if="logged">
-      <Dashboard v-if="currentPage === 'Dashboard'"/>
-      <Statements v-show="currentPage === 'Records'"/>
+      <Dashboard
+        v-if="currentPage === 'Dashboard'"
+        v-bind:tableName="dashboardTable"
+        v-on:changeTable="table => dashboardTable = table" />
+      <Statements v-if="currentPage === 'Records'"/>
       <Cards v-if="currentPage === 'Cards'" />
     </Navigation>
   </div>
@@ -28,6 +31,7 @@
     data: function(){
       return {
         currentPage: 'Records',
+        dashboardTable: 'cards',
         logged: true
       }
     },

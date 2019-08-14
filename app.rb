@@ -13,14 +13,34 @@ Dotenv.load
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
   belongs_to :card, required: true
+  has_many :records_tags, dependent: :destroy
+  has_many :tags, through: :records_tags
 
-  validates_presence_of :name, :amount, :performed_at
+  # validates :name, :amount, :performed_at, :user_id, uniqueness: true, presence: true
+
+  accepts_nested_attributes_for :records_tags, allow_destroy: true
 
   def as_json
-    result = super(except: [:created_at, :updated_at, :user_id, :card_id], include: { card: { only: [:name, :id]}})
+    result = super(except: [:created_at, :updated_at, :user_id, :card_id],
+                   include: { card: { only: [:name, :id]},
+                              records_tags: { only: [:id, :tag_id],
+                                              include: { tag: { only: [:id, :name]}}}})
     return result if card
     result.merge(card: Card.new(id: 0, name: '').as_json(only: [:name, :id]))
   end
+end
+
+class Tag < ActiveRecord::Base
+  belongs_to :user, required: true
+  has_many :records_tags, dependent: :destroy
+  has_many :records, through: :records_tags
+
+  # validates :name, :user_id, uniqueness: true, presence: true
+end
+
+class RecordsTag < ActiveRecord::Base
+  belongs_to :record
+  belongs_to :tag
 end
 
 class User < ActiveRecord::Base
@@ -41,18 +61,18 @@ class RecordQuery
   end
 
   def filter(params)
-    @relation = @relation.left_joins(:card).includes(:card)
+    @relation = @relation.left_joins(:card).includes(:card, records_tags: [:tag])
 
     if params['name'].present?
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
       exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
 
       if include_name_list.present?
-        @relation = @relation.where('name ILIKE ANY (array[?])', include_name_list)
+        @relation = @relation.where('records.name ILIKE ANY (array[?])', include_name_list)
       end
 
       if exclude_name_list.present?
-        exclude_name_list.each { |name|  @relation = @relation.where.not('name ILIKE ?', name) }
+        exclude_name_list.each { |name|  @relation = @relation.where.not('records.name ILIKE ?', name) }
       end
     end
 
@@ -70,23 +90,43 @@ class RecordQuery
     end
 
     if date_from = valid_date?(params['from'])
-      @relation = @relation.where('performed_at > ?', date_from + 1.day)
+      @relation = @relation.where('records.performed_at > ?', date_from + 1.day)
     end
 
     if date_to = valid_date?(params['to'])
-      @relation = @relation.where('performed_at < ?', date_to + 1.day)
+      @relation = @relation.where('records.performed_at < ?', date_to + 1.day)
     end
 
+    self
+  end
+
+  def dashboard_table_data(table)
+    case table
+    when 'cards'
+      cards_data
+    when 'replenishments'
+      replenishments_data
+    when 'expenses'
+      expenses_data
+    when 'tags'
+      tags_data
+    else
+      self
+    end
+  end
+
+  def tags_data
+    @relation = @relation.joins(:tags).group('tags.name').order('sum_amount DESC').sum(:amount)
     self
   end
 
   def replenishments_data
-    @relation = @relation.where('amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
+    @relation = @relation.where('records.amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
     self
   end
 
-  def expences_data
-    @relation = @relation.where('amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
+  def expenses_data
+    @relation = @relation.where('records.amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
     self
   end
 
@@ -129,10 +169,15 @@ get '/records' do
   query_record = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
 
   json records: query_record.dup.perform_recent.relation.as_json,
-       total_sum: query_record.dup.relation.sum(:amount),
-       replenishments_data: query_record.dup.replenishments_data.relation.to_a,
-       expences_data: query_record.dup.expences_data.relation.to_a,
-       cards_data: query_record.dup.cards_data.relation.to_a
+       total_sum: query_record.dup.relation.sum(:amount)
+end
+
+get '/dashboard' do
+  session = auth_user
+  dashboard_table_data = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
+                                    .dashboard_table_data(params['dasboard_table'])
+
+  json dashboard_table: dashboard_table_data.relation.to_a
 end
 
 post '/records' do
@@ -215,7 +260,7 @@ post '/cards' do
   if card.save
     halt 200
   else
-    halt 400
+    halt 400, {'Content-Type' => 'application/json'}, { message: card.errors }.to_json
   end
 end
 
@@ -238,6 +283,23 @@ delete '/cards/:id' do |id|
     halt 200
   else
     halt 400
+  end
+end
+
+get '/tags' do
+  session = auth_user
+
+  json tags: Tag.where(user_id: session['user_id']).as_json(except: [:updated_at, :created_at])
+end
+
+post '/tags/:name' do |name|
+  session = auth_user
+
+  tag = Tag.find_or_create_by(name: name, user_id: session['user_id'])
+  if tag.errors.empty?
+    json tag: tag.as_json(except: [:updated_at, :created_at])
+  else
+    halt 400, {'Content-Type' => 'application/json'}, { message: tag.errors }.to_json
   end
 end
 

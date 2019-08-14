@@ -9,6 +9,9 @@
       </div>
       <div class="body"
            v-on:click="isOpenEditDialog = true">
+        <div class="tags">
+          <span v-for="recordsTag in record.records_tags">{{recordsTag.tag.name}}</span>
+        </div>
         <div class="card">{{ record.card.name }}</div>
         <div class="amount">{{ `${record.amount} BYN` }}</div>
         <div class="rest">{{ `${record.rest} BYN` }}</div>
@@ -109,5 +112,14 @@ export default {
 
   .record-card .head, .record-card .body .card, .record-card .body .performed-at, .record-card .body .rest {
     font-size: 13px;
+  }
+
+  .tags span {
+    font-size: 12px;
+    background-color: #ababa9;
+    padding: 3px;
+    color: white;
+    border-radius: 6px;
+    margin-right: 3px;
   }
 </style>
