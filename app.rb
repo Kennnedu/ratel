@@ -72,7 +72,7 @@ class RecordQuery
       end
 
       if exclude_name_list.present?
-        exclude_name_list.each { |name|  @relation = @relation.where.not('name ILIKE ?', name) }
+        exclude_name_list.each { |name|  @relation = @relation.where.not('records.name ILIKE ?', name) }
       end
     end
 
@@ -100,12 +100,32 @@ class RecordQuery
     self
   end
 
+  def dashboard_table_data(table)
+    case table
+    when 'cards'
+      cards_data
+    when 'replenishments'
+      replenishments_data
+    when 'expenses'
+      expenses_data
+    when 'tags'
+      tags_data
+    else
+      self
+    end
+  end
+
+  def tags_data
+    @relation = @relation.joins(:tags).group('tags.name').order('sum_amount DESC').sum(:amount)
+    self
+  end
+
   def replenishments_data
     @relation = @relation.where('records.amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
     self
   end
 
-  def expences_data
+  def expenses_data
     @relation = @relation.where('records.amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
     self
   end
@@ -149,10 +169,15 @@ get '/records' do
   query_record = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
 
   json records: query_record.dup.perform_recent.relation.as_json,
-       total_sum: query_record.dup.relation.sum(:amount),
-       replenishments_data: query_record.dup.replenishments_data.relation.to_a,
-       expences_data: query_record.dup.expences_data.relation.to_a,
-       cards_data: query_record.dup.cards_data.relation.to_a
+       total_sum: query_record.dup.relation.sum(:amount)
+end
+
+get '/dashboard' do
+  session = auth_user
+  dashboard_table_data = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
+                                    .dashboard_table_data(params['dasboard_table'])
+
+  json dashboard_table: dashboard_table_data.relation.to_a
 end
 
 post '/records' do
