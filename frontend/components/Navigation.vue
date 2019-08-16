@@ -26,6 +26,11 @@
               <font-awesome-icon icon="upload" /> Uploading
             </a>
           </li>
+          <li>
+            <a href="#" class="pure-menu-link" v-on:click="isOpenRecordBatchFormModal = true">
+              <font-awesome-icon icon="edit" /> Edit batch
+            </a>
+          </li>
           <li
             class="pure-menu-item menu-item-divided"
             v-bind:class="{'pure-menu-selected': currentPage === 'Dashboard'}">
@@ -83,6 +88,12 @@
         slot='body'
         v-on:close='isOpenRecordFilterModal = false'/>
     </ModalWindow>
+    <ModalWindow v-if="isOpenRecordBatchFormModal" v-on:close='isOpenRecordBatchFormModal = false'>
+      <h3 slot="header">Edit filtered records</h3>
+      <RecordBatchForm
+        slot='body'
+        v-on:save=''/>
+    </ModalWindow>
   </div>
 </template>
 
@@ -92,14 +103,21 @@
   import RecordForm from './statements/RecordForm.vue'
   import RecordFilter from './statements/RecordFilter.vue'
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
+  import RecordBatchForm from './statements/RecordBatchForm.vue'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faUpload, faPlus, faFilter, faTachometerAlt, faReceipt, faCreditCard } from '@fortawesome/free-solid-svg-icons'
+  import { faUpload, faPlus, faFilter, faTachometerAlt, faReceipt, faCreditCard, faEdit } from '@fortawesome/free-solid-svg-icons'
   import { mapState, mapActions } from 'vuex'
 
-  library.add(faUpload, faPlus, faFilter, faTachometerAlt, faReceipt, faCreditCard)
+  library.add(faUpload, faPlus, faFilter, faTachometerAlt, faReceipt, faCreditCard, faEdit)
 
   export default {
-    components: { ModalWindow, RecordForm, HtmlRecordsUploadForm, RecordFilter },
+    components: { 
+      ModalWindow,
+      RecordForm,
+      HtmlRecordsUploadForm,
+      RecordFilter,
+      RecordBatchForm 
+    },
 
     props: ['currentPage'],
 
@@ -108,7 +126,8 @@
         active: false,
         isOpenNewRecordModal: false,
         isOpenRecordFilterModal: false,
-        isOpenHtmlRecordsUploadModal: false
+        isOpenHtmlRecordsUploadModal: false,
+        isOpenRecordBatchFormModal: false
       }
     },
 

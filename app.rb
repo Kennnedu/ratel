@@ -227,6 +227,18 @@ post '/records/bulk' do
   end
 end
 
+put '/records/batch' do
+  session = auth_user
+  filtered_records = RecordQuery.new.belongs_to_user(session['user_id']).filter(params).relation
+
+  binding.pry
+  # filtered_records.find_each(batch: 30) do |record|
+  #   record.update(params[:batch_form])
+  # end
+
+  halt 200
+end
+
 put '/records/:id' do |id|
   auth_user
   updating_attributes = JSON.parse(request.body.read)['record']

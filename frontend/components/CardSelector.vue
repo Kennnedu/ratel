@@ -1,6 +1,6 @@
 <template>
   <select
-    required
+    v-bind:required="required"
     v-model="currentCardId"
     v-on:change="$emit('selectCard', cards.filter(card => currentCardId === card.id)[0])">
     <option
@@ -16,7 +16,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  props: ['card'],
+  props: ['card', 'required'],
 
   data: function(){
     return {

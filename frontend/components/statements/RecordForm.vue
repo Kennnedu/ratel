@@ -10,6 +10,7 @@
       <label for="record-card">Card</label>
 
       <CardSelector
+        v-bind:required="true"
         v-bind:card="currentRecord.card"
         v-on:selectCard="newCard => currentRecord.card = newCard"/>
 
