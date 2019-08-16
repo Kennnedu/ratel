@@ -92,7 +92,7 @@
       <h3 slot="header">Edit filtered records</h3>
       <RecordBatchForm
         slot='body'
-        v-on:save=''/>
+        v-on:close='isOpenRecordBatchFormModal = false'/>
     </ModalWindow>
   </div>
 </template>

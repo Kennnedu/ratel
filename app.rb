@@ -229,12 +229,14 @@ end
 
 put '/records/batch' do
   session = auth_user
-  filtered_records = RecordQuery.new.belongs_to_user(session['user_id']).filter(params).relation
+  
+  filtered_records = RecordQuery.new.belongs_to_user(session['user_id']).filter(params['filter']).relation
 
-  binding.pry
-  # filtered_records.find_each(batch: 30) do |record|
-  #   record.update(params[:batch_form])
-  # end
+  filtered_records.each { |record| record.update(params[:batch_form]) }
+
+  if params['removing_tag_ids']
+    RecordsTag.where(record_id: filtered_records.map(&:id), tag_id: params[:removing_tag_ids]).destroy_all
+  end
 
   halt 200
 end
