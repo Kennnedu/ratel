@@ -7,6 +7,8 @@ ruby '2.6.0'
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 # The bcrypt Ruby gem provides a simple wrapper for safely handling passwords.
 gem 'bcrypt'
+# Debugging in Ruby 2
+gem 'byebug'
 # A Ruby gem to load environment variables from `.env`.
 gem 'dotenv'
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
@@ -15,8 +17,6 @@ gem 'jwt'
 gem 'nokogiri'
 # The 'pg' Ruby library, an interface to the PostgreSQL Relational Database Management System.
 gem 'pg'
-# A runtime developer console and IRB alternative with powerful introspection capabilities.
-gem 'pry', '~> 0.12.2'
 # A make-like build utility for Ruby. https://ruby.github.io/rake
 gem 'rake'
 # Classy web-development dressed in a DSL (official / canonical repo) http://www.sinatrarb.com/

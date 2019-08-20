@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/cookies'
 require 'sinatra/activerecord'
-require 'pry'
+require 'byebug'
 require 'jwt'
 require 'dotenv'
 
@@ -227,6 +227,20 @@ post '/records/bulk' do
   end
 end
 
+put '/records/batch' do
+  session = auth_user
+
+  filtered_records = RecordQuery.new.belongs_to_user(session['user_id']).filter(params).relation
+
+  filtered_records.each { |record| record.update(params['batch_form']) } if params['batch_form']
+
+  if params['removing_tag_ids']
+    RecordsTag.where(record_id: filtered_records.map(&:id), tag_id: params['removing_tag_ids']).destroy_all
+  end
+
+  halt 200
+end
+
 put '/records/:id' do |id|
   auth_user
   updating_attributes = JSON.parse(request.body.read)['record']
@@ -236,6 +250,14 @@ put '/records/:id' do |id|
   else
     halt 400, {'Content-Type' => 'application/json'}, { message: record.errors }.to_json
   end
+end
+
+delete '/records/batch' do
+  session = auth_user
+  
+  RecordQuery.new.belongs_to_user(session['user_id']).filter(params).relation.destroy_all
+  
+  halt 200
 end
 
 delete '/records/:id' do |id|
