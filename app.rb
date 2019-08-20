@@ -2,7 +2,7 @@ require 'sinatra'
 require 'sinatra/json'
 require 'sinatra/cookies'
 require 'sinatra/activerecord'
-require 'pry'
+require 'byebug'
 require 'jwt'
 require 'dotenv'
 
