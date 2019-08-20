@@ -24,7 +24,11 @@
       class="pure-button pure-button-primary"
       v-bind:disabled="!validBatchForm"
       v-bind:value="submitButtonName" />
-    <input type="button" class="pure-button button-error" value="Destroy All" />
+    <input
+      type="button"
+      class="pure-button button-error"
+      v-on:click="destroyRecords"
+      value="Destroy All" />
   </form>
 </template>
 <script>
@@ -69,7 +73,7 @@ export default {
       e.preventDefault();
       this.submitButtonName = 'Saving...'
 
-      axios.put('/records/batch', this.sendingParams())
+      axios.put('/records/batch', this.submitFormParams())
         .then(res => {
           this.submitButtonName = 'Apply changes';
           this.fetchRecords();
@@ -78,11 +82,24 @@ export default {
         .catch(err => console.log(err))
     },
 
-    sendingParams() {
+    destroyRecords(e) {
+      e.preventDefault();
+
+      if (!confirm('Are you sure do you want tor remove all selected records?')) return null;
+    
+      axios({url: '/records/batch', method: 'delete', params: this.filter })
+        .then(res => {
+          this.fetchRecords();
+          this.$emit('close');
+        })
+        .catch(err => console.log(err));  
+    },
+
+    submitFormParams() {
       const { batchForm, filter } = this
       let fd = new FormData();
 
-      Object.keys(filter).forEach(el => fd.append(`filter[${el}]`, filter[el]));
+      Object.keys(filter).forEach(el => fd.append(el, filter[el]));
 
       if(batchForm.name.length > 0) fd.append('batch_form[name]', batchForm.name)
       if(batchForm.card.id) fd.append('batch_form[card_id]', batchForm.card.id)
