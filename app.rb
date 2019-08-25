@@ -296,7 +296,9 @@ end
 get '/tags' do
   session = auth_user
 
-  json tags: Tag.where(user_id: session['user_id']).as_json(except: [:updated_at, :created_at])
+  json tags: Tag.where(user_id: session['user_id'])
+                .where('name ILIKE ?', "%#{params[:keyword]}%")
+                .as_json(except: [:updated_at, :created_at])
 end
 
 post '/tags/:name' do |name|

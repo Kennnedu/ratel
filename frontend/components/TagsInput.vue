@@ -12,8 +12,13 @@
     <input
       type="text"
       placeholder="Press space to add new tag"
+      list="suggested-tags"
       v-model="tagName"
       v-on:keyup.space="addRecordsTag" />
+
+    <datalist id="suggested-tags">
+      <option v-for="tag in suggestedTags">{{tag.name}}</option>
+    </datalist>
   </div>
 </template>
 <script>
@@ -28,13 +33,25 @@ export default {
 
   data: function(){
     return {
-      tagName: ''
+      tagName: '',
+      suggestedTags: []
     }
   },
 
   computed: {
     displayingRecordsTags() {
       return this.recordsTags.filter(recTag => !recTag._destroy)
+    }
+  },
+
+  watch: {
+    tagName(oldVal, newVal) {
+      if(newVal.length === 0) {
+        this.suggestedTags = [];
+        return null;
+      }
+
+      this.findSuggestions(newVal)
     }
   },
 
@@ -48,6 +65,14 @@ export default {
           _this.$emit('change', [..._this.recordsTags, ...[Object.assign({tag_id: resp.data.tag.id}, resp.data)] ]);
         })
         .catch(error => console.log(error.error))
+    },
+
+    findSuggestions(keyword) {
+      const _this = this;
+
+      axios.get('/tags', { params: {keyword: keyword} })
+        .then(resp => this.suggestedTags = resp.data.tags)
+        .catch(err => console.log(err.error))
     },
 
     deleteRecordsTag(removingRecordsTag) {

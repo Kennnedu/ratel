@@ -8,3 +8,4 @@ config/database.yml
 node_modules/
 .env
 latest.dump
+.byebug_history
