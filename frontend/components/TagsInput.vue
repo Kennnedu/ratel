@@ -45,7 +45,7 @@ export default {
   },
 
   watch: {
-    tagName(oldVal, newVal) {
+    tagName(newVal, oldVal) {
       if(newVal.length === 0) {
         this.suggestedTags = [];
         return null;
