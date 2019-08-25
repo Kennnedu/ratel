@@ -9,6 +9,7 @@
       <label> Remove Tags </label>
       <TagsInput
         v-bind:recordsTags="batchForm.removeRecordsTags"
+        v-bind:defaultDatalistID="'suggested-removing-tags'"
         v-on:change="newRecordsTags => batchForm.removeRecordsTags = newRecordsTags" />
       <label for="record-batch-name">Operation</label>
       <input type="text" id="record-batch" placeholder="Enter operation" v-model.trim="batchForm.name">

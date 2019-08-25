@@ -12,11 +12,11 @@
     <input
       type="text"
       placeholder="Press space to add new tag"
-      list="suggested-tags"
       v-model="tagName"
-      v-on:keyup.space="addRecordsTag" />
+      v-on:keyup.space="addRecordsTag"
+      v-bind:list="dataListId" />
 
-    <datalist id="suggested-tags">
+    <datalist v-bind:id="dataListId">
       <option v-for="tag in suggestedTags" v-bind:key="tag.id">{{tag.name}}</option>
     </datalist>
   </div>
@@ -29,7 +29,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 library.add(faTimesCircle)
 
 export default {
-  props: ['recordsTags'],
+  props: ['recordsTags', 'defaultDatalistID'],
 
   data: function(){
     return {
@@ -41,6 +41,10 @@ export default {
   computed: {
     displayingRecordsTags() {
       return this.recordsTags.filter(recTag => !recTag._destroy)
+    },
+
+    dataListId(){
+      return this.defaultDatalistID || 'suggested-tags'
     }
   },
 

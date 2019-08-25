@@ -61,7 +61,7 @@ class RecordQuery
   end
 
   def filter(params)
-    @relation = @relation.left_joins(:card).includes(:card, records_tags: [:tag])
+    @relation = @relation.left_joins(:card)
 
     if params['name'].present?
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
@@ -140,6 +140,11 @@ class RecordQuery
     self
   end
 
+  def preload_ref
+    @relation = @relation.includes(:card, records_tags: [:tag])
+    self
+  end
+
   def perform_recent
     @relation = @relation.order(performed_at: :desc)
     self
@@ -168,7 +173,7 @@ get '/records' do
   session = auth_user
   query_record = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
 
-  json records: query_record.dup.perform_recent.relation.as_json,
+  json records: query_record.dup.perform_recent.preload_ref.relation.as_json,
        total_sum: query_record.dup.relation.sum(:amount)
 end
 
