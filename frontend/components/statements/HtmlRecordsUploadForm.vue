@@ -36,37 +36,24 @@
     },
 
     methods: {
-      ...mapActions(['fetchRecords']),
+      ...mapActions(['fetchRecords', 'fetchCards']),
 
       submitForm(){
         let _this = this;
         _this.errors = [];
 
-        _this.saveButtonName = 'Parsing...';
+        _this.saveButtonName = 'Saving...';
 
-        axios.post('/records/bulk/parse', { html_table: _this.htmlTable })
-          .then(function(response){
-            _this.saveButtonName = 'Validating...';
-            console.log(response);
-
-            axios.post('/records/bulk/validate', { records: response.data.records })
-              .then(function(response){
-                console.log(response);
-                _this.saveButtonName = 'Saving...';
-
-                axios.post('/records/bulk', { records: response.data.records })
-                  .then(response => {
-                    console.log(response);
-                    _this.saveButtonName = 'Upload';
-                    _this.htmlTable = '';
-                    _this.fetchRecords();
-                    _this.$emit('save');
-                  })
-                  .catch(error => _this.errorHandler(error.response));
-              })
-              .catch(error => _this.errorHandler(error.response));
+        axios.post('/records/bulk', { html_table: _this.htmlTable })
+          .then(res => {
+            console.log(res);
+            _this.saveButtonName = 'Upload';
+            _this.htmlTable = '';
+            _this.fetchRecords();
+            _this.fetchCards()
+            _this.$emit('save');
           })
-          .catch(error => _this.errorHandler(error.response));
+          .catch(err => _this.errorHandler(err.response));
       },
 
       errorHandler(response){

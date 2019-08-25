@@ -190,34 +190,19 @@ post '/records' do
   end
 end
 
-post '/records/bulk/parse' do
-  auth_user
-  parser = StatementTableParser.new(JSON.parse(request.body.read)['html_table'])
-  if parser.parse!
-    json records: parser.result
-  else
-    halt 400, {'Content-Type' => 'application/json'}, { message: 'Incorrect format!' }.to_json
-  end
-end
-
-post '/records/bulk/validate' do
-  session = auth_user
-  new_records_json = JSON.parse(request.body.read)['records']
-  new_records = Array.new(new_records_json.size) { Record.new(user_id: session['user_id'] ) }
-  new_records.each_with_index { |record, index| record.assign_attributes(new_records_json[index]) }
-  unless new_records.map(&:valid?).include?(false)
-    json records: new_records_json
-  else
-    halt 400,
-      {'Content-Type' => 'application/json'},
-      { message: new_records.map(&:errors).map(&:full_messages).map { |m| m.join(', ') } }.to_json
-  end
-end
-
 post '/records/bulk' do
   session = auth_user
-  new_records_json = JSON.parse(request.body.read)['records']
-  saved_records = new_records_json.map { |record| Record.find_or_create_by(record.merge(user_id: session['user_id'])) }
+
+  parser = StatementTableParser.new(JSON.parse(request.body.read)['html_table'])
+
+  halt(400, {'Content-Type' => 'application/json'}, { message: 'Incorrect format!' }.to_json) unless parser.parse!
+
+  saved_records = parser.result.map do |record|
+    card = Card.find_or_create_by(name: record['card'], user_id: session['user_id'])
+    record.delete :card
+    Record.find_or_create_by(record.merge(user_id: session['user_id'], card: card))
+  end
+
   unless saved_records.map(&:valid?).include?(false)
     halt 200
   else
