@@ -17,7 +17,7 @@
       v-on:keyup.space="addRecordsTag" />
 
     <datalist id="suggested-tags">
-      <option v-for="tag in suggestedTags">{{tag.name}}</option>
+      <option v-for="tag in suggestedTags" v-bind:key="tag.id">{{tag.name}}</option>
     </datalist>
   </div>
 </template>
