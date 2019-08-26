@@ -1,22 +1,18 @@
 <template>
   <div>
-    <!-- <input
-      type="text"
-      placeholder="Press space to add new tag"
-      list="suggested-tags"
-      v-model="tagName"
-      v-on:keyup.space="addRecordsTag" />
- -->
-    <label for="record-name">Operation</label>
-    <input
+    <input 
       type="text"
       id="record-name"
       placeholder="Enter operation"
-      v-model.trim="currentRecord.name"
+      v-bind:value="recordName"
+      v-on:input="e => $emit('change', e.target.value)"
+      list="suggested-record-names"
       required />
 
     <datalist id="suggested-record-names">
-      <option v-for="recName in suggestedRecordNames" v-bind:key="recName" v-bind:value="recName" />
+      <option v-for="recName in suggestedRecordNames">
+        {{recName}}
+      </option>
     </datalist>
   </div>
 </template>
@@ -33,21 +29,25 @@ export default {
   },
 
   watch: {
+    recordName(newVal, oldVal) {
+      if(newVal.length === 0) {
+        this.suggestedRecordNames = [];
+        return null;
+      }
+      this.findSuggestions(newVal);
+    }
+  },
 
+  methods: {
+    findSuggestions(keyword) {
+      axios.get('/records/names', {params: { keyword: keyword }})
+        .then(resp => {
+          this.suggestedRecordNames = resp.data.record_names
+          })
+        .catch(err => console.log(err.error));
+    }
   }
 }
 </script>
 <style lang="css" scoped>
-  .tags span {
-    font-size: 13px;
-    background-color: #ababa9;
-    padding: 3px;
-    color: white;
-    border-radius: 6px;
-    margin-right: 3px;
-  }
-
-  .tags span svg {
-    margin-left: 2px;
-  }
 </style>

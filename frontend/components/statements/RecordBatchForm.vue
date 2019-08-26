@@ -11,8 +11,11 @@
         v-bind:recordsTags="batchForm.removeRecordsTags"
         v-bind:defaultDatalistID="'suggested-removing-tags'"
         v-on:change="newRecordsTags => batchForm.removeRecordsTags = newRecordsTags" />
+
       <label for="record-batch-name">Operation</label>
-      <input type="text" id="record-batch" placeholder="Enter operation" v-model.trim="batchForm.name">
+      <RecordNameInput
+        v-bind:recordName="batchForm.name"
+        v-on:change="newName => batchForm.name = newName" />
     
       <label>Card</label>
       <CardSelector
@@ -37,11 +40,13 @@ import axios from 'axios'
 import { mapState, mapActions } from 'vuex'
 import TagsInput from '../TagsInput.vue'
 import CardSelector from '../CardSelector.vue'
+import RecordNameInput from '../RecordNameInput.vue'
 
 export default {
   components: {
     TagsInput,
-    CardSelector
+    CardSelector,
+    RecordNameInput
   },
 
   data: function() {
