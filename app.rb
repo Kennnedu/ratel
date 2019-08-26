@@ -177,6 +177,16 @@ get '/records' do
        total_sum: query_record.dup.relation.sum(:amount)
 end
 
+get '/records/names' do
+  session = auth_user
+
+  json record_names: Record.select(:name).distinct
+                           .where(user_id: session['user_id'])
+                           .where('name ILIKE ?', "%#{params[:keyword]}%")
+                           .limit(30)
+                           .pluck(:name)
+end
+
 get '/dashboard' do
   session = auth_user
   dashboard_table_data = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)

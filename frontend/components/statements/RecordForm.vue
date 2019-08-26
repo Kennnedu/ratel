@@ -4,11 +4,13 @@
       <TagsInput
         v-bind:recordsTags="currentRecord.records_tags"
         v-on:change="newRecordsTags => currentRecord.records_tags = newRecordsTags" />
+
       <label for="record-name">Operation</label>
-      <input type="text" id="record-name" placeholder="Enter operation" required v-model.trim="currentRecord.name">
+      <RecordNameInput
+        v-bind:recordName="currentRecord.name"
+        v-on:change="newName => currentRecord.name = newName" />
 
       <label for="record-card">Card</label>
-
       <CardSelector
         v-bind:required="true"
         v-bind:card="currentRecord.card"
@@ -39,6 +41,7 @@
   import { mapActions } from 'vuex'
   import CardSelector from '../CardSelector.vue'
   import TagsInput from '../TagsInput.vue'
+  import RecordNameInput from '../RecordNameInput.vue'
 
   const emptyNewRecord = () => {
     return {
@@ -60,7 +63,7 @@
   }
 
   export default {
-    components: { CardSelector, TagsInput },
+    components: { CardSelector, TagsInput, RecordNameInput },
 
     props: ['record'],
 
