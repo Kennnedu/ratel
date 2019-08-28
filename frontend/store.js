@@ -8,7 +8,7 @@ Vue.use(Vuex)
 const defaultFilter = {
   name: "",
   card: "",
-  from: moment().set('month', moment().get('month') - 1).format('YYYY-MM-DD'),
+  from: moment().set('year', moment().get('year') - 1).format('YYYY-MM-DD'),
   to: moment().format('YYYY-MM-DD')
 }
 
@@ -16,12 +16,13 @@ export default new Vuex.Store({
   state: {
     records: [],
     totalSum: 0,
+    totalRecords: 0,
     filter: defaultFilter,
     cards: []
   },
 
   getters: {
-    totalCount: state => {
+    recordsCount: state => {
       return state.records.length
     }
   },
@@ -29,6 +30,10 @@ export default new Vuex.Store({
   mutations: {
     updateRecords(state, payload) {
       state.records = payload.records
+    },
+
+    updateTotalRecords(state, payload) {
+      state.totalRecords = payload.totalRecords
     },
 
     updateCards(state, payload) {
@@ -53,12 +58,13 @@ export default new Vuex.Store({
   },
 
   actions: {
-    fetchRecords(context){
+    fetchRecords({ commit, state }, offset){
       return new Promise((resolve, reject) => {
-        axios.get('/records', { params: context.state.filter})
+        axios.get('/records', { params: Object.assign({}, state.filter, { offset: offset})})
         .then(data => {
-          context.commit('updateRecords', { records: data.data.records });
-          context.commit('updateTotalSum', { totalSum: data.data.total_sum });
+          commit('updateRecords', { records: data.data.records });
+          commit('updateTotalSum', { totalSum: data.data.total_sum });
+          commit('updateTotalRecords', { totalRecords: data.data.total_count })
           resolve();
         })
         .catch(error => {

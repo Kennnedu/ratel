@@ -173,8 +173,9 @@ get '/records' do
   session = auth_user
   query_record = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
 
-  json records: query_record.dup.perform_recent.preload_ref.relation.as_json,
-       total_sum: query_record.dup.relation.sum(:amount)
+  json records: query_record.dup.perform_recent.preload_ref.relation.limit(params[:offset] || 30).as_json,
+       total_sum: query_record.dup.relation.sum(:amount),
+       total_count: query_record.dup.relation.count
 end
 
 get '/records/names' do
