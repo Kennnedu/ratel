@@ -108,31 +108,24 @@
       createNewRecord(){
         let _this = this;
         _this.saveButtonName = 'Saving...'
+
         axios.post('/records', { record: _this.savingRecord })
-        .then(function(resp){
+        .then((resp) => {
           _this.$emit("save");
           _this.fetchRecords()
-          Object.assign(_this.currentRecord, emptyNewRecord());
         })
-        .catch(function(error){
-          console.log(error.response)
-        })
-        .then(function(){
-          _this.saveButtonName = 'Save'
-        })
+        .catch(err => console.log(err.response))
+        .then(() => _this.saveButtonName = 'Save')
       },
 
       updateExistingRecord(){
         let _this = this;
         _this.saveButtonName = 'Updating...';
-        axios.put(`/records/${_this.currentRecord.id}`, { record: _this.savingRecord }).then(function(res){
-          _this.$emit("save");
-          _this.fetchRecords()
-        }).catch(function(error){
-          console.log(error.response)
-        }).then(function(){
-          _this.saveButtonName = 'Update'
-        });
+
+        axios.put(`/records/${_this.currentRecord.id}`, { record: _this.savingRecord })
+          .then(res => _this.$emit("save"))
+          .catch(err => console.log(err.response))
+          .then(() => _this.saveButtonName = 'Update');
       }
     }
   }

@@ -9,7 +9,7 @@
     </a>
     <div id="menu" v-bind:class="{active: active}">
       <div class="pure-menu">
-        <a class="pure-menu-heading" href="#" v-on:click="fetchRecords">Ratel</a>
+        <a class="pure-menu-heading" href="#" v-on:click="() => this.fetchRecords()">Ratel</a>
         <ul class="pure-menu-list">
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link" v-on:click="isOpenNewRecordModal = true">
