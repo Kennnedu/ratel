@@ -8,6 +8,7 @@
       <label for="record-name">Operation</label>
       <RecordNameInput
         v-bind:recordName="currentRecord.name"
+        v-bind:isRequired="true"
         v-on:change="newName => currentRecord.name = newName" />
 
       <label for="record-card">Card</label>

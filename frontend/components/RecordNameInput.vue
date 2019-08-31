@@ -7,7 +7,7 @@
       v-bind:value="recordName"
       v-on:input="e => $emit('change', e.target.value)"
       list="suggested-record-names"
-      required />
+      v-bind:required="isRequired" />
 
     <datalist id="suggested-record-names">
       <option v-for="recName in suggestedRecordNames">
@@ -20,7 +20,7 @@
 import axios from 'axios'
 
 export default {
-  props: ['recordName'],
+  props: ['recordName', 'isRequired'],
 
   data: function(){
     return {
