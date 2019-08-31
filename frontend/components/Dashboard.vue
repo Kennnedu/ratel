@@ -1,41 +1,41 @@
 <template>
   <div class="content">
-  <div class="pure-menu pure-menu-horizontal">
-    <ul class="pure-menu-list">
-      <li class="pure-menu-item">
-        <a
-          href="#"
-          class="pure-menu-link"
-          v-on:click="() => $emit('changeTable', 'cards')">
-          Cards
-        </a>
-      </li>
-      <li class="pure-menu-item">
-        <a
-          href="#"
-          class="pure-menu-link"
-          v-on:click="() => $emit('changeTable', 'tags')">
-          Tags
-        </a>
-      </li>
-      <li class="pure-menu-item">
-        <a
-          href="#"
-          class="pure-menu-link"
-          v-on:click="() => $emit('changeTable', 'replenishments')">
-          Replenishments
-        </a>
-      </li>
-      <li class="pure-menu-item">
-        <a
-          href="#"
-          class="pure-menu-link"
-          v-on:click="() => $emit('changeTable', 'expenses')">
-          Expenses
-        </a>
-      </li>
-    </ul>
-  </div>
+    <div class="pure-menu pure-menu-horizontal">
+      <ul class="pure-menu-list">
+        <li class="pure-menu-item">
+          <a
+            href="#"
+            class="pure-menu-link"
+            v-on:click="tableName = 'cards'">
+            Cards
+          </a>
+        </li>
+        <li class="pure-menu-item">
+          <a
+            href="#"
+            class="pure-menu-link"
+            v-on:click="tableName = 'tags'">
+            Tags
+          </a>
+        </li>
+        <li class="pure-menu-item">
+          <a
+            href="#"
+            class="pure-menu-link"
+            v-on:click="tableName = 'replenishments'">
+            Replenishments
+          </a>
+        </li>
+        <li class="pure-menu-item">
+          <a
+            href="#"
+            class="pure-menu-link"
+            v-on:click="tableName = 'expenses'">
+            Expenses
+          </a>
+        </li>
+      </ul>
+    </div>
     <div class="pure-g">
       <div class="pure-u-1">
         <h3>{{`${tableTitle} sum`}}</h3>
@@ -66,7 +66,8 @@
 
     data: function() {
       return {
-        tableData: []
+        tableData: [],
+        tableName: 'cards'
       }
     },
 
