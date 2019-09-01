@@ -1,24 +1,26 @@
 <template>
-  <div class="content">
-    <form class="pure-form"
-          v-on:submit="submitForm"
-          v-bind:class="{'has-error-animation': hasError}">
-      <h1>Log In</h1>
-      <fieldset class="pure-group">
-        <input type="text" name="username" placeholder="Username" required v-model="username" />
-      </fieldset>
-      <fieldset class="pure-group">
-        <input type="password" name="password" placeholder="Password" required v-model.password="password" />
-      </fieldset>
+  <section id="content">
+    <main>
+      <form class="pure-form"
+            v-on:submit="submitForm"
+            v-bind:class="{'has-error-animation': hasError}">
+        <h1>Log In</h1>
+        <fieldset class="pure-group">
+          <input type="text" name="username" placeholder="Username" required v-model="username" />
+        </fieldset>
+        <fieldset class="pure-group">
+          <input type="password" name="password" placeholder="Password" required v-model.password="password" />
+        </fieldset>
 
-      <fieldset class="pure-group">
-        <label for="remember" class="pure-checkbox">
-          <input id="remember" type="checkbox" v-model="secureLogin" /> Secure Login
-        </label>
-      </fieldset>
-      <input type="submit" class="pure-button pure-button-primary" value="Login" />
-    </form>
-  </div>
+        <fieldset class="pure-group">
+          <label for="remember" class="pure-checkbox">
+            <input id="remember" type="checkbox" v-model="secureLogin" /> Secure Login
+          </label>
+        </fieldset>
+        <input type="submit" class="pure-button pure-button-primary" value="Login" />
+      </form>
+    </main>
+  </section>
 </template>
 <script>
   import axios from 'axios'
@@ -53,8 +55,8 @@
   }
 </script>
 <style lang="css" scoped>
-  .content {
-    height: calc(100vh - 50px);
+  #content main{
+    height: 85vh;
     display: flex;
     align-items: center;
   }

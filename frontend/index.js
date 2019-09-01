@@ -1,5 +1,5 @@
 import 'purecss'
-import './stylesheets/pure_responsive_grid.css'
+import './stylesheets/responsive_grid.css'
 import Vue from 'vue'
 import store from './store.js'
 import RatelApp from './RatelApp.vue'

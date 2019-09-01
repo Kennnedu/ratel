@@ -1,40 +1,40 @@
 <template>
-  <div id="ratel-app">
+  <main id="ratel-app">
+    <Header v-if="logged" />
     <Login v-if="!logged" v-on:login="logged = true" />
-    <Navigation v-bind:current-page="currentPage" v-on:navigateTo="navigateTo" v-if="logged">
-      <Dashboard
-        v-if="currentPage === 'Dashboard'"
-        v-bind:tableName="dashboardTable"
-        v-on:changeTable="table => dashboardTable = table" />
-      <Statements v-if="currentPage === 'Records'"/>
-      <Cards v-if="currentPage === 'Cards'" />
-    </Navigation>
-  </div>
+    <Records v-else-if="currentPage === 'Records'" v-on:navigateTo="navigateTo"/>
+    <GroupedBy v-else-if="currentPage === 'Dashboard'" v-on:navigateTo="navigateTo" />
+  </main>
 </template>
 
 <script>
-  import Navigation from './components/Navigation.vue'
-  import Statements from './components/Statements.vue'
-  import Dashboard from './components/Dashboard.vue'
-  import Cards from './components/Cards.vue'
+  import Records from './components/Records.vue'
+  import GroupedBy from './components/GroupedBy.vue'
+  import Header from './components/Header.vue'
   import Login from './components/Login.vue'
+  import { mapState, mapActions } from 'vuex'
   import axios from 'axios'
+  import lodash from 'lodash'
 
   export default {
     components: {
-      Navigation,
-      Statements,
-      Dashboard,
-      Cards,
-      Login
+      Records,
+      GroupedBy,
+      Login,
+      Header
     },
+
     data: function(){
       return {
         currentPage: 'Records',
-        dashboardTable: 'cards',
         logged: true
       }
     },
+
+    computed: {
+      ...mapState(['filter'])
+    },
+
     created() {
       let _this = this;
 
@@ -45,7 +45,23 @@
         return Promise.reject(error);
       })
     },
+
+    mounted() {
+      this.debouncedFetchRecords = _.debounce(this.fetchRecords, 500);
+    },
+
+    watch: {
+      filter: {
+        handler: function(){
+          this.debouncedFetchRecords()
+        },
+        deep: true
+      }
+    },
+
     methods: {
+      ...mapActions(['fetchRecords']),
+
       navigateTo: function(page){
         this.currentPage = page
       }

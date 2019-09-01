@@ -32,7 +32,7 @@
     <input type="button"
            class="pure-button button-error"
            value="Delete"
-           v-on:click="$emit('destroy')"
+           v-on:click="destroy"
            v-if="currentRecord.id"/>
   </form>
 </template>
@@ -124,9 +124,23 @@
         _this.saveButtonName = 'Updating...';
 
         axios.put(`/records/${_this.currentRecord.id}`, { record: _this.savingRecord })
-          .then(res => _this.$emit("save"))
+          .then(res => {
+            _this.fetchRecords();
+            _this.$emit("save");
+          })
           .catch(err => console.log(err.response))
           .then(() => _this.saveButtonName = 'Update');
+      },
+
+      destroy() {
+        const _this = this;
+
+        axios.delete(`/records/${_this.record.id}`)
+          .then(res => {
+            _this.fetchRecords();
+            _this.$emit('save');
+          })
+          .catch(err => console.log(err.response));
       }
     }
   }
