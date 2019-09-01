@@ -1,0 +1,38 @@
+.content {
+  margin: 0 auto;
+  padding: 0 10px;
+  max-width: 800px;
+  margin-bottom: 50px;
+  line-height: 1.6em;
+}
+
+body {
+  color: #777;
+  overflow-y: hidden;
+}
+
+#ratel-app {
+  height: 100vh;
+  display: grid;
+  grid-template-areas:
+  "header header header"
+  " . content .";
+  grid-template-rows: 6vh 94vh;
+  grid-template-columns: 1fr 900px 1fr;
+  grid-gap: 10px; 
+}
+
+ @media (max-width: 1024px) {
+  #ratel-app {
+    grid-template-columns: 0 1fr 0;
+  }
+}
+
+
+#header {
+  grid-area: header;
+}
+
+#content {
+  grid-area: content;
+}

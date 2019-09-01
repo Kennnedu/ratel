@@ -1,68 +1,39 @@
 <template>
-  <div class="pure-u-1 pure-u-md-1-3">
-    <div class="record-card"
-         v-bind:class="{ positive: record.amount > 0 }">
-      <div class="head">
-        <span v-on:click="filterByTheName">
-          {{ record.name }}
-        </span>
-      </div>
-      <div class="body"
-           v-on:click="isOpenEditDialog = true">
-        <div class="tags">
-          <span v-for="recordsTag in record.records_tags">{{recordsTag.tag.name}}</span>
-        </div>
-        <div class="card">{{ record.card.name }}</div>
-        <div class="amount">{{ `${record.amount} BYN` }}</div>
-        <div class="rest">{{ `${record.rest} BYN` }}</div>
-        <div class="performed-at">{{ moment(record.performed_at).format('lll') }}</div>
-      </div>
-    </div>
-    <ModalWindow v-if="isOpenEditDialog" v-on:close="isOpenEditDialog = false">
-      <h3 slot="header">Edit {{record.name}} record</h3>
-      <RecordForm slot="body" v-bind:record="record" v-on:destroy="destroy" v-on:save="hasChanges" />
-    </ModalWindow>
-  </div>
+  <article class="record-card"
+       v-on:click="$emit('click')"
+       v-bind:class="{ positive: record.amount > 0 }">
+    <header class="head">
+      <span v-on:click="filterByTheName">
+        {{ record.name }}
+      </span>
+    </header>
+    <main class="body"
+         v-on:click="isOpenEditDialog = true">
+      <section class="tags">
+        <span v-for="recordsTag in record.records_tags">{{recordsTag.tag.name}}</span>
+      </section>
+      <section class="card">{{ record.card.name }}</section>
+      <section class="amount">{{ `${record.amount} BYN` }}</section>
+      <section class="rest">{{ `${record.rest} BYN` }}</section>
+      <section class="performed-at">{{ moment(record.performed_at).format('lll') }}</section>
+    </main>
+  </article>
 </template>
 <script>
 import moment from 'moment'
-import axios from 'axios'
-import ModalWindow from '../ModalWindow.vue'
-import RecordForm from './RecordForm.vue'
-import { mapActions, mapMutations, mapState } from 'vuex'
+import { mapMutations } from 'vuex'
 
 export default {
-  components: { ModalWindow, RecordForm },
-
   props: ['record'],
 
   data: function(){
     return {
-      moment: moment,
-      isOpenEditDialog: false,
+      moment: moment
     }
   },
 
   methods: {
-
-    ...mapActions(['fetchRecords']),
-
     ...mapMutations(['addFilteringName']),
-
-    destroy(){
-      let rec = this
-
-      axios.delete(`/records/${rec.record.id}`).then(function(res){
-        rec.hasChanges();
-      }).catch(function(error){
-        console.log(error)
-      });
-    },
-
-    hasChanges(){
-      this.isOpenEditDialog = false;
-      this.fetchRecords();
-    },
 
     filterByTheName() {
       this.addFilteringName({name: `!${this.record.name}`})
@@ -75,8 +46,6 @@ export default {
   .record-card {
     border: 1px solid #e0e0e0;
     border-radius: 7px;
-    margin-right: 15px;
-    margin-top: 15px;
   }
 
   .record-card .head {
@@ -88,7 +57,7 @@ export default {
     cursor: pointer;
   }
 
-  .record-card .body, .record-card .head {
+  .record-card .body, .record-card .head, .record-card .body section {
     padding: 5px;
   }
 
