@@ -7,6 +7,7 @@
       v-bind:value="recordName"
       v-on:input="e => $emit('change', e.target.value)"
       list="suggested-record-names"
+      autocomplete="off"
       v-bind:required="isRequired" />
 
     <datalist id="suggested-record-names">

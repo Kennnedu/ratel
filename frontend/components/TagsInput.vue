@@ -14,7 +14,8 @@
       placeholder="Press space to add new tag"
       v-model="tagName"
       v-on:keyup.space="addRecordsTag"
-      v-bind:list="dataListId" />
+      v-bind:list="dataListId"
+      autocomplete="off" />
 
     <datalist v-bind:id="dataListId">
       <option v-for="tag in suggestedTags" v-bind:key="tag.id">{{tag.name}}</option>
