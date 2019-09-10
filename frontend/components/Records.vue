@@ -8,18 +8,17 @@
         <font-awesome-icon icon="edit" style="color: #777" />
       </button>
       <span></span>
-      <button 
+      <button
         class="pure-button pure-button-primary"
         v-on:click="$emit('navigateTo', 'Dashboard')">
         Group by
       </button>
     </nav>
-    <main class="records">
-      <section class="record-cards">
+    <main class="records" v-bind:touchmove="e => { e.preventDefault(); return null }">
         <section class="new-records">
-          <font-awesome-icon icon="plus" size="4x" style="color: #ababa9" 
+          <font-awesome-icon icon="plus" size="4x" style="color: #ababa9"
             v-on:click="isOpenNewRecordModal = true" />
-          <font-awesome-icon icon="upload" size="3x" style="color: #ababa9" 
+          <font-awesome-icon icon="upload" size="3x" style="color: #ababa9"
             v-on:click="isOpenHtmlRecordsUploadModal = true" />
         </section>
         <Record
@@ -27,10 +26,9 @@
           v-bind:key="record.id"
           v-bind:record="record"
           v-on:click="currentRecord = record; isOpenEditDialog = true"/>
-      </section>
-      <section class="show-more" v-if="totalRecords > recordsCount">
-        <a v-on:click="e => this.fetchRecords(this.recordsCount + 30)">Show more...</a>
-      </section>
+        <section class="show-more" v-if="totalRecords > recordsCount">
+          <a v-on:click="e => this.fetchRecords(this.recordsCount + 30)">Show more...</a>
+        </section>
     </main>
     <ModalWindow v-if='isOpenNewRecordModal' v-on:close='isOpenNewRecordModal = false'>
       <h3 slot="header">New Record</h3>
@@ -113,16 +111,14 @@
   }
 
   .records {
-    height: calc(94vh - 46px);
+    height: calc(100vh - 20vh);
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .record-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 185px;
     grid-gap: 15px;
-    padding: 20px;
+    padding: 20px 20px 10px 20px
   }
 
   .new-records {
@@ -142,6 +138,8 @@
   .show-more {
     text-align: center;
     padding-bottom: 10px;
+    grid-column-start: 2;
+    grid-column-end: 3;
   }
 
   .show-more a {
@@ -149,16 +147,28 @@
   }
 
   @media (max-width: 1024px) {
-    .record-cards {
-      grid-template-columns: 1fr;
+    .records {
+      height: calc(100vh - 15vh);
+      grid-template-columns: 100%;
     }
 
     .new-records {
-      grid-template-columns: 1fr;
+      grid-template-columns: 100%;
     }
 
     .new-records svg:last-child {
       display: none;
+    }
+
+    @supports (-webkit-overflow-scrolling: touch) {
+      .records {
+        height: calc(100vh - 30vh);
+      }
+
+      .show-more {
+        grid-column-start: auto;
+        grid-column-end: auto;
+      }
     }
   }
 </style>

@@ -34,23 +34,15 @@
         <font-awesome-icon icon="filter" style="color: #777" />
       </button>
     </nav>
-    <main class="grouped-by">
-      <table class="pure-table">
-        <thead>
-          <tr>
-            <th>{{tableTitle}}</th>
-            <th>Sum</th>
-          </tr>
-          <tr>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="line in tableData">
-            <td>{{ line[0] }}</td>
-            <td>{{ `${line[1]} BYN` }}</td>
-          </tr>
-        </tbody>
-      </table>
+    <main class="grouped-by" v-bind:touchmove="e => e.preventDefault()">
+      <article class="grouped-row-header">
+        <section></section>
+        <section>BYN</section>
+      </article>
+      <article class="grouped-row" v-for="row in tableData">
+        <section class="grouped-name" v-bind:title="row[0]">{{ row[0] }}</section>
+        <section class="grouped-sum">{{ row[1] }}</section>
+      </article>
     </main>
     <ModalWindow v-if='isOpenRecordFilterModal' v-on:close='isOpenRecordFilterModal = false'>
       <h3 slot="header">Filter records</h3>
@@ -143,5 +135,33 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     padding: 20px;
+  }
+
+  .grouped-row, .grouped-row-header {
+    padding: 5px 0;
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 30px;
+    align-items: center;
+  }
+
+  .grouped-row .grouped-sum {
+    font-weight: 600;
+  }
+
+  .grouped-row-header section, .grouped-row .grouped-sum {
+    justify-self: end;
+  }
+
+  .grouped-row .grouped-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  @supports (-webkit-overflow-scrolling: touch) {
+    .grouped-by {
+      height: calc(100vh - 30vh);
+    }
   }
 </style>
