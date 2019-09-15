@@ -28,6 +28,10 @@ export default new Vuex.Store({
   },
 
   mutations: {
+    addRecords(state, payload) {
+      state.records = [...state.records, ...payload.records]
+    },
+
     updateRecords(state, payload) {
       state.records = payload.records
     },
@@ -62,9 +66,14 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios.get('/records', { params: Object.assign({}, state.filter, { offset: offset})})
         .then(data => {
-          commit('updateRecords', { records: data.data.records });
-          commit('updateTotalSum', { totalSum: data.data.total_sum });
-          commit('updateTotalRecords', { totalRecords: data.data.total_count })
+          if(offset){
+            commit('addRecords', { records: data.data.records });
+          }
+          else {
+            commit('updateRecords', { records: data.data.records });
+            commit('updateTotalSum', { totalSum: data.data.total_sum });
+            commit('updateTotalRecords', { totalRecords: data.data.total_count })
+          }
           resolve();
         })
         .catch(error => {

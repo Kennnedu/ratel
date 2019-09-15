@@ -27,7 +27,7 @@
           v-bind:record="record"
           v-on:click="currentRecord = record; isOpenEditDialog = true"/>
         <section class="show-more" v-if="totalRecords > recordsCount">
-          <a v-on:click="e => this.fetchRecords(this.recordsCount + 30)">Show more...</a>
+          <a v-on:click="showMoreRecords">Show more...</a>
         </section>
     </main>
     <ModalWindow v-if='isOpenNewRecordModal' v-on:close='isOpenNewRecordModal = false'>
@@ -98,7 +98,20 @@
     },
 
     methods: {
-      ...mapActions(['fetchRecords', 'fetchCards'])
+      ...mapActions(['fetchRecords', 'fetchCards']),
+
+      recordsScroll(e) {
+        e.preventDefault();
+        const bound = e.target.getBoundingClientRect()
+        console.log(bound.bottom, e.target.clientHeight);
+        this.fetchRecords(this.recordsCount + 30)
+      },
+
+      showMoreRecords(e) {
+        e.preventDefault;
+
+        this.fetchRecords(this.recordsCount)
+      }
     }
   }
 </script>
