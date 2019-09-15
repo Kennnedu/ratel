@@ -173,9 +173,19 @@ get '/records' do
   session = auth_user
   query_record = RecordQuery.new.belongs_to_user(session['user_id']).filter(params)
 
-  json records: query_record.dup.perform_recent.preload_ref.relation.limit(params[:offset] || 32).as_json,
-       total_sum: query_record.dup.relation.sum(:amount),
-       total_count: query_record.dup.relation.count
+  resp = if params[:offset]
+          {
+            records: query_record.dup.perform_recent.preload_ref.relation.offset(params[:offset]).limit(30).as_json
+          }
+         else
+           {
+             records: query_record.dup.perform_recent.preload_ref.relation.limit(32).as_json,
+             total_sum: query_record.dup.relation.sum(:amount),
+             total_count: query_record.dup.relation.count
+           }
+         end
+
+  json resp
 end
 
 get '/records/names' do
@@ -255,9 +265,9 @@ end
 
 delete '/records/batch' do
   session = auth_user
-  
+
   RecordQuery.new.belongs_to_user(session['user_id']).filter(params).relation.destroy_all
-  
+
   halt 200
 end
 

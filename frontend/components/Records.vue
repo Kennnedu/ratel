@@ -13,22 +13,26 @@
         v-on:click="$emit('navigateTo', 'Dashboard')">
         Group by
       </button>
+      <a href="#"
+         class="pure-button pure-button-primary button-scroll-back"
+         v-if="displayBackButton"
+         v-on:click="scrollBack">
+        <font-awesome-icon icon="arrow-up" />
+        Back
+      </a>
     </nav>
-    <main class="records" v-bind:touchmove="e => { e.preventDefault(); return null }">
-        <section class="new-records">
-          <font-awesome-icon icon="plus" size="4x" style="color: #ababa9"
-            v-on:click="isOpenNewRecordModal = true" />
-          <font-awesome-icon icon="upload" size="3x" style="color: #ababa9"
-            v-on:click="isOpenHtmlRecordsUploadModal = true" />
-        </section>
-        <Record
-          v-for="record in records"
-          v-bind:key="record.id"
-          v-bind:record="record"
-          v-on:click="currentRecord = record; isOpenEditDialog = true"/>
-        <section class="show-more" v-if="totalRecords > recordsCount">
-          <a v-on:click="e => this.fetchRecords(this.recordsCount + 30)">Show more...</a>
-        </section>
+    <main class="records" v-bind:touchmove="e => { e.preventDefault(); return null }" v-on:scroll="recordsScroll">
+      <section id="new-records">
+        <font-awesome-icon icon="plus" size="4x" style="color: #ababa9"
+          v-on:click="isOpenNewRecordModal = true" />
+        <font-awesome-icon icon="upload" size="3x" style="color: #ababa9"
+          v-on:click="isOpenHtmlRecordsUploadModal = true" />
+      </section>
+      <Record
+        v-for="record in records"
+        v-bind:key="record.id"
+        v-bind:record="record"
+        v-on:click="currentRecord = record; isOpenEditDialog = true"/>
     </main>
     <ModalWindow v-if='isOpenNewRecordModal' v-on:close='isOpenNewRecordModal = false'>
       <h3 slot="header">New Record</h3>
@@ -69,9 +73,9 @@
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
   import { mapState, mapGetters, mapActions } from 'vuex'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faUpload, faPlus, faFilter, faEdit } from '@fortawesome/free-solid-svg-icons'
+  import { faUpload, faPlus, faFilter, faEdit, faArrowUp } from '@fortawesome/free-solid-svg-icons'
 
-  library.add(faUpload, faPlus, faFilter, faEdit)
+  library.add(faUpload, faPlus, faFilter, faEdit, faArrowUp)
 
   export default {
     components: { Record, ModalWindow, RecordForm, RecordFilter, RecordBatchForm, HtmlRecordsUploadForm },
@@ -83,6 +87,8 @@
         isOpenRecordFilterModal: false,
         isOpenNewRecordModal: false,
         isOpenEditDialog: false,
+        isFetchingRecords: false,
+        displayBackButton: false,
         currentRecord: {}
       }
     },
@@ -97,13 +103,40 @@
       ...mapGetters(['recordsCount'])
     },
 
+    watch: {
+      recordsCount() {
+        if(this.isFetchingRecords) this.isFetchingRecords = false
+      }
+    },
+
     methods: {
-      ...mapActions(['fetchRecords', 'fetchCards'])
+      ...mapActions(['fetchRecords', 'fetchCards']),
+
+      recordsScroll(e) {
+        e.preventDefault();
+
+        const elem = e.target
+
+       if((elem.scrollTop + 900) > elem.scrollHeight && !this.isFetchingRecords && this.recordsCount < this.totalRecords) {
+         this.isFetchingRecords = true
+         this.fetchRecords(this.recordsCount);
+       }
+
+       if(elem.scrollTop < 30 && this.displayBackButton) this.displayBackButton = false
+       else if(elem.scrollTop > 30 && !this.displayBackButton) this.displayBackButton = true
+     },
+
+      scrollBack(e){
+        e.preventDefault();
+        this.displayBackButton = false;
+        document.querySelector('.records').scrollTop = 0
+      }
     }
   }
 </script>
 <style lang="css" scoped>
   .navigation {
+    position: relative;
     padding: 0 20px 5px 20px;
     display: grid;
     grid-template-columns: 1fr 1fr 4fr 1fr;
@@ -121,7 +154,7 @@
     padding: 20px 20px 10px 20px
   }
 
-  .new-records {
+  #new-records {
     border: 3px dashed #e0e0e0;
     border-radius: 7px;
     display: grid;
@@ -129,21 +162,18 @@
     grid-template-rows: 100%;
   }
 
-  .new-records svg {
+  #new-records svg {
     cursor: pointer;
     align-self: center;
     justify-self: center;
   }
 
-  .show-more {
-    text-align: center;
-    padding-bottom: 10px;
-    grid-column-start: 2;
-    grid-column-end: 3;
-  }
-
-  .show-more a {
-    cursor: pointer;
+  .button-scroll-back {
+    position: absolute;
+    top: 7vh;
+    right: 42%;
+    z-index: 2;
+    border-radius: 20px;
   }
 
   @media (max-width: 1024px) {
@@ -152,22 +182,17 @@
       grid-template-columns: 100%;
     }
 
-    .new-records {
+    #new-records {
       grid-template-columns: 100%;
     }
 
-    .new-records svg:last-child {
+    #new-records svg:last-child {
       display: none;
     }
 
     @supports (-webkit-overflow-scrolling: touch) {
       .records {
         height: calc(100vh - 30vh);
-      }
-
-      .show-more {
-        grid-column-start: auto;
-        grid-column-end: auto;
       }
     }
   }
