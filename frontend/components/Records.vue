@@ -14,7 +14,7 @@
         Group by
       </button>
     </nav>
-    <main class="records" v-bind:touchmove="e => { e.preventDefault(); return null }">
+    <main class="records" v-bind:touchmove="e => { e.preventDefault(); return null }" v-on:scroll="recordsScroll">
         <section class="new-records">
           <font-awesome-icon icon="plus" size="4x" style="color: #ababa9"
             v-on:click="isOpenNewRecordModal = true" />
@@ -26,9 +26,6 @@
           v-bind:key="record.id"
           v-bind:record="record"
           v-on:click="currentRecord = record; isOpenEditDialog = true"/>
-        <section class="show-more" v-if="totalRecords > recordsCount">
-          <a v-on:click="showMoreRecords">Show more...</a>
-        </section>
     </main>
     <ModalWindow v-if='isOpenNewRecordModal' v-on:close='isOpenNewRecordModal = false'>
       <h3 slot="header">New Record</h3>
@@ -83,6 +80,7 @@
         isOpenRecordFilterModal: false,
         isOpenNewRecordModal: false,
         isOpenEditDialog: false,
+        isFetchingRecords: false,
         currentRecord: {}
       }
     },
@@ -97,20 +95,25 @@
       ...mapGetters(['recordsCount'])
     },
 
+    watch: {
+      recordsCount() {
+        if(this.isFetchingRecords) this.isFetchingRecords = false
+      }
+    },
+
     methods: {
       ...mapActions(['fetchRecords', 'fetchCards']),
 
       recordsScroll(e) {
         e.preventDefault();
-        const bound = e.target.getBoundingClientRect()
-        console.log(bound.bottom, e.target.clientHeight);
-        this.fetchRecords(this.recordsCount + 30)
-      },
 
-      showMoreRecords(e) {
-        e.preventDefault;
+        const elem = e.target
+        console.log(elem.scrollTop, elem.scrollHeight, this.isFetchingRecords);
 
-        this.fetchRecords(this.recordsCount)
+       if((elem.scrollTop + 900) > elem.scrollHeight && !this.isFetchingRecords && this.recordsCount < this.totalRecords) {
+         this.isFetchingRecords = true
+         this.fetchRecords(this.recordsCount);
+       }
       }
     }
   }
@@ -124,6 +127,7 @@
   }
 
   .records {
+    position: relative;
     height: calc(100vh - 20vh);
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
@@ -173,14 +177,14 @@
       display: none;
     }
 
+    .show-more {
+      grid-column-start: auto;
+      grid-column-end: auto;
+    }
+
     @supports (-webkit-overflow-scrolling: touch) {
       .records {
         height: calc(100vh - 30vh);
-      }
-
-      .show-more {
-        grid-column-start: auto;
-        grid-column-end: auto;
       }
     }
   }

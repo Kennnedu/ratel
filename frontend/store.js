@@ -74,6 +74,7 @@ export default new Vuex.Store({
             commit('updateTotalSum', { totalSum: data.data.total_sum });
             commit('updateTotalRecords', { totalRecords: data.data.total_count })
           }
+
           resolve();
         })
         .catch(error => {
