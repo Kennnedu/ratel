@@ -192,9 +192,34 @@
   }
 
   .divide-date {
+    position: relative;
     grid-column-start: 1;
     grid-column-end: 4;
     text-align: center;
+  }
+
+  .divide-date:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 65%;
+    right: 0;
+    height: 0.5em;
+    border-top: 2px solid #e0e0e0;
+    z-index: -1;
+    width: 35%;
+  }
+
+  .divide-date:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.5em;
+    border-top: 2px solid #e0e0e0;
+    z-index: -1;
+    width: 35%;
   }
 
   @media (max-width: 1024px) {
@@ -215,6 +240,15 @@
       grid-column-start: 1;
       grid-column-end: 2;
       text-align: center;
+    }
+
+    .divide-date:before {
+      width: 20%;
+    }
+
+    .divide-date:after {
+      left: 80%;
+      width: 20%;
     }
 
     @supports (-webkit-overflow-scrolling: touch) {
