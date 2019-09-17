@@ -15,7 +15,7 @@
       <section class="card">{{ record.card.name }}</section>
       <section class="amount">{{ `${record.amount} BYN` }}</section>
       <section class="rest">{{ `${record.rest} BYN` }}</section>
-      <section class="performed-at">{{ moment(record.performed_at).format('lll') }}</section>
+      <section class="performed-at">{{ moment(record.performed_at).format('LT') }}</section>
     </main>
   </article>
 </template>

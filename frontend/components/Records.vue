@@ -28,7 +28,12 @@
         <font-awesome-icon icon="upload" size="3x" style="color: #ababa9"
           v-on:click="isOpenHtmlRecordsUploadModal = true" />
       </section>
-      <template v-for="record in records">
+      <template v-for="(record, index) in records">
+        <section
+          class="divide-date"
+          v-if="index === 0 || (index !== 0 && !moment(record.performed_at).isSame(records[index-1].performed_at, 'day'))">
+          <em>{{ moment(record.performed_at).format('LL') }}</em>
+        </section>
         <Record
           v-bind:key="record.id"
           v-bind:record="record"
@@ -72,6 +77,7 @@
   import RecordFilter from './statements/RecordFilter.vue'
   import RecordBatchForm from './statements/RecordBatchForm.vue'
   import HtmlRecordsUploadForm from './statements/HtmlRecordsUploadForm.vue'
+  import moment from 'moment'
   import { mapState, mapGetters, mapActions } from 'vuex'
   import { library } from '@fortawesome/fontawesome-svg-core'
   import { faUpload, faPlus, faFilter, faEdit, faArrowUp } from '@fortawesome/free-solid-svg-icons'
@@ -90,7 +96,8 @@
         isOpenEditDialog: false,
         isFetchingRecords: false,
         displayBackButton: false,
-        currentRecord: {}
+        currentRecord: {},
+        moment: moment
       }
     },
 
@@ -184,6 +191,12 @@
     border-radius: 20px;
   }
 
+  .divide-date {
+    grid-column-start: 1;
+    grid-column-end: 4;
+    text-align: center;
+  }
+
   @media (max-width: 1024px) {
     .records {
       height: calc(100vh - 15vh);
@@ -196,6 +209,12 @@
 
     #new-records svg:last-child {
       display: none;
+    }
+
+    .divide-date {
+      grid-column-start: 1;
+      grid-column-end: 2;
+      text-align: center;
     }
 
     @supports (-webkit-overflow-scrolling: touch) {
