@@ -28,11 +28,12 @@
         <font-awesome-icon icon="upload" size="3x" style="color: #ababa9"
           v-on:click="isOpenHtmlRecordsUploadModal = true" />
       </section>
-      <Record
-        v-for="record in records"
-        v-bind:key="record.id"
-        v-bind:record="record"
-        v-on:click="currentRecord = record; isOpenEditDialog = true"/>
+      <template v-for="record in records">
+        <Record
+          v-bind:key="record.id"
+          v-bind:record="record"
+          v-on:click="currentRecord = record; isOpenEditDialog = true"/>
+      </template>
     </main>
     <ModalWindow v-if='isOpenNewRecordModal' v-on:close='isOpenNewRecordModal = false'>
       <h3 slot="header">New Record</h3>
@@ -117,19 +118,26 @@
 
         const elem = e.target
 
-       if((elem.scrollTop + 900) > elem.scrollHeight && !this.isFetchingRecords && this.recordsCount < this.totalRecords) {
-         this.isFetchingRecords = true
-         this.fetchRecords(this.recordsCount);
-       }
+        if((elem.scrollTop + 900) > elem.scrollHeight && !this.isFetchingRecords && this.recordsCount < this.totalRecords) {
+          this.isFetchingRecords = true
+          this.fetchRecords(this.recordsCount);
+        }
 
-       if(elem.scrollTop < 30 && this.displayBackButton) this.displayBackButton = false
-       else if(elem.scrollTop > 30 && !this.displayBackButton) this.displayBackButton = true
-     },
+        if(elem.scrollTop < 30 && this.displayBackButton) this.displayBackButton = false
+        else if(elem.scrollTop > 30 && !this.displayBackButton) this.displayBackButton = true
+      },
+
+      reduceScroll(elem) {
+        if(elem.scrollTop === 0) return null
+        elem.scrollTop -= Math.max(100, Math.floor(elem.scrollTop / 10));
+        setTimeout(() => this.reduceScroll(elem), 30);
+      },
 
       scrollBack(e){
-        e.preventDefault();
+      e.preventDefault();
+
+        this.reduceScroll(document.querySelector('.records'));
         this.displayBackButton = false;
-        document.querySelector('.records').scrollTop = 0
       }
     }
   }
