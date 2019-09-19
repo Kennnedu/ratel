@@ -6,7 +6,7 @@ require 'byebug'
 require 'jwt'
 require 'dotenv'
 
-require_relative 'lib/statement_table_parser.rb'
+require_relative 'lib/statement_parsers_factory.rb'
 
 Dotenv.load
 
@@ -219,7 +219,7 @@ end
 post '/records/bulk' do
   session = auth_user
 
-  parser = StatementTableParser.new(JSON.parse(request.body.read)['html_table'])
+  parser = StatementParsersFactory.get_parser params['html_file']['tempfile'].read
 
   halt(400, {'Content-Type' => 'application/json'}, { message: 'Incorrect format!' }.to_json) unless parser.parse!
 
