@@ -1,10 +1,16 @@
 <template>
   <section id="content">
     <nav class="navigation">
-      <button class="pure-button" v-on:click="isOpenRecordFilterModal = true">
+      <button
+        title="Filter Records"
+        class="pure-button"
+        v-on:click="isOpenRecordFilterModal = true">
         <font-awesome-icon icon="filter" style="color: #777" />
       </button>
-      <button class="pure-button" v-on:click="isOpenRecordBatchFormModal = true">
+      <button
+        title="Edit Batch"
+        class="pure-button"
+        v-on:click="isOpenRecordBatchFormModal = true">
         <font-awesome-icon icon="edit" style="color: #777" />
       </button>
       <span></span>
@@ -23,9 +29,16 @@
     </nav>
     <main class="records" v-bind:touchmove="e => { e.preventDefault(); return null }" v-on:scroll="recordsScroll">
       <section id="new-records">
-        <font-awesome-icon icon="plus" size="4x" style="color: #ababa9"
+        <font-awesome-icon
+          title="Add new Record"
+          icon="plus" size="4x"
+          style="color: #ababa9"
           v-on:click="isOpenNewRecordModal = true" />
-        <font-awesome-icon icon="upload" size="3x" style="color: #ababa9"
+        <font-awesome-icon
+          title="Upload Records Batch"
+          icon="upload"
+          size="3x"
+          style="color: #ababa9"
           v-on:click="isOpenHtmlRecordsUploadModal = true" />
       </section>
       <template v-for="(record, index) in records">

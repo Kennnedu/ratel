@@ -1,7 +1,7 @@
 <template>
   <header id="header">
-    <em>Count: {{totalRecords}}</em>
-    <em>Sum: {{totalSum}}</em>
+    <em title="Total Records Count">Count: {{totalRecords}}</em>
+    <em title="Total Records Sum">Sum: {{totalSum}}</em>
   </header>
 </template>
 <script>

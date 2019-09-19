@@ -2,33 +2,39 @@
   <section id="content">
     <nav class="navigation">
       <button
+        title="Back to main page"
         class="pure-button pure-button-primary"
         v-on:click="$emit('navigateTo', 'Records')">
         <font-awesome-icon icon="long-arrow-alt-left" style="color: white" />
       </button>
       <span></span>
       <button
-        class="pure-button"
+        title="Cards"
+        class="pure-button sub-option"
         v-on:click="tableName = 'cards'">
-        Card
+        <font-awesome-icon icon="credit-card" style="color: #777" />
       </button>
       <button
-        class="pure-button"
+        title="Tags"
+        class="pure-button sub-option"
         v-on:click="tableName = 'tags'">
-        Tags
+        <font-awesome-icon icon="tags" style="color: #777" />
       </button>
       <button
-        class="pure-button"
+        title="Replenishment"
+        class="pure-button sub-option"
         v-on:click="tableName = 'replenishments'">
-        Replenishments
+        <font-awesome-icon icon="hand-holding-usd" style="color: #777" />
       </button>
       <button
-        class="pure-button"
+        title="Expenses"
+        class="pure-button sub-option"
         v-on:click="tableName = 'expenses'">
-        Expenses
+        <font-awesome-icon icon="receipt" style="color: #777" />
       </button>
       <span></span>
       <button
+        title="Filter By Records"
         class="pure-button"
         v-on:click="isOpenRecordFilterModal = true">
         <font-awesome-icon icon="filter" style="color: #777" />
@@ -57,10 +63,10 @@
   import RecordFilter from './statements/RecordFilter.vue'
   import ModalWindow from './ModalWindow.vue'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faFilter, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+  import { faFilter, faLongArrowAltLeft, faHandHoldingUsd, faCreditCard, faTags, faReceipt } from '@fortawesome/free-solid-svg-icons'
   import { mapState } from 'vuex';
 
-  library.add(faFilter, faLongArrowAltLeft)
+  library.add(faFilter, faLongArrowAltLeft, faHandHoldingUsd, faCreditCard, faTags, faReceipt)
 
   export default {
     components: {
@@ -126,7 +132,11 @@
     .navigation {
       width: calc(100vw - 40px);
       overflow-y: scroll;
-      grid-template-columns: repeat(8, 1fr);
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .sub-option {
+      grid-row-start: 2
     }
   }
 
