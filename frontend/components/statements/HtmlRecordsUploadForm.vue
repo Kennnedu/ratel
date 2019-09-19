@@ -3,10 +3,11 @@
     <fieldset>
       <div class="pure-control-group">
         <label for="statements-html">Html table</label>
-        <textarea id="statements-html"
-                  placeholder="Past your statements html table"
-                  v-bind:disabled="isDisabledTextArea"
-                  v-model="htmlTable"/>
+        <input id="statements-html"
+               type="file"
+               placeholder="Past your statements html table"
+               v-bind:disabled="isDisabledTextArea"
+               v-on:change="e => { this.file = e.target.files[0] }"/>
         <span class="pure-form-message pure-form-message-error" v-for="(errorMessage, index) in errors" v-if="errorMessage !== ''">
           {{ nubmerOfError === 1 ? errorMessage : `${index + 1} line - ${errorMessage}` }}
         </span>
@@ -24,7 +25,7 @@
   export default {
     data: function(){
       return {
-        htmlTable: '',
+        file: {},
         errors: [],
         saveButtonName: 'Upload'
       }
@@ -38,17 +39,18 @@
     methods: {
       ...mapActions(['fetchRecords', 'fetchCards']),
 
-      submitForm(){
+      submitForm(e){
+        e.preventDefault();
+
         let _this = this;
         _this.errors = [];
 
         _this.saveButtonName = 'Saving...';
 
-        axios.post('/records/bulk', { html_table: _this.htmlTable })
+        axios.post('/records/bulk', this.getFormData())
           .then(res => {
             console.log(res);
             _this.saveButtonName = 'Upload';
-            _this.htmlTable = '';
             _this.fetchRecords();
             _this.fetchCards()
             _this.$emit('save');
@@ -64,6 +66,14 @@
         } else {
           this.errors.push(response.data.message)
         }
+      },
+
+      getFormData() {
+        let fd = new FormData();
+
+        fd.append('html_file', this.file)
+
+        return fd
       }
     }
   }

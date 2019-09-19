@@ -219,7 +219,7 @@ end
 post '/records/bulk' do
   session = auth_user
 
-  parser = StatementTableParser.new(JSON.parse(request.body.read)['html_table'])
+  parser = StatementTableParser.new params['html_file']['tempfile'].read
 
   halt(400, {'Content-Type' => 'application/json'}, { message: 'Incorrect format!' }.to_json) unless parser.parse!
 

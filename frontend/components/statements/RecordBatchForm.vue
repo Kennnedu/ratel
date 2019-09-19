@@ -16,14 +16,14 @@
       <RecordNameInput
         v-bind:recordName="batchForm.name"
         v-on:change="newName => batchForm.name = newName" />
-    
+
       <label>Card</label>
       <CardSelector
         v-bind:card="batchForm.card"
         v-on:selectCard="newCard => batchForm.card = newCard"/>
     </fieldset>
 
-    <input 
+    <input
       type="submit"
       class="pure-button pure-button-primary"
       v-bind:disabled="!validBatchForm"
@@ -92,13 +92,13 @@ export default {
       e.preventDefault();
 
       if (!confirm('Are you sure do you want tor remove all selected records?')) return null;
-    
+
       axios({url: '/records/batch', method: 'delete', params: this.filter })
         .then(res => {
           this.fetchRecords();
           this.$emit('close');
         })
-        .catch(err => console.log(err));  
+        .catch(err => console.log(err));
     },
 
     submitFormParams() {
