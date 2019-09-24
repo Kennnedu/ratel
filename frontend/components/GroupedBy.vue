@@ -117,10 +117,6 @@
   }
 </script>
 <style lang="css" scoped>
-  table {
-    width: 100%;
-  }
-
   .navigation {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 3fr 1fr;
@@ -145,6 +141,8 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     padding: 20px;
+    box-shadow: inset 0 7px 9px -7px #777;
+    border-radius: 5px;
   }
 
   .grouped-row, .grouped-row-header {
