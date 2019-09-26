@@ -134,6 +134,10 @@
     .sub-option {
       grid-row-start: 2
     }
+
+    .grouped-by {
+      box-shadow: inset 0 7px 9px -7px #777;
+    }
   }
 
   .grouped-by {
@@ -141,8 +145,6 @@
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
     padding: 20px;
-    box-shadow: inset 0 7px 9px -7px #777;
-    border-radius: 5px;
   }
 
   .grouped-row, .grouped-row-header {

@@ -180,8 +180,6 @@
     grid-template-rows: 185px;
     grid-gap: 15px;
     padding: 20px 20px 10px 20px;
-    box-shadow: inset 0 7px 9px -7px #777;
-    border-radius: 5px;
   }
 
   #new-records {
@@ -241,6 +239,7 @@
     .records {
       height: calc(100vh - 15vh);
       grid-template-columns: 100%;
+      box-shadow: inset 0 7px 9px -7px #777;
     }
 
     #new-records {
