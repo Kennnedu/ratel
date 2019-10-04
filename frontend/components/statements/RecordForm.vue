@@ -39,7 +39,7 @@
 <script>
   import axios from 'axios'
   import moment from 'moment'
-  import { mapActions } from 'vuex'
+  import { mapActions, mapGetters } from 'vuex'
   import CardSelector from '../CardSelector.vue'
   import TagsInput from '../TagsInput.vue'
   import RecordNameInput from '../RecordNameInput.vue'
@@ -77,6 +77,8 @@
     },
 
     computed: {
+      ...mapGetters(['recordsCount']),
+
       savingRecord: function(){
         const performedAt = this.record ? moment(this.currentRecord.performed_at) : moment()
         let savingRecord = Object.assign({}, this.currentRecord, { performed_at: performedAt },
@@ -125,7 +127,7 @@
 
         axios.put(`/records/${_this.currentRecord.id}`, { record: _this.savingRecord })
           .then(res => {
-            _this.fetchRecords();
+            _this.fetchRecords({limit: this.recordsCount});
             _this.$emit("save");
           })
           .catch(err => console.log(err.response))
@@ -137,7 +139,7 @@
 
         axios.delete(`/records/${_this.record.id}`)
           .then(res => {
-            _this.fetchRecords();
+            _this.fetchRecords({limit: this.recordsCount});
             _this.$emit('save');
           })
           .catch(err => console.log(err.response));

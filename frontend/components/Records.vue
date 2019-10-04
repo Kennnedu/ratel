@@ -140,7 +140,7 @@
 
         if((elem.scrollTop + 900) > elem.scrollHeight && !this.isFetchingRecords && this.recordsCount < this.totalRecords) {
           this.isFetchingRecords = true
-          this.fetchRecords(this.recordsCount);
+          this.fetchRecords({offset: this.recordsCount, limit: 30});
         }
 
         if(elem.scrollTop < 30 && this.displayBackButton) this.displayBackButton = false

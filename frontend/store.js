@@ -62,11 +62,12 @@ export default new Vuex.Store({
   },
 
   actions: {
-    fetchRecords({ commit, state }, offset){
+    fetchRecords({ commit, state }, params){
+      !params && (params = {});
       return new Promise((resolve, reject) => {
-        axios.get('/records', { params: Object.assign({}, state.filter, { offset: offset})})
+        axios.get('/records', { params: Object.assign({}, state.filter, {limit: 32}, params) })
         .then(data => {
-          if(offset){
+          if(params.offset){
             commit('addRecords', { records: data.data.records });
           }
           else {

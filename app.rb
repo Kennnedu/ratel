@@ -175,11 +175,11 @@ get '/records' do
 
   resp = if params[:offset]
           {
-            records: query_record.dup.perform_recent.preload_ref.relation.offset(params[:offset]).limit(30).as_json
+            records: query_record.dup.perform_recent.preload_ref.relation.offset(params[:offset]).limit(params[:limit] || 30).as_json
           }
          else
            {
-             records: query_record.dup.perform_recent.preload_ref.relation.limit(32).as_json,
+             records: query_record.dup.perform_recent.preload_ref.relation.limit(params[:limit] || 30).as_json,
              total_sum: query_record.dup.relation.sum(:amount),
              total_count: query_record.dup.relation.count
            }
