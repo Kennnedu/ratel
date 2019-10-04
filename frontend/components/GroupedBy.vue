@@ -7,32 +7,36 @@
         v-on:click="$emit('navigateTo', 'Records')">
         <font-awesome-icon icon="long-arrow-alt-left" style="color: white" />
       </button>
-      <span></span>
-      <button
-        title="Cards"
-        class="pure-button sub-option"
-        v-on:click="tableName = 'cards'">
-        <font-awesome-icon icon="credit-card" style="color: #777" />
-      </button>
-      <button
-        title="Tags"
-        class="pure-button sub-option"
-        v-on:click="tableName = 'tags'">
-        <font-awesome-icon icon="tags" style="color: #777" />
-      </button>
-      <button
-        title="Replenishment"
-        class="pure-button sub-option"
-        v-on:click="tableName = 'replenishments'">
-        <font-awesome-icon icon="hand-holding-usd" style="color: #777" />
-      </button>
-      <button
-        title="Expenses"
-        class="pure-button sub-option"
-        v-on:click="tableName = 'expenses'">
-        <font-awesome-icon icon="receipt" style="color: #777" />
-      </button>
-      <span></span>
+      <div class="pure-button-group" role="group">
+        <button
+          title="Cards"
+          class="pure-button"
+          v-on:click="tableName = 'cards'"
+          v-bind:class="{'pure-button-active': tableName === 'cards'}">
+          <font-awesome-icon icon="credit-card" style="color: #777" />
+        </button>
+        <button
+          title="Tags"
+          class="pure-button"
+          v-on:click="tableName = 'tags'"
+          v-bind:class="{'pure-button-active': tableName === 'tags'}">
+          <font-awesome-icon icon="tags" style="color: #777" />
+        </button>
+        <button
+          title="Replenishment"
+          class="pure-button"
+          v-on:click="tableName = 'replenishments'"
+          v-bind:class="{'pure-button-active': tableName === 'replenishments'}">
+          <font-awesome-icon icon="hand-holding-usd" style="color: #777" />
+        </button>
+        <button
+          title="Expenses"
+          class="pure-button"
+          v-on:click="tableName = 'expenses'"
+          v-bind:class="{'pure-button-active': tableName === 'expenses'}">
+          <font-awesome-icon icon="receipt" style="color: #777" />
+        </button>
+      </div>
       <button
         title="Filter By Records"
         class="pure-button"
@@ -119,9 +123,13 @@
 <style lang="css" scoped>
   .navigation {
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr 1fr 1fr 1fr 3fr 1fr;
+    grid-template-columns: 1fr 10fr 1fr;
     grid-gap: 5px;
     padding: 0 20px 5px 20px;
+  }
+
+  .navigation .pure-button-group {
+    justify-self: center;
   }
 
   .grouped-by {
@@ -170,11 +178,6 @@
     .navigation {
       width: calc(100vw - 40px);
       overflow-y: scroll;
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    .sub-option {
-      grid-row-start: 2
     }
 
     .grouped-by {
