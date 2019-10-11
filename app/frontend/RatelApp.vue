@@ -38,12 +38,19 @@
     created() {
       let _this = this;
 
+      axios.interceptors.request.use((config) => {
+        config.url = `/api${config.url}`;
+        return config
+      }, (error) => {
+        return Promise.reject(error);
+      });
+
       axios.interceptors.response.use(function(response){
         return response
       }, function(error){
         if(error.response.status === 401) _this.logged = false;
         return Promise.reject(error);
-      })
+      });
     },
 
     mounted() {
