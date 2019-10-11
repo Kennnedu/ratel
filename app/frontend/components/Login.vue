@@ -24,6 +24,7 @@
 </template>
 <script>
   import axios from 'axios'
+  import Cookies from 'js-cookie'
 
   export default {
     data: function(){
@@ -35,6 +36,10 @@
       }
     },
     methods: {
+      cookies() {
+        return Cookies
+      },
+
       submitForm(e){
         e.preventDefault();
         this.hasError = false
@@ -45,6 +50,7 @@
           password: _this.password,
           secure_login: _this.secureLogin
         }).then(function(resp){
+          _this.cookies().set('session_token', resp.data.session_token)
           _this.$emit('login');
         }).catch(function(error){
           _this.hasError = true;

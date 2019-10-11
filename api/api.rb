@@ -19,8 +19,7 @@ class SessionController < Sinatra::Application
 
     return halt(400) unless user && user.authenticate(params['password'])
     exp = (DateTime.current + (params['secure_login'] ? 10.minutes : 1.month)).to_i
-    response.set_cookie('session_token', value: JWT.encode({ user_id: user.id, exp: exp }, ENV.fetch('SECRET_KEY'), 'HS256'))
-    halt 200
+    json session_token: JWT.encode({ user_id: user.id, exp: exp }, ENV.fetch('SECRET_KEY'), 'HS256')
   end
 end
 
@@ -28,7 +27,8 @@ class ApiController < Sinatra::Application
   use SessionController
 
   before do
-    @session = JWT.decode(request.cookies['session_token'], ENV.fetch('SECRET_KEY'), true, { algorithm: 'HS256' }).first
+    auth_token = request.env['HTTP_AUTHORIZATION'].split(' ').last
+    @session = JWT.decode(auth_token, ENV.fetch('SECRET_KEY'), true, { algorithm: 'HS256' }).first
   rescue JWT::DecodeError, JWT::ExpiredSignature
     halt 401
   end

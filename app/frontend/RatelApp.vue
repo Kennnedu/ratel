@@ -15,6 +15,7 @@
   import { mapState, mapActions } from 'vuex'
   import axios from 'axios'
   import lodash from 'lodash'
+  import Cookies from 'js-cookie'
 
   export default {
     components: {
@@ -40,6 +41,8 @@
 
       axios.interceptors.request.use((config) => {
         config.url = `/api${config.url}`;
+        config.headers.common.Authorization = `Bearer ${this.cookies().get('session_token')}`
+
         return config
       }, (error) => {
         return Promise.reject(error);
@@ -71,6 +74,10 @@
 
       navigateTo: function(page){
         this.currentPage = page
+      },
+
+      cookies() {
+        return Cookies
       }
     }
   }
