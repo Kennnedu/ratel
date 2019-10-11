@@ -1,8 +1,10 @@
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
-  belongs_to :card, required: true
+  belongs_to :card
   has_many :records_tags, dependent: :destroy
   has_many :tags, through: :records_tags
+
+  before_validation :set_performed_at, unless: :performed_at
 
   # validates :name, :amount, :performed_at, :user_id, uniqueness: true, presence: true
 
@@ -15,5 +17,9 @@ class Record < ActiveRecord::Base
                                               include: { tag: { only: [:id, :name]}}}})
     return result if card
     result.merge(card: Card.new(id: 0, name: '').as_json(only: [:name, :id]))
+  end
+
+  def set_performed_at
+    self.performed_at = DateTime.current
   end
 end
