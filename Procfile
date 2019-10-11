@@ -1,2 +1,2 @@
-web: bundle exec ruby app.rb
+web: bundle exec rackup
 console: irb -r ./api/api.rb
