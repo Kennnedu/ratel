@@ -10,7 +10,7 @@ class BelinvestRowDecorator < BaseRowDecorator
   end
 
   def amount
-    __getobj__.css('td')[is_replenish ? 6 : 5].content.gsub(/BYN|\s/, '').gsub(',', '.').to_f
+    __getobj__.css('td')[6].content.gsub(' ', '').gsub(',', '.').to_f
   end
 
   def rest
