@@ -72,7 +72,7 @@
     padding: 45px;
     border: 1px solid lightgray;
     background-color: #eaeded;
-    border-radius: 3px;
+    border-radius: 7px;
   }
 
   form input[type='submit'] {
