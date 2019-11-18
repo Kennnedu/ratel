@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'sinatra/json'
 require 'sinatra/cookies'
 require 'sinatra/activerecord'
-require 'byebug'
+require 'byebug' unless ENV['APP_ENV'].eql? 'production'
 require 'jwt'
 require 'dotenv'
 

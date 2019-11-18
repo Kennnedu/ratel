@@ -35,7 +35,7 @@ class RecordQuery
     end
 
     if date_from = valid_date?(params['from'])
-      @relation = @relation.where('records.performed_at > ?', date_from + 1.day)
+      @relation = @relation.where('records.performed_at > ?', date_from - 1.day)
     end
 
     if date_to = valid_date?(params['to'])
