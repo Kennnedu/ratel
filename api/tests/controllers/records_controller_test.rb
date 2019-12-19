@@ -1,22 +1,23 @@
 require_relative './../test_helper'
 
 describe 'Records' do
+  let(:user) { User.last }
+
   before do
     token = authorize
     header('Authorization', "Bearer #{token}")
   end
 
+  after(:each) do
+    Record.destroy_all
+  end
+
   describe 'GET /records' do
     let(:records_count) { 15 }
     let(:records_limit) { 5 }
-    let(:user) { User.last }
 
     before(:all) do
       create_list :record, records_count, user: user
-    end
-
-    after(:each) do
-      Record.destroy_all
     end
 
     it 'status 200' do
@@ -67,6 +68,22 @@ describe 'Records' do
 
       assert_equal last_response.status, 200
     end
+
+    it 'resp json format' do
+      get '/records/names'
+      resp_json = JSON.parse last_response.body
+
+      assert_equal (resp_json.keys - %w(record_names)).empty?, true
+    end
+
+    it 'find exact name' do
+      create :record, name: 'shoes', user: user
+
+      get '/records/names', keyword: 'sho'
+      resp_json = JSON.parse last_response.body
+
+      assert_equal resp_json['record_names'].include?('shoes'), true
+    end
   end
 
   describe 'GET /dashboard' do
@@ -78,10 +95,6 @@ describe 'Records' do
   end
 
   describe 'POST /records' do
-    after do
-      Record.destroy_all
-    end
-
     it 'status 200' do
       data = {
         "record": {
@@ -99,10 +112,6 @@ describe 'Records' do
   end
 
   describe 'POST /records/bulk' do
-    after do
-      Record.destroy_all
-    end
-
     it 'status 200' do
       post '/records/bulk', 'html_file' => Rack::Test::UploadedFile.new('./statements_html/200420192345_statement.html', 'text/html')
 

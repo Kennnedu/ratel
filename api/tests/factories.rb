@@ -2,12 +2,12 @@ require 'faker'
 
 FactoryBot.define do
   factory :record do
-    name { 'shop' }
-    amount { rand(-100.00..100.00) }
+    name { Faker::Food.send(%w(dish fruits ingredient spice sushi vegetables).sample) }
+    amount { rand(0..100.00) }
     rest { 99.00 }
   end
 
   factory :card do
-    name { 'cash' }
+    name { Faker::Finance.credit_card }
   end
 end
