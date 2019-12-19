@@ -92,6 +92,14 @@ describe 'Records' do
 
       assert_equal last_response.status, 200
     end
+
+    it 'resp json format' do
+      get '/dashboard'
+
+      resp_json = JSON.parse last_response.body
+
+      assert_equal (resp_json.keys - %w(dashboard_table)).empty?, true
+    end
   end
 
   describe 'POST /records' do
