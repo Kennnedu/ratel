@@ -36,11 +36,6 @@
       class="pure-button"
       v-on:click="resetFilter" 
     />
-    <input
-      type="button"
-      value="Close"
-      class="pure-button pure-button-primary"
-      v-on:click="$emit('close')" />
   </form>
 </template>
 <script>

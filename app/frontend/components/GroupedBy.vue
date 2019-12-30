@@ -14,7 +14,7 @@
           v-on:click="tableName = 'cards'"
           v-bind:class="{'pure-button-active': tableName === 'cards'}">
           <font-awesome-icon icon="credit-card" style="color: #777" />
-          Sources
+          <span class="button-text">Sources</span>
         </button>
         <button
           title="Tags"
@@ -22,7 +22,7 @@
           v-on:click="tableName = 'tags'"
           v-bind:class="{'pure-button-active': tableName === 'tags'}">
           <font-awesome-icon icon="tags" style="color: #777" />
-          Tags
+          <span class="button-text">Tags</span>
         </button>
         <button
           title="Replenishment"
@@ -30,7 +30,7 @@
           v-on:click="tableName = 'replenishments'"
           v-bind:class="{'pure-button-active': tableName === 'replenishments'}">
           <font-awesome-icon icon="hand-holding-usd" style="color: #777" />
-          Income
+          <span class="button-text">Income</span>
         </button>
         <button
           title="Expenses"
@@ -38,7 +38,7 @@
           v-on:click="tableName = 'expenses'"
           v-bind:class="{'pure-button-active': tableName === 'expenses'}">
           <font-awesome-icon icon="receipt" style="color: #777" />
-          Expense
+          <span class="button-text">Expense</span>
         </button>
       </div>
       <button
@@ -60,9 +60,7 @@
     </main>
     <ModalWindow v-if='isOpenRecordFilterModal' v-on:close='isOpenRecordFilterModal = false'>
       <h3 slot="header">Filter records</h3>
-      <RecordFilter
-        slot='body'
-        v-on:close='isOpenRecordFilterModal = false'/>
+      <RecordFilter slot='body'/>
     </ModalWindow>
   </section>
 </template>
@@ -194,6 +192,10 @@
 
     .grouped-row section:nth-child(2), .grouped-row-header section:nth-child(2) { 
       padding-right: 0;
+    }
+
+    nav.navigation div.pure-button-group button.pure-button span.button-text {
+      font-size: 0px;
     }
   }
 

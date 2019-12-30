@@ -1,7 +1,6 @@
 <template>
   <header id="header">
-    <em title="Total Records Count">Count: {{totalRecords}}</em>
-    <em title="Total Records Sum">Sum: {{totalSum}}</em>
+    <em title="Balance" v-bind:class="totalSum > 0 ? 'balance-positive' : 'balance-negative'">{{Math.abs(totalSum)}}</em>
   </header>
 </template>
 <script>
@@ -21,5 +20,23 @@
 
   header :first-child {
     margin-right: 10px;
+  }
+
+  header#header em.balance-positive {
+    font-size: 20px;
+    color: rgb(28, 184, 65)
+  }
+
+  header#header em.balance-negative {
+    font-size: 20px;
+    color: rgb(202, 60, 60)
+  }
+
+  header#header em.balance-positive:before {
+    content: '+ '
+  }
+
+  header#header em.balance-negative:before {
+    content: '- '
   }
 </style>

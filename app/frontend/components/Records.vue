@@ -17,7 +17,7 @@
       <button
         class="pure-button pure-button-primary"
         v-on:click="$emit('navigateTo', 'Dashboard')">
-        Group by
+        <font-awesome-icon icon="chart-pie" />
       </button>
       <a href="#"
          class="pure-button pure-button-primary button-scroll-back"
@@ -65,9 +65,7 @@
     </ModalWindow>
     <ModalWindow v-if='isOpenRecordFilterModal' v-on:close='isOpenRecordFilterModal = false'>
       <h3 slot="header">Filter records</h3>
-      <RecordFilter
-        slot='body'
-        v-on:close='isOpenRecordFilterModal = false'/>
+      <RecordFilter slot='body'/>
     </ModalWindow>
     <ModalWindow v-if="isOpenRecordBatchFormModal" v-on:close='isOpenRecordBatchFormModal = false'>
       <h3 slot="header">Edit filtered records</h3>
@@ -93,9 +91,9 @@
   import moment from 'moment'
   import { mapState, mapGetters, mapActions } from 'vuex'
   import { library } from '@fortawesome/fontawesome-svg-core'
-  import { faUpload, faPlus, faFilter, faEdit, faArrowUp } from '@fortawesome/free-solid-svg-icons'
+  import { faUpload, faPlus, faFilter, faEdit, faArrowUp, faChartPie } from '@fortawesome/free-solid-svg-icons'
 
-  library.add(faUpload, faPlus, faFilter, faEdit, faArrowUp)
+  library.add(faUpload, faPlus, faFilter, faEdit, faArrowUp, faChartPie)
 
   export default {
     components: { Record, ModalWindow, RecordForm, RecordFilter, RecordBatchForm, HtmlRecordsUploadForm },

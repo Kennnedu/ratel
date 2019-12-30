@@ -58,7 +58,7 @@ export default {
         card: {}
       },
 
-      submitButtonName: 'Apply changes',
+      submitButtonName: 'Apply',
       isDisabledSubmit: true
     }
   },
@@ -81,7 +81,7 @@ export default {
 
       axios.put('/records/batch', this.submitFormParams())
         .then(res => {
-          this.submitButtonName = 'Apply changes';
+          this.submitButtonName = 'Apply';
           this.fetchRecords();
           this.$emit('close');
         })
