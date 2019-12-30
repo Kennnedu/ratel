@@ -14,6 +14,7 @@
           v-on:click="tableName = 'cards'"
           v-bind:class="{'pure-button-active': tableName === 'cards'}">
           <font-awesome-icon icon="credit-card" style="color: #777" />
+          Sources
         </button>
         <button
           title="Tags"
@@ -21,6 +22,7 @@
           v-on:click="tableName = 'tags'"
           v-bind:class="{'pure-button-active': tableName === 'tags'}">
           <font-awesome-icon icon="tags" style="color: #777" />
+          Tags
         </button>
         <button
           title="Replenishment"
@@ -28,6 +30,7 @@
           v-on:click="tableName = 'replenishments'"
           v-bind:class="{'pure-button-active': tableName === 'replenishments'}">
           <font-awesome-icon icon="hand-holding-usd" style="color: #777" />
+          Income
         </button>
         <button
           title="Expenses"
@@ -35,6 +38,7 @@
           v-on:click="tableName = 'expenses'"
           v-bind:class="{'pure-button-active': tableName === 'expenses'}">
           <font-awesome-icon icon="receipt" style="color: #777" />
+          Expense
         </button>
       </div>
       <button
