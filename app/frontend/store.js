@@ -24,6 +24,16 @@ export default new Vuex.Store({
   getters: {
     recordsCount: state => {
       return state.records.length
+    },
+
+    filterParams: state => {
+      return {
+        name: state.filter.name,
+        card: state.filter.card,
+        from: moment(state.filter.from).utc().format('llll'),
+        to: moment(state.filter.to).utc().format('llll'),
+        limit: 32
+      }
     }
   },
 
@@ -62,10 +72,10 @@ export default new Vuex.Store({
   },
 
   actions: {
-    fetchRecords({ commit, state }, params){
+    fetchRecords({ commit, getters }, params){
       !params && (params = {});
       return new Promise((resolve, reject) => {
-        axios.get('/records', { params: Object.assign({}, state.filter, {limit: 32}, params) })
+        axios.get('/records', { params: Object.assign({}, getters.filterParams, params) })
         .then(data => {
           if(params.offset){
             commit('addRecords', { records: data.data.records });

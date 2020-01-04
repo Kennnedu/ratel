@@ -44,7 +44,7 @@
       <template v-for="(record, index) in records">
         <section
           class="divide-date"
-          v-if="index === 0 || (index !== 0 && !moment(record.performed_at).isSame(records[index-1].performed_at, 'day'))">
+          v-if="index === 0 || (index !== 0 && !moment(record.performed_at).isSame(moment(records[index-1].performed_at), 'day'))">
           <em>{{ moment(record.performed_at).format('LL') }}</em>
         </section>
         <Record

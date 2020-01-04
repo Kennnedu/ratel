@@ -35,7 +35,7 @@ class RecordQuery
     end
 
     if date_from = valid_date?(params['from'])
-      @relation = @relation.where('records.performed_at > ?', date_from - 1.day)
+      @relation = @relation.where('records.performed_at > ?', date_from)
     end
 
     if date_to = valid_date?(params['to'])
@@ -98,7 +98,7 @@ class RecordQuery
   private
 
   def valid_date?(date_string)
-    Date.parse(date_string)
+    DateTime.parse(date_string)
   rescue
     nil
   end
