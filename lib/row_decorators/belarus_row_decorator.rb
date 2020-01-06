@@ -1,6 +1,8 @@
 require_relative 'base_row_decorator'
 
 class BelarusRowDecorator < BaseRowDecorator
+  attr_accessor :card
+
   def name
     __getobj__.css('td')[3].content
   end

@@ -21,6 +21,10 @@ class BelinvestRowDecorator < BaseRowDecorator
     DateTime.parse(__getobj__.css('td')[0].content).to_s
   end
 
+  def as_json
+    super.merge({ 'rest' => rest })
+  end
+
   private
 
   def is_replenish
