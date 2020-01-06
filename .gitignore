@@ -3,7 +3,8 @@
 /db/*.sqlite3-journal
 /log/*
 /tmp
-/statements_html/*.html
+api/tests/statements_html/*.html
+api/tests/statements_html/*.htm
 config/database.yml
 node_modules/
 .env

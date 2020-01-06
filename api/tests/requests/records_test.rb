@@ -120,16 +120,18 @@ describe 'Records' do
   end
 
   describe 'POST /records/bulk' do
-    it 'status 200' do
-      post '/records/bulk', 'html_file' => Rack::Test::UploadedFile.new('./statements_html/200420192345_statement.html', 'text/html')
+    it 'status 200 belinvest' do
+      post '/records/bulk', 'html_file' => Rack::Test::UploadedFile.new('./api/tests/statements_html/belinvest.html', 'text/html')
 
       assert_equal last_response.status, 200
+      assert_equal Record.count, 237
     end
 
-    it 'records count' do
-      post '/records/bulk', 'html_file' => Rack::Test::UploadedFile.new('./statements_html/200420192345_statement.html', 'text/html')
+    it 'status 200 belarus' do
+      post '/records/bulk', 'html_file' => Rack::Test::UploadedFile.new('./api/tests/statements_html/belarus.htm', 'text/html')
 
-      assert_equal Record.count, 27
+      assert_equal last_response.status, 200
+      assert_equal Record.count, 32
     end
   end
 end

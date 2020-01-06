@@ -6,8 +6,6 @@ class RecordQuery
   end
 
   def filter(params)
-    @relation = @relation.left_joins(:card)
-
     if params['name'].present?
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
       exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
@@ -22,6 +20,8 @@ class RecordQuery
     end
 
     if params['card'].present?
+      @relation = @relation.left_joins(:card)
+
       include_card_list = params['card'].split('&').reject { |card| card.eql? '!' }.map { |card| "%#{card}%" }
       exclude_card_list = params['card'].split('&').select { |card| card.eql? '!' }.map { |card| "%#{card[1..-1]}%" }
 
