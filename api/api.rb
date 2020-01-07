@@ -58,7 +58,7 @@ class ApiController < Sinatra::Application
   end
 
   get '/dashboard' do
-    dashboard_table_data = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params)
+    dashboard_table_data = RecordQuery.new(Record.left_joins(:card)).belongs_to_user(@session['user_id']).filter(params)
                                       .dashboard_table_data(params['dasboard_table'])
 
     json dashboard_table: dashboard_table_data.relation.to_a
