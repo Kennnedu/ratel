@@ -34,21 +34,55 @@
       type="button"
       value="Reset"
       class="pure-button"
-      v-on:click="resetFilter" 
+      v-on:click="() => updateFilter({changes: defFilter})" 
     />
+    <input
+      type="button"
+      value="Save as Default"
+      class="pure-button"
+      v-bind:disabled="isEqlFilterToDefFilter"
+      v-on:click="saveDefFilter"/>
   </form>
 </template>
 <script>
-import lodash from 'lodash'
 import { mapState, mapMutations } from 'vuex'
 
 export default {
+  data: function(){
+    return {
+      defFilter: {}
+    }
+  },
+
   computed: {
-    ...mapState(['filter'])
+    ...mapState(['filter']),
+
+    isEqlFilterToDefFilter() {
+      const defFilter = this.defFilter;
+      const filter= this.filter;
+
+      return filter.name === defFilter.name && filter.card === defFilter.card &&
+        filter.from === defFilter.from && filter.to === defFilter.to
+    }
   },
 
   methods: {
-    ...mapMutations(['updateFilter', 'resetFilter'])
+    ...mapMutations(['updateFilter', 'resetFilter']),
+
+    saveDefFilter() {
+      this.defFilter = this.filter;
+      localStorage.setItem('defaultFilter', JSON.stringify(this.filter));
+    }
+  },
+
+  created() {
+    const savedDefFilter = JSON.parse(localStorage.getItem('defaultFilter'));
+
+    if(savedDefFilter) {
+      this.defFilter = savedDefFilter;
+      this.updateFilter({changes: this.defFilter});
+    }
+    else this.defFilter = this.filter;
   }
 }
 </script>

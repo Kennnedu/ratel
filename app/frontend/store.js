@@ -5,11 +5,15 @@ import moment from 'moment'
 
 Vue.use(Vuex)
 
-const defaultFilter = {
-  name: "",
-  card: "",
-  from: moment().set('year', moment().get('year') - 1).format('YYYY-MM-DD'),
-  to: moment().format('YYYY-MM-DD')
+function initializeFilter(){
+  const savedFilter = JSON.parse(localStorage.getItem('defaultFilter'));
+  if(savedFilter) return savedFilter;
+  return {
+    name: "",
+    card: "",
+    from: moment().set('year', moment().get('year') - 1).format('YYYY-MM-DD'),
+    to: moment().format('YYYY-MM-DD')
+  }
 }
 
 export default new Vuex.Store({
@@ -17,7 +21,7 @@ export default new Vuex.Store({
     records: [],
     totalSum: 0,
     totalRecords: 0,
-    filter: defaultFilter,
+    filter: initializeFilter(),
     cards: []
   },
 
@@ -60,10 +64,6 @@ export default new Vuex.Store({
 
     updateFilter(state, payload) {
       state.filter = Object.assign({}, state.filter, payload.changes)
-    },
-
-    resetFilter(state) {
-      state.filter = defaultFilter
     },
 
     addFilteringName(state, payload) {
