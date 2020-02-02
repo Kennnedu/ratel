@@ -35,7 +35,10 @@ export default {
   methods: {
     ...mapMutations(['addFilteringName']),
 
-    filterByTheName() {
+    filterByTheName(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
       this.addFilteringName({name: `!${this.record.name}`})
     }
   }

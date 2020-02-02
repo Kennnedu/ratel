@@ -78,11 +78,7 @@ export default {
   created() {
     const savedDefFilter = JSON.parse(localStorage.getItem('defaultFilter'));
 
-    if(savedDefFilter) {
-      this.defFilter = savedDefFilter;
-      this.updateFilter({changes: this.defFilter});
-    }
-    else this.defFilter = this.filter;
+    this.defFilter = savedDefFilter || this.filter;
   }
 }
 </script>
