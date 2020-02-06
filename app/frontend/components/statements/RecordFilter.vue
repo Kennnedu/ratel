@@ -16,6 +16,13 @@
                 v-on:input="e => updateFilter({changes: { card: e.target.value }})" />
       </div>
       <div class="pure-control-group">
+        <label for="filter-tags">By tag</label>
+        <input type="text"
+               id="filter-card"
+               v-bind:value="filter.tags"
+               v-on:input="e => updateFilter({changes: { tags: e.target.value }})" />
+      </div>
+      <div class="pure-control-group">
         <label for="filter-from">From</label>
         <input type="date"
                 id="filter-from"
@@ -62,7 +69,7 @@ export default {
       const filter= this.filter;
 
       return filter.name === defFilter.name && filter.card === defFilter.card &&
-        filter.from === defFilter.from && filter.to === defFilter.to
+        filter.from === defFilter.from && filter.to === defFilter.to && filter.tags === defFilter.tags
     }
   },
 

@@ -11,6 +11,7 @@ function initializeFilter(){
   return {
     name: "",
     card: "",
+    tags: "",
     from: moment().set('year', moment().get('year') - 1).format('YYYY-MM-DD'),
     to: moment().format('YYYY-MM-DD')
   }
@@ -34,6 +35,7 @@ export default new Vuex.Store({
       return {
         name: state.filter.name,
         card: state.filter.card,
+        tags: state.filter.tags,
         from: moment(state.filter.from).utc().format('llll'),
         to: moment(state.filter.to).utc().format('llll'),
         limit: 32
