@@ -173,7 +173,7 @@
   }
 
   .grouped-row:hover, .grouped-row:active {
-    background-color: #e0e0e0;
+    background-color: #e0e8ff75;
   }
 
   @media (max-width: 1024px) {

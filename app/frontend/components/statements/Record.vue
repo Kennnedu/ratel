@@ -69,9 +69,7 @@ export default {
   }
 
   .record-card:hover, .record-card:focus, .record-card:active {
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    transform: scale(1.04);
-    transition: box-shadow 0.2s, transform 0.2s;
+    background-color: #e0e8ff75;
   }
 
   .record-card .body:hover {
