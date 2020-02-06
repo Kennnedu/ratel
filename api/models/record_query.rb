@@ -34,6 +34,21 @@ class RecordQuery
       end
     end
 
+    if params['tags'].present?
+      @relation = @relation.left_joins(:tags)
+
+      include_tag_list = params['tags'].split('&').reject { |tag| tag.eql? '!' }.map { |tag| "%#{tag}%" }
+      exclude_tag_list = params['tags'].split('&').select { |tag| tag.eql? '!' }.map { |tag| "%#{tag[1..-1]}%" }
+
+      if include_tag_list.present?
+        @relation = @relation.where('tags.name ILIKE ANY (array[?])', include_tag_list)
+      end
+
+      if exclude_tag_list.present?
+        exclude_tag_list.each { |tag| @relation = @relation.where.not('tags.name ILIKE ?', tag) }
+      end
+    end
+
     if date_from = valid_date?(params['from'])
       @relation = @relation.where('records.performed_at > ?', date_from)
     end
