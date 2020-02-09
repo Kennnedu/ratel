@@ -21,7 +21,7 @@ class SessionController < Sinatra::Application
   end
 end
 
-class ApiController < Sinatra::Application
+class ApiV1Controller < Sinatra::Application
   use SessionController
 
   before do

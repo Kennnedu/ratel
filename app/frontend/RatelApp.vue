@@ -40,7 +40,7 @@
       let _this = this;
 
       axios.interceptors.request.use((config) => {
-        config.url = `/api${config.url}`;
+        config.url = `/api/v1${config.url}`;
         config.headers.common.Authorization = `Bearer ${this.cookies().get('session_token')}`
 
         return config

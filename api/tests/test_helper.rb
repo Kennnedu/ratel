@@ -5,10 +5,10 @@ require 'minitest/reporters'
 require 'rack/test'
 require 'factory_bot'
 
-require_relative './../api'
+require_relative './../api_v1'
 
 def app
-  ApiController
+  ApiV1Controller
 end
 
 FactoryBot.definition_file_paths = %w(api/tests/factories)
