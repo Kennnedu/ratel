@@ -1,0 +1,36 @@
+{
+  "resource": "Orders",
+  "resource_explanation": null,
+  "http_method": "GET",
+  "route": "/",
+  "description": "Listing orders",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/",
+      "request_body": null,
+      "request_headers": {
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": null,
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": null,
+      "response_headers": {
+        "Content-Type": "text/html;charset=utf-8",
+        "Content-Length": "0"
+      },
+      "response_content_type": "text/html;charset=utf-8",
+      "curl": "curl -g \"http://localhost:3000/\" -X GET \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
