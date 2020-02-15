@@ -1,15 +1,35 @@
 {
   "resources": [
     {
-      "name": "Orders",
+      "name": "Records",
       "explanation": null,
       "examples": [
         {
-          "description": "Listing orders",
-          "link": "orders/listing_orders.json",
+          "description": "index",
+          "link": "records/index.json",
           "groups": "all",
-          "route": "/",
+          "route": "/records",
           "method": "get"
+        },
+        {
+          "description": "names",
+          "link": "records/names.json",
+          "groups": "all",
+          "route": "/records/names",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "login",
+          "link": "session/login.json",
+          "groups": "all",
+          "route": "/session",
+          "method": "post"
         }
       ]
     }
