@@ -1,6 +1,40 @@
 {
   "resources": [
     {
+      "name": "Cards",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "create",
+          "link": "cards/create.json",
+          "groups": "all",
+          "route": "/cards",
+          "method": "post"
+        },
+        {
+          "description": "delete",
+          "link": "cards/delete.json",
+          "groups": "all",
+          "route": "/cards/:id",
+          "method": "delete"
+        },
+        {
+          "description": "index",
+          "link": "cards/index.json",
+          "groups": "all",
+          "route": "/cards",
+          "method": "get"
+        },
+        {
+          "description": "update",
+          "link": "cards/update.json",
+          "groups": "all",
+          "route": "/cards/:id",
+          "method": "put"
+        }
+      ]
+    },
+    {
       "name": "Records",
       "explanation": null,
       "examples": [

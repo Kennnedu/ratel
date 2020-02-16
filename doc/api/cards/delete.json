@@ -1,14 +1,14 @@
 {
-  "resource": "Records",
+  "resource": "Cards",
   "resource_explanation": null,
   "http_method": "DELETE",
-  "route": "/records/:id",
+  "route": "/cards/:id",
   "description": "delete",
   "explanation": null,
   "parameters": [
     {
       "name": "id",
-      "description": "Recrods id"
+      "description": "Card id"
     }
   ],
   "response_fields": [
@@ -17,11 +17,11 @@
   "requests": [
     {
       "request_method": "DELETE",
-      "request_path": "/records/31",
+      "request_path": "/cards/21",
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMH0.feAoCvYgDCk_tLeL2WNUxSddVwTYOxCYA-C56g4NCUA",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0fQ.WLWPUSMbaqt9CuB4OKsfZfCgIc5tOG1z6HEX8yR-GHM",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -35,7 +35,7 @@
         "Content-Length": "0"
       },
       "response_content_type": "text/html;charset=utf-8",
-      "curl": "curl \"http://localhost:3000/records/31\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMH0.feAoCvYgDCk_tLeL2WNUxSddVwTYOxCYA-C56g4NCUA\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:3000/cards/21\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0fQ.WLWPUSMbaqt9CuB4OKsfZfCgIc5tOG1z6HEX8yR-GHM\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

@@ -1,14 +1,14 @@
 {
-  "resource": "Records",
+  "resource": "Cards",
   "resource_explanation": null,
   "http_method": "PUT",
-  "route": "/records/:id",
+  "route": "/cards/:id",
   "description": "update",
   "explanation": null,
   "parameters": [
     {
       "name": "id",
-      "description": "Record id"
+      "description": "Card id"
     }
   ],
   "response_fields": [
@@ -17,11 +17,11 @@
   "requests": [
     {
       "request_method": "PUT",
-      "request_path": "/records/21",
-      "request_body": "{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}",
+      "request_path": "/cards/16",
+      "request_body": "{\"card\":{\"name\":\"saving\"}}",
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4fQ.ZQKP1bOhl7N-_x-gUXx_VkChEEAnO-pcSk4ErR4iV6I",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.pKLHOffJChwXntCoTm0ZEsTTOLGJkAOEhe0g-dOQWs0",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -35,7 +35,7 @@
         "Content-Length": "0"
       },
       "response_content_type": "text/html;charset=utf-8",
-      "curl": "curl \"http://localhost:3000/records/21\" -d '{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4fQ.ZQKP1bOhl7N-_x-gUXx_VkChEEAnO-pcSk4ErR4iV6I\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:3000/cards/16\" -d '{\"card\":{\"name\":\"saving\"}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.pKLHOffJChwXntCoTm0ZEsTTOLGJkAOEhe0g-dOQWs0\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }
