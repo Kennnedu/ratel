@@ -101,6 +101,26 @@
           "method": "post"
         }
       ]
+    },
+    {
+      "name": "Tags",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "find or create",
+          "link": "tags/find_or_create.json",
+          "groups": "all",
+          "route": "/tags/:name",
+          "method": "post"
+        },
+        {
+          "description": "index",
+          "link": "tags/index.json",
+          "groups": "all",
+          "route": "/tags",
+          "method": "get"
+        }
+      ]
     }
   ]
 }
