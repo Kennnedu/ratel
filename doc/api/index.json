@@ -5,6 +5,27 @@
       "explanation": null,
       "examples": [
         {
+          "description": "create",
+          "link": "records/create.json",
+          "groups": "all",
+          "route": "/records",
+          "method": "post"
+        },
+        {
+          "description": "delete",
+          "link": "records/delete.json",
+          "groups": "all",
+          "route": "/records/:id",
+          "method": "delete"
+        },
+        {
+          "description": "delete batch",
+          "link": "records/delete_batch.json",
+          "groups": "all",
+          "route": "/records/batch",
+          "method": "delete"
+        },
+        {
           "description": "index",
           "link": "records/index.json",
           "groups": "all",
@@ -17,6 +38,20 @@
           "groups": "all",
           "route": "/records/names",
           "method": "get"
+        },
+        {
+          "description": "update",
+          "link": "records/update.json",
+          "groups": "all",
+          "route": "/records/:id",
+          "method": "put"
+        },
+        {
+          "description": "update batch",
+          "link": "records/update_batch.json",
+          "groups": "all",
+          "route": "/records/batch",
+          "method": "put"
         }
       ]
     },

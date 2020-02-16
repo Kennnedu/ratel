@@ -15,4 +15,8 @@ FactoryBot.define do
   factory :card do
     name { Faker::Finance.credit_card }
   end
+
+  factory :tag do
+    name { Faker::App.name }
+  end
 end

@@ -1,0 +1,38 @@
+{
+  "resource": "Records",
+  "resource_explanation": null,
+  "http_method": "POST",
+  "route": "/records",
+  "description": "create",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/records",
+      "request_body": "{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-02-16T10:10\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}",
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.pKLHOffJChwXntCoTm0ZEsTTOLGJkAOEhe0g-dOQWs0",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": null,
+      "response_headers": {
+        "Content-Type": "text/html;charset=utf-8",
+        "Content-Length": "0"
+      },
+      "response_content_type": "text/html;charset=utf-8",
+      "curl": "curl \"http://localhost:3000/records\" -d '{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-02-16T10:10\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.pKLHOffJChwXntCoTm0ZEsTTOLGJkAOEhe0g-dOQWs0\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
