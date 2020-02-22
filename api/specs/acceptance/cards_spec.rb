@@ -12,17 +12,17 @@ resource 'Cards' do
   header 'Content-Type', 'application/json'
 
   get '/cards' do
-    parameter :fields, 'Specified fileds created_at, updated_at, records_sum'
-    parameter :lt, 'Recrods sum less than', scope: :records_sum
-    parameter :gt, 'Records sum greater than', scope: :records_sum
-    parameter :type, 'Order type desc or asc', scope: :order
+    parameter :fields, 'Specified fileds', type: :string, enum: %w(created_at updated_at records_sum), example: 'created_at,updated_at,records_sum'
+    parameter :lt, 'Recrods sum less than', scope: :records_sum, type: :integer, example: 2000
+    parameter :gt, 'Records sum greater than', scope: :records_sum, type: :integer, example: -2000
+    parameter :type, 'Order type', scope: :order, type: :string, enum: %w(desc asc), example: 'asc', default: 'desc'
     parameter :field, 'Order field include all fields from card resource and records_sum if the field included in fields params',
-     scope: :order
-    parameter :name, 'Record name (needed to sum filtered result)', scope: :record
-    parameter :card, 'Record card (needed to sum filtered result)', scope: :record
-    parameter :tags, 'Record tags (needed to sum filtered result)', scope: :record
-    parameter :from, 'Record perfromed from (needed to sum filtered result)', scope: :record
-    parameter :to, 'Record performed to (needed to sum filtered result)', scope: :record
+      scope: :order, type: :string, enum: %w(name created_at updated_at records_sum), default: 'created_at', example: 'records_sum'
+    parameter :name, 'Record name (needed to sum filtered result)', scope: :record, type: :string, example: 'sh&!ra'
+    parameter :card, 'Record card (needed to sum filtered result)', scope: :record, type: :string, example: '33&!55'
+    parameter :tags, 'Record tags (needed to sum filtered result)', scope: :record, type: :string, example: 'la&!ba'
+    parameter :from, 'Record perfromed from (needed to sum filtered result)', scope: :record, type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :to, 'Record performed to (needed to sum filtered result)', scope: :record, type: :string, example: '2020-02-02T18:56:00.000Z'
 
     let(:fields) { 'created_at,updated_at,records_sum' }
     let(:type) { 'desc' }
@@ -42,7 +42,7 @@ resource 'Cards' do
   end
 
   put '/cards/:id' do
-    parameter :id, 'Card id'
+    parameter :id, 'Card id', type: :integer
 
     let(:card) { cards.last }
     let!(:id) { card.id }
@@ -56,7 +56,7 @@ resource 'Cards' do
   end
 
   delete '/cards/:id' do
-    parameter :id, 'Card id'
+    parameter :id, 'Card id', type: :integer
 
     let(:card) { cards.last }
     let!(:id) { card.id }

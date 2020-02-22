@@ -7,32 +7,46 @@
   "explanation": null,
   "parameters": [
     {
+      "type": "string",
+      "example": "ex&!blo",
       "name": "name",
-      "description": "Record name"
+      "description": "Record name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "33&!66",
       "name": "card",
-      "description": "Card name"
+      "description": "Card name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "blo&!mor",
       "name": "tags",
-      "description": "Tags name"
+      "description": "Tags name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
       "name": "from",
       "description": "Performed at from"
     },
     {
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
       "name": "to",
       "description": "Performed at to"
     },
     {
       "scope": "batch_form",
+      "type": "string",
+      "example": "food",
       "name": "name",
       "description": "Record name for updating"
     },
     {
       "scope": "batch_form",
+      "type": "integer",
+      "example": 1,
       "name": "card_id",
       "description": "Card id for updating"
     },
@@ -40,13 +54,13 @@
       "type": "array",
       "scope": "batch_form",
       "items": {
-        "type": "string",
-        "enum": [
-          1,
-          2,
-          3
-        ]
+        "type": "integer"
       },
+      "example": [
+        1,
+        2,
+        3
+      ],
       "default": [
 
       ],
@@ -57,16 +71,16 @@
       "type": "array",
       "scope": "batch_form",
       "items": {
-        "type": "hash",
-        "enum": [
-          {
-            "tag_id": 1
-          },
-          {
-            "tag_id": 2
-          }
-        ]
+        "type": "hash"
       },
+      "example": [
+        {
+          "tag_id": 1
+        },
+        {
+          "tag_id": 2
+        }
+      ],
       "default": [
 
       ],

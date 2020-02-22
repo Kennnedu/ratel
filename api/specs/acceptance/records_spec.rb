@@ -13,11 +13,11 @@ resource 'Records' do
   header 'Content-Type', 'application/json'
 
   get '/records' do
-    parameter :name, 'Record name'
-    parameter :card, 'Card name'
-    parameter :tags, 'Tags name'
-    parameter :from, 'Performed at from'
-    parameter :to, 'Performed at to'
+    parameter :name, 'Record name (enumiration through & and ! to exclude)', type: :string, example: 'ex&!blo'
+    parameter :card, 'Card name (enumiration through & and ! to exclude)', type: :string, example: '33&!66'
+    parameter :tags, 'Tags name (enumiration through & and ! to exclude)', type: :string, example: 'blo&!mor'
+    parameter :from, 'Performed at from', type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :to, 'Performed at to', type: :string, example: '2020-02-02T18:56:00.000Z'
 
     example_request 'index' do
       expect(status).to eq 200
@@ -56,7 +56,7 @@ resource 'Records' do
   end
 
   put '/records/:id' do
-    parameter :id, 'Record id'
+    parameter :id, 'Record id', type: :integer
 
     let(:record) { records.last }
     let!(:id) { record.id }
@@ -78,15 +78,16 @@ resource 'Records' do
   end
 
   put '/records/batch' do
-    parameter :name, 'Record name'
-    parameter :card, 'Card name'
-    parameter :tags, 'Tags name'
-    parameter :from, 'Performed at from'
-    parameter :to, 'Performed at to'
-    parameter :name, 'Record name for updating', scope: :batch_form
-    parameter :card_id, 'Card id for updating', scope: :batch_form
-    parameter :removing_tag_ids, type: :array, scope: :batch_form, items: { type: :string, enum: [1,2,3]}, default: []
-    parameter :records_tags_attributes, type: :array, scope: :batch_form, items: { type: :hash, enum: [ { tag_id: 1 }, { tag_id: 2 } ] }, default: []
+    parameter :name, 'Record name (enumiration through & and ! to exclude)', type: :string, example: 'ex&!blo'
+    parameter :card, 'Card name (enumiration through & and ! to exclude)', type: :string, example: '33&!66'
+    parameter :tags, 'Tags name (enumiration through & and ! to exclude)', type: :string, example: 'blo&!mor'
+    parameter :from, 'Performed at from', type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :to, 'Performed at to', type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :name, 'Record name for updating', scope: :batch_form, type: :string, example: 'food'
+    parameter :card_id, 'Card id for updating', scope: :batch_form, type: :integer, example: 1 
+    parameter :removing_tag_ids, type: :array, scope: :batch_form, items: { type: :integer }, example: [1,2,3], default: []
+    parameter :records_tags_attributes, type: :array, scope: :batch_form, items: { type: :hash },
+      example: [{ tag_id: 1 }, {tag_id: 2}], default: []
 
     example_request 'update batch' do
       expect(status).to eql 200
@@ -94,7 +95,7 @@ resource 'Records' do
   end
 
   delete '/records/:id' do
-    parameter :id, 'Recrods id'
+    parameter :id, 'Recrods id', type: :integer
 
     let(:record) { records.last }
     let!(:id) { record.id }
@@ -105,11 +106,11 @@ resource 'Records' do
   end
 
   delete '/records/batch' do
-    parameter :name, 'Record name'
-    parameter :card, 'Card name'
-    parameter :tags, 'Tags name'
-    parameter :from, 'Performed at from'
-    parameter :to, 'Performed at to'
+    parameter :name, 'Record name (enumiration through & and ! to exclude)', type: :string, example: 'ex&!blo'
+    parameter :card, 'Card name (enumiration through & and ! to exclude)', type: :string, example: '33&!66'
+    parameter :tags, 'Tags name (enumiration through & and ! to exclude)', type: :string, example: 'blo&!mor'
+    parameter :from, 'Performed at from', type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :to, 'Performed at to', type: :string, example: '2020-02-02T18:56:00.000Z'
 
     example_request 'delete batch' do
       expect(status).to eql 200

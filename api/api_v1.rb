@@ -148,9 +148,7 @@ class ApiV1Controller < Sinatra::Application
   end
 
   get '/tags' do
-    json tags: Tag.where(user_id: @session['user_id'])
-                  .where('name ILIKE ?', "%#{params[:keyword]}%")
-                  .as_json(except: [:updated_at, :created_at])
+    json tags: TagQuery.new.belongs_to_user(@session['user_id']).filter(@session['user_id'], params).order(params).relation.as_json                                 
   end
 
   post '/tags/:name' do |name|

@@ -7,22 +7,32 @@
   "explanation": null,
   "parameters": [
     {
+      "type": "string",
+      "example": "ex&!blo",
       "name": "name",
-      "description": "Record name"
+      "description": "Record name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "33&!66",
       "name": "card",
-      "description": "Card name"
+      "description": "Card name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "blo&!mor",
       "name": "tags",
-      "description": "Tags name"
+      "description": "Tags name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
       "name": "from",
       "description": "Performed at from"
     },
     {
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
       "name": "to",
       "description": "Performed at to"
     }

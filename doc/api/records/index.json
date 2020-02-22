@@ -7,22 +7,32 @@
   "explanation": null,
   "parameters": [
     {
+      "type": "string",
+      "example": "ex&!blo",
       "name": "name",
-      "description": "Record name"
+      "description": "Record name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "33&!66",
       "name": "card",
-      "description": "Card name"
+      "description": "Card name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "blo&!mor",
       "name": "tags",
-      "description": "Tags name"
+      "description": "Tags name (enumiration through & and ! to exclude)"
     },
     {
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
       "name": "from",
       "description": "Performed at from"
     },
     {
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
       "name": "to",
       "description": "Performed at to"
     }
@@ -45,10 +55,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"records\": [\n    {\n      \"id\": 5,\n      \"name\": \"Cumin Seed\",\n      \"amount\": \"6.29802939807393\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T14:40:02.630Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Berries\",\n      \"amount\": \"15.9931083469834\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T14:40:02.628Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Custard Apples\",\n      \"amount\": \"58.2968141046627\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T14:40:02.626Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Zahtar Spice Mix\",\n      \"amount\": \"3.28003652226651\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T14:40:02.624Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Tuna\",\n      \"amount\": \"41.3000308808204\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T14:40:02.621Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"total_sum\": \"125.16801925280694\",\n  \"total_count\": 5\n}",
+      "response_body": "{\n  \"records\": [\n    {\n      \"id\": 5,\n      \"name\": \"Tacos\",\n      \"amount\": \"26.4872828178077\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T22:22:58.321Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Vanilla Bean\",\n      \"amount\": \"19.93676124844\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T22:22:58.319Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Guava\",\n      \"amount\": \"32.4378406170455\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T22:22:58.317Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Kidneys\",\n      \"amount\": \"9.06185401823153\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T22:22:58.315Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Berries\",\n      \"amount\": \"58.5946694487867\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T22:22:58.313Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"total_sum\": \"146.51840815031143\",\n  \"total_count\": 5\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "838"
+        "Content-Length": "821"
       },
       "response_content_type": "application/json",
       "curl": "curl -g \"http://localhost:3000/records\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1fQ.gx4yxWHs1vZxcFNXbhXjFkthQ7UpE4lqSF8wID__XBk\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

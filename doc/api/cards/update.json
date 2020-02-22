@@ -7,6 +7,7 @@
   "explanation": null,
   "parameters": [
     {
+      "type": "integer",
       "name": "id",
       "description": "Card id"
     }
