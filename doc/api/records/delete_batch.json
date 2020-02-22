@@ -25,16 +25,18 @@
       "description": "Tags name (enumiration through & and ! to exclude)"
     },
     {
+      "scope": "performed_at",
       "type": "string",
       "example": "2020-02-02T18:56:00.000Z",
-      "name": "from",
-      "description": "Performed at from"
+      "name": "gt",
+      "description": "Performed at greater than"
     },
     {
+      "scope": "performed_at",
       "type": "string",
       "example": "2020-02-02T18:56:00.000Z",
-      "name": "to",
-      "description": "Performed at to"
+      "name": "lt",
+      "description": "Performed at less than"
     }
   ],
   "response_fields": [

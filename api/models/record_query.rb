@@ -49,12 +49,12 @@ class RecordQuery
       end
     end
 
-    if date_from = valid_date?(params['from'])
-      @relation = @relation.where('records.performed_at > ?', date_from)
+    if params['performed_at'] && valid_date?(params['performed_at']['gt'])
+      @relation = @relation.where('records.performed_at > ?', valid_date?(params['performed_at']['gt']))
     end
 
-    if date_to = valid_date?(params['to'])
-      @relation = @relation.where('records.performed_at < ?', date_to + 1.day)
+    if params['performed_at'] && valid_date?(params['performed_at']['lt'])
+      @relation = @relation.where('records.performed_at < ?', valid_date?(params['performed_at']['lt']) + 1.day)
     end
 
     self

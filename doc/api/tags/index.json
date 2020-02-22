@@ -84,18 +84,24 @@
       "description": "Record tags (needed to sum filtered result)"
     },
     {
-      "scope": "record",
+      "scope": [
+        "record",
+        "performed_at"
+      ],
       "type": "string",
       "example": "2020-02-02T18:56:00.000Z",
-      "name": "from",
-      "description": "Record perfromed from (needed to sum filtered result)"
+      "name": "gt",
+      "description": "Record perfromed greater than (needed to sum filtered result)"
     },
     {
-      "scope": "record",
+      "scope": [
+        "record",
+        "performed_at"
+      ],
       "type": "string",
       "example": "2020-02-02T18:56:00.000Z",
-      "name": "to",
-      "description": "Record performed to (needed to sum filtered result)"
+      "name": "lt",
+      "description": "Record performed less than (needed to sum filtered result)"
     }
   ],
   "response_fields": [
@@ -121,10 +127,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"tags\": [\n    {\n      \"id\": 6,\n      \"name\": \"Zoolab\",\n      \"created_at\": \"2020-02-22T22:23:00.473Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.473Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 7,\n      \"name\": \"Wrapsafe\",\n      \"created_at\": \"2020-02-22T22:23:00.475Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.475Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 10,\n      \"name\": \"Ventosanzap\",\n      \"created_at\": \"2020-02-22T22:23:00.479Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.479Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Tresom\",\n      \"created_at\": \"2020-02-22T22:23:00.469Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.469Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Temp\",\n      \"created_at\": \"2020-02-22T22:23:00.467Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.467Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Redhold\",\n      \"created_at\": \"2020-02-22T22:23:00.471Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.471Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 9,\n      \"name\": \"Quo Lux\",\n      \"created_at\": \"2020-02-22T22:23:00.478Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.478Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 11,\n      \"name\": \"Fintone\",\n      \"created_at\": \"2020-02-22T22:23:00.481Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.481Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Bamity\",\n      \"created_at\": \"2020-02-22T22:23:00.466Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.466Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 8,\n      \"name\": \"Alpha\",\n      \"created_at\": \"2020-02-22T22:23:00.476Z\",\n      \"updated_at\": \"2020-02-22T22:23:00.476Z\",\n      \"records_sum\": \"0.0\"\n    }\n  ]\n}",
+      "response_body": "{\n  \"tags\": [\n    {\n      \"id\": 6,\n      \"name\": \"Viva\",\n      \"created_at\": \"2020-02-22T23:46:59.227Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.227Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 9,\n      \"name\": \"Tresom\",\n      \"created_at\": \"2020-02-22T23:46:59.232Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.232Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Ronstring\",\n      \"created_at\": \"2020-02-22T23:46:59.223Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.223Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 7,\n      \"name\": \"Redhold\",\n      \"created_at\": \"2020-02-22T23:46:59.229Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.229Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Overhold\",\n      \"created_at\": \"2020-02-22T23:46:59.221Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.221Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 11,\n      \"name\": \"Home Ing\",\n      \"created_at\": \"2020-02-22T23:46:59.236Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.236Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Hatity\",\n      \"created_at\": \"2020-02-22T23:46:59.225Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.225Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 8,\n      \"name\": \"Flexidy\",\n      \"created_at\": \"2020-02-22T23:46:59.231Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.231Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 10,\n      \"name\": \"Daltfresh\",\n      \"created_at\": \"2020-02-22T23:46:59.234Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.234Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Andalax\",\n      \"created_at\": \"2020-02-22T23:46:59.220Z\",\n      \"updated_at\": \"2020-02-22T23:46:59.220Z\",\n      \"records_sum\": \"0.0\"\n    }\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "1269"
+        "Content-Length": "1273"
       },
       "response_content_type": "application/json",
       "curl": "curl -g \"http://localhost:3000/tags?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxM30.4fZlUWVFW4tXvI6WVEzsLKFkWCfiQqyUcA0XEp7bXYE\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

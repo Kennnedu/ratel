@@ -21,8 +21,10 @@ resource 'Cards' do
     parameter :name, 'Record name (needed to sum filtered result)', scope: :record, type: :string, example: 'sh&!ra'
     parameter :card, 'Record card (needed to sum filtered result)', scope: :record, type: :string, example: '33&!55'
     parameter :tags, 'Record tags (needed to sum filtered result)', scope: :record, type: :string, example: 'la&!ba'
-    parameter :from, 'Record perfromed from (needed to sum filtered result)', scope: :record, type: :string, example: '2020-02-02T18:56:00.000Z'
-    parameter :to, 'Record performed to (needed to sum filtered result)', scope: :record, type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :gt, 'Record perfromed greater than (needed to sum filtered result)', scope: [:record, :performed_at], 
+      type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :lt, 'Record performed less than (needed to sum filtered result)', scope: [:record, :performed_at],
+      type: :string, example: '2020-02-02T18:56:00.000Z'
 
     let(:fields) { 'created_at,updated_at,records_sum' }
     let(:type) { 'desc' }
