@@ -29,10 +29,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"tags\": [\n    {\n      \"id\": 2,\n      \"name\": \"Viva\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Fintone\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Stringtough\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Ventosanzap\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 6,\n      \"name\": \"Voltsillam\",\n      \"user_id\": 13\n    }\n  ]\n}",
+      "response_body": "{\n  \"tags\": [\n    {\n      \"id\": 2,\n      \"name\": \"Viva\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Alpha\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Regrant\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Flexidy\",\n      \"user_id\": 13\n    },\n    {\n      \"id\": 6,\n      \"name\": \"Overhold\",\n      \"user_id\": 13\n    }\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "213"
+        "Content-Length": "201"
       },
       "response_content_type": "application/json",
       "curl": "curl -g \"http://localhost:3000/tags\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxM30.4fZlUWVFW4tXvI6WVEzsLKFkWCfiQqyUcA0XEp7bXYE\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

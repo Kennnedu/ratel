@@ -12,6 +12,22 @@ resource 'Cards' do
   header 'Content-Type', 'application/json'
 
   get '/cards' do
+    parameter :fields, 'Specified fileds created_at, updated_at, records_sum'
+    parameter :lt, 'Recrods sum less than', scope: :records_sum
+    parameter :gt, 'Records sum greater than', scope: :records_sum
+    parameter :type, 'Order type desc or asc', scope: :order
+    parameter :field, 'Order field include all fields from card resource and records_sum if the field included in fields params',
+     scope: :order
+    parameter :name, 'Record name (needed to sum filtered result)', scope: :record
+    parameter :card, 'Record card (needed to sum filtered result)', scope: :record
+    parameter :tags, 'Record tags (needed to sum filtered result)', scope: :record
+    parameter :from, 'Record perfromed from (needed to sum filtered result)', scope: :record
+    parameter :to, 'Record performed to (needed to sum filtered result)', scope: :record
+
+    let(:fields) { 'created_at,updated_at,records_sum' }
+    let(:type) { 'desc' }
+    let(:field) { 'name' }
+  
     example_request 'index' do
       expect(status).to eq 200
     end

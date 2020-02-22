@@ -6,7 +6,55 @@
   "description": "index",
   "explanation": null,
   "parameters": [
-
+    {
+      "name": "fields",
+      "description": "Specified fileds created_at, updated_at, records_sum"
+    },
+    {
+      "scope": "records_sum",
+      "name": "lt",
+      "description": "Recrods sum less than"
+    },
+    {
+      "scope": "records_sum",
+      "name": "gt",
+      "description": "Records sum greater than"
+    },
+    {
+      "scope": "order",
+      "name": "type",
+      "description": "Order type desc or asc"
+    },
+    {
+      "scope": "order",
+      "name": "field",
+      "description": "Order field include all fields from card resource and records_sum if the field included in fields params"
+    },
+    {
+      "scope": "record",
+      "name": "name",
+      "description": "Record name (needed to sum filtered result)"
+    },
+    {
+      "scope": "record",
+      "name": "card",
+      "description": "Record card (needed to sum filtered result)"
+    },
+    {
+      "scope": "record",
+      "name": "tags",
+      "description": "Record tags (needed to sum filtered result)"
+    },
+    {
+      "scope": "record",
+      "name": "from",
+      "description": "Record perfromed from (needed to sum filtered result)"
+    },
+    {
+      "scope": "record",
+      "name": "to",
+      "description": "Record performed to (needed to sum filtered result)"
+    }
   ],
   "response_fields": [
 
@@ -14,7 +62,7 @@
   "requests": [
     {
       "request_method": "GET",
-      "request_path": "/cards",
+      "request_path": "/cards?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name",
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
@@ -22,17 +70,22 @@
         "Host": "example.org"
       },
       "request_query_parameters": {
+        "fields": "created_at,updated_at,records_sum",
+        "order": {
+          "type": "desc",
+          "field": "name"
+        }
       },
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"cards\": [\n    {\n      \"id\": 5,\n      \"name\": \"6767-9552-5448-6744\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"588151580649396647\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"4500995996761\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"3435-368669-15480\"\n    },\n    {\n      \"id\": 1,\n      \"name\": \"6759-3245-8967-0342\"\n    }\n  ]\n}",
+      "response_body": "{\n  \"cards\": [\n    {\n      \"id\": 1,\n      \"name\": \"6007-2245-3944-8734\",\n      \"created_at\": \"2020-02-22T14:40:01.629Z\",\n      \"updated_at\": \"2020-02-22T14:40:01.629Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"56174514384493583\",\n      \"created_at\": \"2020-02-22T14:40:01.637Z\",\n      \"updated_at\": \"2020-02-22T14:40:01.637Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"3563-4545-9702-6402\",\n      \"created_at\": \"2020-02-22T14:40:01.633Z\",\n      \"updated_at\": \"2020-02-22T14:40:01.633Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 2,\n      \"name\": \"3412-899769-31862\",\n      \"created_at\": \"2020-02-22T14:40:01.631Z\",\n      \"updated_at\": \"2020-02-22T14:40:01.631Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"3041-244372-3474\",\n      \"created_at\": \"2020-02-22T14:40:01.635Z\",\n      \"updated_at\": \"2020-02-22T14:40:01.635Z\",\n      \"records_sum\": \"0.0\"\n    }\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "192"
+        "Content-Length": "694"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:3000/cards\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.CJeWD3yLgYqJiRufFubEAM-srOuTPXhW3Rde_sB5-hc\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:3000/cards?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.CJeWD3yLgYqJiRufFubEAM-srOuTPXhW3Rde_sB5-hc\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

@@ -29,10 +29,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"record_names\": [\n    \"Mushroom Risotto\",\n    \"Oranges\",\n    \"Stinky Tofu\",\n    \"Sumac Ground\",\n    \"Tacos\"\n  ]\n}",
+      "response_body": "{\n  \"record_names\": [\n    \"Figs\",\n    \"Japanese sea bass\",\n    \"Lychees\",\n    \"Scallop\",\n    \"Small amberjack\"\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "84"
+        "Content-Length": "83"
       },
       "response_content_type": "application/json",
       "curl": "curl -g \"http://localhost:3000/records/names\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2fQ.qYP5eVKSkrDH-U4-D17Qs60O-i2oXXCP_o8BBBrOtXk\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

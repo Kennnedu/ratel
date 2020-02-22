@@ -5,10 +5,12 @@ require 'sinatra/activerecord'
 require 'jwt'
 require 'dotenv'
 require_relative '../lib/statement_parsers_factory.rb'
+require 'byebug'
 
 Dotenv.load
 
 Dir["./api/models/*.rb"].each { |file| require file }
+Dir["./api/queries/*.rb"].each { |file| require file }
 
 class SessionController < Sinatra::Application
   post '/session' do
@@ -121,7 +123,7 @@ class ApiV1Controller < Sinatra::Application
   end
 
   get '/cards' do
-    json cards: Card.where(user_id: @session['user_id']).as_json(except: [:updated_at, :created_at, :user_id])
+    json cards: CardQuery.new.belongs_to_user(@session['user_id']).filter(@session['user_id'], params).order(params).relation.as_json
   end
 
   post '/cards' do
