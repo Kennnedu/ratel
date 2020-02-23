@@ -96,6 +96,19 @@
       ]
     },
     {
+      "name": "Records Sum",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "index",
+          "link": "records_sum/index.json",
+          "groups": "all",
+          "route": "/records/sum",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "name": "Session",
       "explanation": null,
       "examples": [

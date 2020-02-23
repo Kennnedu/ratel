@@ -2,7 +2,8 @@ class RecordNameQuery
 	FIELD_MAP = { 
 		'created_name_at' => 'min(records.created_at) as created_name_at',
 		'records_sum' => 'sum(records.amount) records_sum'
-	}
+  }.freeze
+
 	attr_reader :relation
 
   def initialize(relation = Record.select(:name).group(:name))

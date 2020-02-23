@@ -21,7 +21,7 @@
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNH0.P-8Z-hlOWgS3I_V3Lklvk1TmyEIJEgMiccSGb9gugNM",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNX0.uz0y227-cFcqf0uxf93ylVHeK3rLK-ocYTPZnrn2IE8",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -29,13 +29,13 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"tag\": {\n    \"id\": 22,\n    \"name\": \"shop\",\n    \"user_id\": 14\n  }\n}",
+      "response_body": "{\n  \"tag\": {\n    \"id\": 22,\n    \"name\": \"shop\",\n    \"user_id\": 15\n  }\n}",
       "response_headers": {
         "Content-Type": "application/json",
         "Content-Length": "44"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:3000/tags/shop\" -d '' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNH0.P-8Z-hlOWgS3I_V3Lklvk1TmyEIJEgMiccSGb9gugNM\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:3000/tags/shop\" -d '' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxNX0.uz0y227-cFcqf0uxf93ylVHeK3rLK-ocYTPZnrn2IE8\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }
