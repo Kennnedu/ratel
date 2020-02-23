@@ -18,6 +18,8 @@ class TagQuery
 
     @relation = @relation.select fields.join(', ')
 
+    @relation = @relation.where('tags.name ILIKE ?', "%#{params['name']}%") if params['name']
+
     if params_fields.include?('records_sum')
       records_query = RecordQuery.new.belongs_to_user(user_id).filter(params['record'] || {}).relation
 
@@ -27,15 +29,13 @@ class TagQuery
 
                               
       if  params['records_sum'] && params['records_sum']['lt']
-        @relation = @relation.having('coalesce(sum(records.amount), 0) < ?', params['records_sum']['lte'].to_i)
+        @relation = @relation.having('coalesce(sum(records.amount), 0) < ?', params['records_sum']['lt'].to_i)
       end
 
       if  params['records_sum'] && params['records_sum']['gt']
-        @relation = @relation.having('coalesce(sum(records.amount), 0) > ?', params['records_sum']['gte'].to_i)
+        @relation = @relation.having('coalesce(sum(records.amount), 0) > ?', params['records_sum']['gt'].to_i)
       end
     end
-
-    @relation = @relation.where('tags.name ILIKE ?', "%#{params['name']}%") if params['name']
 
     self
   end

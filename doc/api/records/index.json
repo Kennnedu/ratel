@@ -49,7 +49,7 @@
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1fQ.gx4yxWHs1vZxcFNXbhXjFkthQ7UpE4lqSF8wID__XBk",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2fQ.qYP5eVKSkrDH-U4-D17Qs60O-i2oXXCP_o8BBBrOtXk",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -57,13 +57,13 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"records\": [\n    {\n      \"id\": 5,\n      \"name\": \"Feta\",\n      \"amount\": \"92.3651620493237\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T23:46:57.077Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Som Tam\",\n      \"amount\": \"8.99310390616211\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T23:46:57.075Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Sage\",\n      \"amount\": \"66.618740465352\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T23:46:57.073Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Methi Leaves\",\n      \"amount\": \"22.4637616672085\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T23:46:57.071Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Salmon roe\",\n      \"amount\": \"15.7504208183095\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-22T23:46:57.068Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"total_sum\": \"206.19118890635581\",\n  \"total_count\": 5\n}",
+      "response_body": "{\n  \"records\": [\n    {\n      \"id\": 15,\n      \"name\": \"Rosy seabass\",\n      \"amount\": \"8.00705193362812\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-23T16:39:47.497Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 14,\n      \"name\": \"Bunny Chow\",\n      \"amount\": \"57.3952470718193\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-23T16:39:47.494Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 13,\n      \"name\": \"Tuna\",\n      \"amount\": \"60.2314105381701\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-23T16:39:47.491Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 12,\n      \"name\": \"Juniper Berries\",\n      \"amount\": \"79.4666021730528\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-23T16:39:47.488Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 11,\n      \"name\": \"Dotted gizzard shad\",\n      \"amount\": \"85.4273371020537\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-02-23T16:39:47.485Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"total_sum\": \"290.52764881872402\",\n  \"total_count\": 5\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "823"
+        "Content-Length": "852"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:3000/records\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1fQ.gx4yxWHs1vZxcFNXbhXjFkthQ7UpE4lqSF8wID__XBk\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:3000/records\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2fQ.qYP5eVKSkrDH-U4-D17Qs60O-i2oXXCP_o8BBBrOtXk\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

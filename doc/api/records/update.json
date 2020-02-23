@@ -18,7 +18,7 @@
   "requests": [
     {
       "request_method": "PUT",
-      "request_path": "/records/21",
+      "request_path": "/records/26",
       "request_body": "{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}",
       "request_headers": {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@
         "Content-Length": "0"
       },
       "response_content_type": "text/html;charset=utf-8",
-      "curl": "curl \"http://localhost:3000/records/21\" -d '{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4fQ.ZQKP1bOhl7N-_x-gUXx_VkChEEAnO-pcSk4ErR4iV6I\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:3000/records/26\" -d '{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4fQ.ZQKP1bOhl7N-_x-gUXx_VkChEEAnO-pcSk4ErR4iV6I\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

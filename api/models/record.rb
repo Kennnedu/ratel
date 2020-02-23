@@ -10,11 +10,11 @@ class Record < ActiveRecord::Base
 
   accepts_nested_attributes_for :records_tags, allow_destroy: true
 
-  def as_json
-    result = super(except: [:created_at, :updated_at, :user_id, :card_id],
-                   include: { card: { only: [:name, :id]},
-                              records_tags: { only: [:id, :tag_id],
-                                              include: { tag: { only: [:id, :name]}}}})
+  def as_json_records
+    result = as_json(except: [:created_at, :updated_at, :user_id, :card_id],
+                     include: { card: { only: [:name, :id]},
+                                records_tags: { only: [:id, :tag_id],
+                                                include: { tag: { only: [:id, :name]}}}})
     return result if card
     result.merge(card: Card.new(id: 0, name: '').as_json(only: [:name, :id]))
   end

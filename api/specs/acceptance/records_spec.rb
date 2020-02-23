@@ -25,14 +25,6 @@ resource 'Records' do
     end
   end
 
-  get '/records/names' do
-    parameter :keyword, 'Records name'
-
-    example_request 'names' do
-      expect(status).to eq 200
-    end
-  end
-
   post '/records' do
     let(:tag) { create :tag, name: 'food', user: user }
     let(:card) { create :card, user: user }

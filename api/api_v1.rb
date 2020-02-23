@@ -10,7 +10,6 @@ require 'byebug'
 Dotenv.load
 
 Dir["./api/models/*.rb"].each { |file| require file }
-Dir["./api/queries/*.rb"].each { |file| require file }
 
 class SessionController < Sinatra::Application
   post '/session' do
@@ -38,11 +37,11 @@ class ApiV1Controller < Sinatra::Application
 
     resp = if params[:offset]
             {
-              records: query_record.dup.perform_recent.preload_ref.relation.offset(params[:offset]).limit(params[:limit] || 30).as_json
+              records: query_record.dup.perform_recent.preload_ref.relation.offset(params[:offset]).limit(params[:limit] || 30).map(&:as_json_records)
             }
           else
             {
-              records: query_record.dup.perform_recent.preload_ref.relation.limit(params[:limit] || 30).as_json,
+              records: query_record.dup.perform_recent.preload_ref.relation.limit(params[:limit] || 30).map(&:as_json_records),
               total_sum: query_record.dup.relation.sum(:amount),
               total_count: query_record.dup.relation.count
             }
@@ -52,11 +51,15 @@ class ApiV1Controller < Sinatra::Application
   end
 
   get '/records/names' do
-    json record_names: Record.select(:name).distinct
-                            .where(user_id: @session['user_id'])
-                            .where('name ILIKE ?', "%#{params[:keyword]}%")
-                            .limit(30)
-                            .pluck(:name)
+    offset = params['offset'].to_i
+    limit = params['limit'].to_i.zero? ? 30 : params['limit'].to_i
+
+    record_names_query = RecordNameQuery.new.belongs_to_user(@session['user_id']).filter(params).order(params).relation    
+
+    json record_names: record_names_query.dup.offset(offset).limit(limit).as_json(except: :id),
+         offset: offset,
+         limit: limit,
+         total_count: Record.from(record_names_query.dup).count
   end
 
   get '/dashboard' do

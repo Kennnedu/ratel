@@ -67,13 +67,6 @@
           "method": "get"
         },
         {
-          "description": "names",
-          "link": "records/names.json",
-          "groups": "all",
-          "route": "/records/names",
-          "method": "get"
-        },
-        {
           "description": "update",
           "link": "records/update.json",
           "groups": "all",
@@ -86,6 +79,19 @@
           "groups": "all",
           "route": "/records/batch",
           "method": "put"
+        }
+      ]
+    },
+    {
+      "name": "Records Names",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "index",
+          "link": "records_names/index.json",
+          "groups": "all",
+          "route": "/records/names",
+          "method": "get"
         }
       ]
     },

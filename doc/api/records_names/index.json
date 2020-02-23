@@ -1,0 +1,131 @@
+{
+  "resource": "Records Names",
+  "resource_explanation": null,
+  "http_method": "GET",
+  "route": "/records/names",
+  "description": "index",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "string",
+      "example": "bo",
+      "name": "name",
+      "description": "Records name"
+    },
+    {
+      "type": "string",
+      "enum": [
+        "created_at",
+        "records_sum"
+      ],
+      "example": "created_at,records_sum",
+      "name": "fields",
+      "description": "Specified fileds"
+    },
+    {
+      "scope": [
+        "record",
+        "amount"
+      ],
+      "type": "integer",
+      "example": 100,
+      "name": "lt",
+      "description": "Amount records names less than"
+    },
+    {
+      "scope": [
+        "record",
+        "amount"
+      ],
+      "type": "integer",
+      "example": -100,
+      "name": "gt",
+      "description": "Amount records names greater than"
+    },
+    {
+      "scope": "records_sum",
+      "type": "integer",
+      "example": 2000,
+      "name": "lt",
+      "description": "Recrods sum less than"
+    },
+    {
+      "scope": "records_sum",
+      "type": "integer",
+      "example": -2000,
+      "name": "gt",
+      "description": "Records sum greater than"
+    },
+    {
+      "scope": "created_name_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "lt",
+      "description": "Records name created at less than"
+    },
+    {
+      "scope": "created_name_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "gt",
+      "description": "Records name created at greater than"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "desc",
+        "asc"
+      ],
+      "example": "desc",
+      "default": "asc",
+      "name": "type",
+      "description": "Order type"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "name",
+        "created_at",
+        "records_sum"
+      ],
+      "default": "name",
+      "example": "records_sum",
+      "name": "field",
+      "description": "Order field include all fields from card resource and records_sum if the field included in fields params"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/records/names?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name",
+      "request_body": null,
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1fQ.gx4yxWHs1vZxcFNXbhXjFkthQ7UpE4lqSF8wID__XBk",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+        "fields": "created_at,updated_at,records_sum",
+        "order": {
+          "type": "desc",
+          "field": "name"
+        }
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"record_names\": [\n    {\n      \"name\": \"Snowpea sprouts\",\n      \"records_sum\": \"84.0649521443295\"\n    },\n    {\n      \"name\": \"Skipjack tuna\",\n      \"records_sum\": \"57.8749747764348\"\n    },\n    {\n      \"name\": \"Papaw\",\n      \"records_sum\": \"24.1229868794243\"\n    },\n    {\n      \"name\": \"Melon\",\n      \"records_sum\": \"48.8024505119032\"\n    },\n    {\n      \"name\": \"Mandarins\",\n      \"records_sum\": \"46.8298468174751\"\n    },\n    {\n      \"name\": \"Lemon Grass\",\n      \"records_sum\": \"16.670656747521\"\n    },\n    {\n      \"name\": \"Kecap Manis\",\n      \"records_sum\": \"55.0656023412559\"\n    },\n    {\n      \"name\": \"Japanese whiting\",\n      \"records_sum\": \"45.1392980124101\"\n    },\n    {\n      \"name\": \"Goat Cheese\",\n      \"records_sum\": \"94.1148875591669\"\n    },\n    {\n      \"name\": \"Brussels Sprouts\",\n      \"records_sum\": \"82.4956709281408\"\n    }\n  ],\n  \"offset\": 0,\n  \"limit\": 30,\n  \"total_count\": 10\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "618"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl -g \"http://localhost:3000/records/names?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1fQ.gx4yxWHs1vZxcFNXbhXjFkthQ7UpE4lqSF8wID__XBk\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
