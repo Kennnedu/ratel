@@ -23,6 +23,8 @@ resource 'Records Names' do
     parameter :type, 'Order type', scope: :order, type: :string, enum: %w(desc asc), example: 'desc', default: 'asc'
     parameter :field, 'Order field include all fields from card resource and records_sum if the field included in fields params',
       scope: :order, type: :string, enum: %w(name created_at records_sum), default: 'name', example: 'records_sum'
+    parameter :limit, 'Limit number of records names', type: :integer, example: 10, default: 30
+    parameter :offset, 'Offset number of records names', type: :integer, example: 5, default: 0
     
     let(:fields) { 'created_at,updated_at,records_sum' }
     let(:type) { 'desc' }

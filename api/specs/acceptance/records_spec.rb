@@ -18,6 +18,10 @@ resource 'Records' do
     parameter :tags, 'Tags name (enumiration through & and ! to exclude)', type: :string, example: 'blo&!mor'
     parameter :gt, 'Performed at greater than', scope: :performed_at, type: :string, example: '2020-02-02T18:56:00.000Z'
     parameter :lt, 'Performed at less than', scope: :performed_at, type: :string, example: '2020-02-02T18:56:00.000Z'
+    parameter :field, 'Order field', scope: :order, type: :string, enum: Record.column_names, example: 'amount', default: 'performed_at'
+    parameter :type, 'Order type', scope: :order, type: :string, enum: %w(asc desc), example: 'asc', default: 'desc'
+    parameter :limit, 'Limit number of records', type: :integer, example: 10, default: 30
+    parameter :offset, 'Offset number of records', type: :integer, example: 5, default: 0
 
     example_request 'index' do
       expect(status).to eq 200

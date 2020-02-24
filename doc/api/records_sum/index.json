@@ -49,7 +49,7 @@
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.jaEYTSCXhumfL5IunBiUbBJ1Lmjgxmw-qFGvXzT_lWo",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.rDJnQMHwP-b_VQ5NF_n8F2LIXvKRjRux5UPMpwEopEc",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -58,13 +58,13 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"sum\": \"62.4552017201052\"\n}",
+      "response_body": "{\n  \"sum\": \"0.0\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "26"
+        "Content-Length": "13"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:3000/records/sum?name=bo\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.jaEYTSCXhumfL5IunBiUbBJ1Lmjgxmw-qFGvXzT_lWo\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:3000/records/sum?name=bo\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.rDJnQMHwP-b_VQ5NF_n8F2LIXvKRjRux5UPMpwEopEc\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

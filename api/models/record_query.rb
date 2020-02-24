@@ -60,6 +60,16 @@ class RecordQuery
     self
   end
 
+  def order(params)
+    if valid_ordering_condition?(params)
+      @relation = @relation.order("#{params['order']['field'].downcase} #{params['order']['type'].downcase}")
+    else
+      @relation = @relation.order('performed_at DESC') 
+    end
+
+    self
+  end
+
   def dashboard_table_data(table)
     case table
     when 'cards'
@@ -116,5 +126,10 @@ class RecordQuery
     DateTime.parse(date_string)
   rescue
     nil
+  end
+
+  def valid_ordering_condition?(params)
+    params['order'] && params['order']['type'] && params['order']['field'] &&
+      %w(desc asc).include?(params['order']['type']) && Record.column_names.include?(params['order']['field'])
   end
 end

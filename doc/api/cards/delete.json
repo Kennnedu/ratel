@@ -22,7 +22,7 @@
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0fQ.WLWPUSMbaqt9CuB4OKsfZfCgIc5tOG1z6HEX8yR-GHM",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0fQ.GaNwVOzioNHYVksmNnL9MF57S07mAer7pK4ZyhHOZNI",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -36,7 +36,7 @@
         "Content-Length": "0"
       },
       "response_content_type": "text/html;charset=utf-8",
-      "curl": "curl \"http://localhost:3000/cards/21\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0fQ.WLWPUSMbaqt9CuB4OKsfZfCgIc5tOG1z6HEX8yR-GHM\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:3000/cards/21\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0fQ.GaNwVOzioNHYVksmNnL9MF57S07mAer7pK4ZyhHOZNI\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

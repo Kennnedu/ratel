@@ -38,7 +38,7 @@ class ApiV1Controller < Sinatra::Application
 
     query_record = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params)
 
-    json records: query_record.dup.perform_recent.preload_ref.relation.offset(offset).limit(limit).map(&:as_json_records),
+    json records: query_record.dup.order(params).preload_ref.relation.offset(offset).limit(limit).map(&:as_json_records),
          offset: offset,
          limit: limit,
          total_count: query_record.dup.relation.count
