@@ -23,16 +23,6 @@ class RecordNameQuery
 			@relation = @relation.where('name ILIKE ?', "%#{params['name']}%")
 		end
 
-    if params['record']
-      if params['record']['amount'] && params['record']['amount']['lt']
-        @relation = @relation.where('records.amount < ?', params['record']['amount']['lt'].to_i)
-      end
-  
-      if params['record']['amount'] && params['record']['amount']['gt']
-        @relation = @relation.where('records.amount > ?', params['record']['amount']['gt'].to_i)
-      end
-    end
-
 		if  params['records_sum'] && params['records_sum']['lt']
 			@relation = @relation.having('coalesce(sum(records.amount), 0) < ?', params['records_sum']['lt'].to_i)
 		end

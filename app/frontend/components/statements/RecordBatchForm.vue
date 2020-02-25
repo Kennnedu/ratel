@@ -80,7 +80,7 @@ export default {
       e.preventDefault();
       this.submitButtonName = 'Saving...'
 
-      axios.put('/records/batch', this.submitFormParams())
+      axios.put('/records', this.submitFormParams())
         .then(res => {
           this.submitButtonName = 'Apply';
           this.fetchRecords();
@@ -94,7 +94,7 @@ export default {
 
       if (!confirm('Are you sure do you want tor remove all selected records?')) return null;
 
-      axios({url: '/records/batch', method: 'delete', params: this.filterParams })
+      axios({url: '/records', method: 'delete', params: this.filterParams })
         .then(res => {
           this.fetchRecords();
           this.$emit('close');

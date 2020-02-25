@@ -57,6 +57,14 @@ class RecordQuery
       @relation = @relation.where('records.performed_at < ?', valid_date?(params['performed_at']['lt']) + 1.day)
     end
 
+    if params['amount'] && params['amount']['lt']
+      @relation = @relation.where('records.amount < ?', params['amount']['lt'].to_i)
+    end
+
+    if params['amount'] && params['amount']['gt']
+      @relation = @relation.where('records.amount > ?', params['amount']['gt'].to_i)
+    end
+
     self
   end
 
@@ -67,41 +75,6 @@ class RecordQuery
       @relation = @relation.order('performed_at DESC') 
     end
 
-    self
-  end
-
-  def dashboard_table_data(table)
-    case table
-    when 'cards'
-      cards_data
-    when 'replenishments'
-      replenishments_data
-    when 'expenses'
-      expenses_data
-    when 'tags'
-      tags_data
-    else
-      self
-    end
-  end
-
-  def tags_data
-    @relation = @relation.joins(:tags).group('tags.name').order('sum_amount DESC').sum(:amount)
-    self
-  end
-
-  def replenishments_data
-    @relation = @relation.where('records.amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
-    self
-  end
-
-  def expenses_data
-    @relation = @relation.where('records.amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
-    self
-  end
-
-  def cards_data
-    @relation = @relation.group('cards.name').order('sum_amount DESC').sum(:amount)
     self
   end
 

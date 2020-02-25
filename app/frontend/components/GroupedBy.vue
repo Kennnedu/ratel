@@ -51,11 +51,11 @@
     <main class="grouped-by" v-bind:touchmove="e => e.preventDefault()">
       <article class="grouped-row-header">
         <section></section>
-        <section>BYN</section>
+        <section>Records sum</section>
       </article>
       <article class="grouped-row" v-for="row in tableData">
-        <section class="grouped-name" v-bind:title="row[0]">{{ row[0] }}</section>
-        <section class="grouped-sum">{{ row[1] }}</section>
+        <section class="grouped-name" v-bind:title="row.name">{{ row.name }}</section>
+        <section class="grouped-sum">{{ row.records_sum }}</section>
       </article>
     </main>
     <ModalWindow v-if='isOpenRecordFilterModal' v-on:close='isOpenRecordFilterModal = false'>
@@ -115,9 +115,45 @@
 
     methods: {
       fetchDashboardData() {
-        axios.get('/dashboard', { params: {...this.filter, ...{dasboard_table: this.tableName}} })
-          .then(resp => this.tableData = resp.data.dashboard_table)
-          .catch(err => console.log(err.error))
+        if(this.tableName === 'cards'){
+          axios.get('/cards', { params: this.dashboardParams() })
+            .then(resp => this.tableData = resp.data.cards)
+            .catch(err => console.log(err.error));
+        }  else if(this.tableName === 'tags') {
+          axios.get('/tags', { params: this.dashboardParams() })
+            .then(resp => this.tableData = resp.data.tags)
+            .catch(err => console.log(err.error));
+        } else if(this.tableName === 'replenishments') {
+          axios.get('/records/names', { params: this.dashboardParams() })
+            .then(resp => this.tableData = resp.data.record_names)
+            .catch(err => console.log(err.error));
+        } else if(this.tableName === 'expenses') {
+          axios.get('/records/names', { params: this.dashboardParams() })
+            .then(resp => this.tableData = resp.data.record_names)
+            .catch(err => console.log(err.error));
+        }
+      },
+
+      dashboardParams() {
+        let params = {
+          'fields': 'records_sum',
+          'order[field]': 'records_sum',
+          'order[type]': 'desc',
+          'record[name]': this.filter.name,
+          'record[card]': this.filter.card,
+          'record[tags]': this.filter.tags,
+          'record[performed_at][gt]': this.filter.from,
+          'record[performed_at][lt]': this.filter.to,
+          'limit': 150
+        }
+
+        if (this.tableName === 'replenishments') {
+          params = { ...params, ...{ 'record[amount][gt]': 0 } }
+        } else if (this.tableName === 'expenses') {
+          params = { ...params, ...{ 'record[amount][lt]': 0, 'order[type]': 'asc' } }
+        }
+
+        return params
       }
     }
   }

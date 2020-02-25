@@ -52,19 +52,15 @@ class ApiV1Controller < Sinatra::Application
     offset = params['offset'].to_i
     limit = params['limit'].to_i.zero? ? 30 : params['limit'].to_i
 
-    record_names_query = RecordNameQuery.new.belongs_to_user(@session['user_id']).filter(params).order(params).relation    
+    record_query = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params['record'])
+                    .relation.select('records.name').group('records.name')
+
+    record_names_query = RecordNameQuery.new(record_query).belongs_to_user(@session['user_id']).filter(params).order(params).relation
 
     json record_names: record_names_query.dup.offset(offset).limit(limit).as_json(except: :id),
          offset: offset,
          limit: limit,
          total_count: Record.from(record_names_query.dup).count
-  end
-
-  get '/dashboard' do
-    dashboard_table_data = RecordQuery.new(Record.left_joins(:card)).belongs_to_user(@session['user_id']).filter(params)
-                                      .dashboard_table_data(params['dasboard_table'])
-
-    json dashboard_table: dashboard_table_data.relation.to_a
   end
 
   post '/records' do
@@ -91,7 +87,7 @@ class ApiV1Controller < Sinatra::Application
       { message: saved_records.map(&:errors).map(&:full_messages).map { |m| m.join(', ') } }.to_json
   end
 
-  put '/records/batch' do
+  put '/records' do
     filtered_records = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation
 
     filtered_records.each { |record| record.update(params['batch_form']) } if params['batch_form']
@@ -111,7 +107,7 @@ class ApiV1Controller < Sinatra::Application
     halt 400, {'Content-Type' => 'application/json'}, { message: record.errors }.to_json
   end
 
-  delete '/records/batch' do
+  delete '/records' do
     RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.destroy_all
 
     halt 200
