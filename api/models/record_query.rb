@@ -22,8 +22,8 @@ class RecordQuery
     if params['card'].present?
       @relation = @relation.left_joins(:card)
 
-      include_card_list = params['card'].split('&').reject { |card| card.eql? '!' }.map { |card| "%#{card}%" }
-      exclude_card_list = params['card'].split('&').select { |card| card.eql? '!' }.map { |card| "%#{card[1..-1]}%" }
+      include_card_list = params['card'].split('&').reject { |card| card[0].eql? '!' }.map { |card| "%#{card}%" }
+      exclude_card_list = params['card'].split('&').select { |card| card[0].eql? '!' }.map { |card| "%#{card[1..-1]}%" }
 
       if include_card_list.present?
         @relation = @relation.where('cards.name ILIKE ANY (array[?])', include_card_list)
@@ -37,8 +37,8 @@ class RecordQuery
     if params['tags'].present?
       @relation = @relation.left_joins(:tags)
 
-      include_tag_list = params['tags'].split('&').reject { |tag| tag.eql? '!' }.map { |tag| "%#{tag}%" }
-      exclude_tag_list = params['tags'].split('&').select { |tag| tag.eql? '!' }.map { |tag| "%#{tag[1..-1]}%" }
+      include_tag_list = params['tags'].split('&').reject { |tag| tag[0].eql? '!' }.map { |tag| "%#{tag}%" }
+      exclude_tag_list = params['tags'].split('&').select { |tag| tag[0].eql? '!' }.map { |tag| "%#{tag[1..-1]}%" }
 
       if include_tag_list.present?
         @relation = @relation.where('tags.name ILIKE ANY (array[?])', include_tag_list)
