@@ -11,7 +11,23 @@ Dotenv.load
 
 Dir["./api/models/*.rb"].each { |file| require file }
 
-class SessionController < Sinatra::Application
+class ApiV1Controller < Sinatra::Application
+  before do
+    content_type :json
+    headers 'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'OPTIONS, GET, POST, DELETE, PUT',
+            'Access-Control-Allow-Headers' => 'X-Requested-With, Content-Type, Accept, Origin, Authorization'
+    halt 200 if request.request_method.eql?('OPTIONS')
+  end
+
+  before do
+    pass if request.path.include?('/session')
+    auth_token = request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)
+    @session = JWT.decode(auth_token, ENV.fetch('SECRET_KEY'), true, { algorithm: 'HS256' }).first
+  rescue JWT::DecodeError, JWT::ExpiredSignature
+    halt 401
+  end
+
   post '/session' do
     params = JSON.parse(request.body.read)
     user = User.find_by(username: params['username']) if params['username'].present?
@@ -19,17 +35,6 @@ class SessionController < Sinatra::Application
     return halt(400) unless user && user.authenticate(params['password'])
     exp = (DateTime.current + (params['secure_login'] ? 10.minutes : 1.month)).to_i
     json session_token: JWT.encode({ user_id: user.id, exp: exp }, ENV.fetch('SECRET_KEY'), 'HS256')
-  end
-end
-
-class ApiV1Controller < Sinatra::Application
-  use SessionController
-
-  before do
-    auth_token = request.env['HTTP_AUTHORIZATION'].split(' ').last
-    @session = JWT.decode(auth_token, ENV.fetch('SECRET_KEY'), true, { algorithm: 'HS256' }).first
-  rescue JWT::DecodeError, JWT::ExpiredSignature
-    halt 401
   end
 
   get '/records' do
@@ -52,7 +57,7 @@ class ApiV1Controller < Sinatra::Application
     offset = params['offset'].to_i
     limit = params['limit'].to_i.zero? ? 30 : params['limit'].to_i
 
-    record_query = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params['record'])
+    record_query = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params['record'] || {})
                     .relation.select('records.name').group('records.name')
 
     record_names_query = RecordNameQuery.new(record_query).belongs_to_user(@session['user_id']).filter(params).order(params).relation

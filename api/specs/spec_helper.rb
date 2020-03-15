@@ -32,7 +32,7 @@ RspecApiDocumentation.configure do |config|
   config.api_name = "Ratel API"
   config.api_explanation = "An explanation of the API"
   config.format = :json
-  config.curl_host = 'http://localhost:3000'
+  config.curl_host = 'http://localhost:4567'
   config.request_headers_to_include = %w[Content-Type Host Authorization]
   config.response_headers_to_include = %w[Content-Type Content-Length]
 end

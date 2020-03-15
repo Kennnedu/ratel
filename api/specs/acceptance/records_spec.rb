@@ -73,7 +73,7 @@ resource 'Records' do
     end
   end
 
-  put '/records/batch' do
+  put '/records' do
     parameter :name, 'Record name (enumiration through & and ! to exclude)', type: :string, example: 'ex&!blo'
     parameter :card, 'Card name (enumiration through & and ! to exclude)', type: :string, example: '33&!66'
     parameter :tags, 'Tags name (enumiration through & and ! to exclude)', type: :string, example: 'blo&!mor'
@@ -101,7 +101,7 @@ resource 'Records' do
     end
   end
 
-  delete '/records/batch' do
+  delete '/records' do
     parameter :name, 'Record name (enumiration through & and ! to exclude)', type: :string, example: 'ex&!blo'
     parameter :card, 'Card name (enumiration through & and ! to exclude)', type: :string, example: '33&!66'
     parameter :tags, 'Tags name (enumiration through & and ! to exclude)', type: :string, example: 'blo&!mor'
