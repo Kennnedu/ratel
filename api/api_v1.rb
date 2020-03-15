@@ -5,7 +5,6 @@ require 'sinatra/activerecord'
 require 'jwt'
 require 'dotenv'
 require_relative '../lib/statement_parsers_factory.rb'
-require 'byebug'
 
 Dotenv.load
 
