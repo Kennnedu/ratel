@@ -1,0 +1,134 @@
+{
+  "resource": "Cards",
+  "resource_explanation": null,
+  "http_method": "GET",
+  "route": "/cards",
+  "description": "index",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "string",
+      "enum": [
+        "created_at",
+        "updated_at",
+        "records_sum"
+      ],
+      "example": "created_at,updated_at,records_sum",
+      "name": "fields",
+      "description": "Specified fileds"
+    },
+    {
+      "scope": "records_sum",
+      "type": "integer",
+      "example": 2000,
+      "name": "lt",
+      "description": "Recrods sum less than"
+    },
+    {
+      "scope": "records_sum",
+      "type": "integer",
+      "example": -2000,
+      "name": "gt",
+      "description": "Records sum greater than"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "desc",
+        "asc"
+      ],
+      "example": "asc",
+      "default": "desc",
+      "name": "type",
+      "description": "Order type"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "name",
+        "created_at",
+        "updated_at",
+        "records_sum"
+      ],
+      "default": "created_at",
+      "example": "records_sum",
+      "name": "field",
+      "description": "Order field include all fields from card resource and records_sum if the field included in fields params"
+    },
+    {
+      "scope": "record",
+      "type": "string",
+      "example": "sh&!ra",
+      "name": "name",
+      "description": "Record name (needed to sum filtered result)"
+    },
+    {
+      "scope": "record",
+      "type": "string",
+      "example": "33&!55",
+      "name": "card",
+      "description": "Record card (needed to sum filtered result)"
+    },
+    {
+      "scope": "record",
+      "type": "string",
+      "example": "la&!ba",
+      "name": "tags",
+      "description": "Record tags (needed to sum filtered result)"
+    },
+    {
+      "scope": [
+        "record",
+        "performed_at"
+      ],
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "gt",
+      "description": "Record perfromed greater than (needed to sum filtered result)"
+    },
+    {
+      "scope": [
+        "record",
+        "performed_at"
+      ],
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "lt",
+      "description": "Record performed less than (needed to sum filtered result)"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/cards?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name",
+      "request_body": null,
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.33vzA7x5aY6d27N4AHbaDZh8AMG9hBrR6mY19dBQHU8",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+        "fields": "created_at,updated_at,records_sum",
+        "order": {
+          "type": "desc",
+          "field": "name"
+        }
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"cards\": [\n    {\n      \"id\": 2,\n      \"name\": \"6759-2343-1410-2105-960\",\n      \"created_at\": \"2020-03-15T20:04:27.597Z\",\n      \"updated_at\": \"2020-03-15T20:04:27.597Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"6007-2241-3121-2553\",\n      \"created_at\": \"2020-03-15T20:04:27.602Z\",\n      \"updated_at\": \"2020-03-15T20:04:27.602Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"5288-0036-2214-3556\",\n      \"created_at\": \"2020-03-15T20:04:27.599Z\",\n      \"updated_at\": \"2020-03-15T20:04:27.599Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 1,\n      \"name\": \"3779-920811-76623\",\n      \"created_at\": \"2020-03-15T20:04:27.595Z\",\n      \"updated_at\": \"2020-03-15T20:04:27.595Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"3686-219267-6626\",\n      \"created_at\": \"2020-03-15T20:04:27.601Z\",\n      \"updated_at\": \"2020-03-15T20:04:27.601Z\",\n      \"records_sum\": \"0.0\"\n    }\n  ]\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "700"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl -g \"http://localhost:4567/cards?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.33vzA7x5aY6d27N4AHbaDZh8AMG9hBrR6mY19dBQHU8\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

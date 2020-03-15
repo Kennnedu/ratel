@@ -1,0 +1,70 @@
+{
+  "resource": "Records Sum",
+  "resource_explanation": null,
+  "http_method": "GET",
+  "route": "/records/sum",
+  "description": "index",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "string",
+      "example": "ex&!blo",
+      "name": "name",
+      "description": "Record name (enumiration through & and ! to exclude)"
+    },
+    {
+      "type": "string",
+      "example": "33&!66",
+      "name": "card",
+      "description": "Card name (enumiration through & and ! to exclude)"
+    },
+    {
+      "type": "string",
+      "example": "blo&!mor",
+      "name": "tags",
+      "description": "Tags name (enumiration through & and ! to exclude)"
+    },
+    {
+      "scope": "performed_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "gt",
+      "description": "Performed at greater than"
+    },
+    {
+      "scope": "performed_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "lt",
+      "description": "Performed at less than"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/records/sum?name=bo",
+      "request_body": null,
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.rDJnQMHwP-b_VQ5NF_n8F2LIXvKRjRux5UPMpwEopEc",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+        "name": "bo"
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"sum\": \"0.0\"\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "13"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl -g \"http://localhost:4567/records/sum?name=bo\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.rDJnQMHwP-b_VQ5NF_n8F2LIXvKRjRux5UPMpwEopEc\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "resource": "Records",
+  "resource_explanation": null,
+  "http_method": "PUT",
+  "route": "/records/:id",
+  "description": "update",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "integer",
+      "name": "id",
+      "description": "Record id"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "PUT",
+      "request_path": "/records/26",
+      "request_body": "{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}",
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4fQ.QUc3jOsjm9GnkSog7y7mACqqmKsgU1RnyFf0kJxUppc",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": null,
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "0"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/records/26\" -d '{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4fQ.QUc3jOsjm9GnkSog7y7mACqqmKsgU1RnyFf0kJxUppc\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

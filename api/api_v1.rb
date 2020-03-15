@@ -5,12 +5,29 @@ require 'sinatra/activerecord'
 require 'jwt'
 require 'dotenv'
 require_relative '../lib/statement_parsers_factory.rb'
+require 'byebug'
 
 Dotenv.load
 
 Dir["./api/models/*.rb"].each { |file| require file }
 
-class SessionController < Sinatra::Application
+class ApiV1Controller < Sinatra::Application
+  before do
+    content_type :json
+    headers 'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Methods' => 'OPTIONS, GET, POST, DELETE, PUT',
+            'Access-Control-Allow-Headers' => 'X-Requested-With, Content-Type, Accept, Origin, Authorization'
+    halt 200 if request.request_method.eql?('OPTIONS')
+  end
+
+  before do
+    pass if request.path.include?('/session')
+    auth_token = request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)
+    @session = JWT.decode(auth_token, ENV.fetch('SECRET_KEY'), true, { algorithm: 'HS256' }).first
+  rescue JWT::DecodeError, JWT::ExpiredSignature
+    halt 401
+  end
+
   post '/session' do
     params = JSON.parse(request.body.read)
     user = User.find_by(username: params['username']) if params['username'].present?
@@ -19,49 +36,36 @@ class SessionController < Sinatra::Application
     exp = (DateTime.current + (params['secure_login'] ? 10.minutes : 1.month)).to_i
     json session_token: JWT.encode({ user_id: user.id, exp: exp }, ENV.fetch('SECRET_KEY'), 'HS256')
   end
-end
-
-class ApiV1Controller < Sinatra::Application
-  use SessionController
-
-  before do
-    auth_token = request.env['HTTP_AUTHORIZATION'].split(' ').last
-    @session = JWT.decode(auth_token, ENV.fetch('SECRET_KEY'), true, { algorithm: 'HS256' }).first
-  rescue JWT::DecodeError, JWT::ExpiredSignature
-    halt 401
-  end
 
   get '/records' do
+    offset = params['offset'].to_i
+    limit = params['limit'].to_i.zero? ? 30 : params['limit'].to_i
+
     query_record = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params)
 
-    resp = if params[:offset]
-            {
-              records: query_record.dup.perform_recent.preload_ref.relation.offset(params[:offset]).limit(params[:limit] || 30).as_json
-            }
-          else
-            {
-              records: query_record.dup.perform_recent.preload_ref.relation.limit(params[:limit] || 30).as_json,
-              total_sum: query_record.dup.relation.sum(:amount),
-              total_count: query_record.dup.relation.count
-            }
-          end
+    json records: query_record.dup.order(params).preload_ref.relation.offset(offset).limit(limit).map(&:as_json_records),
+         offset: offset,
+         limit: limit,
+         total_count: query_record.dup.relation.count
+  end
 
-    json resp
+  get '/records/sum' do
+    json sum: RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.sum('records.amount')
   end
 
   get '/records/names' do
-    json record_names: Record.select(:name).distinct
-                            .where(user_id: @session['user_id'])
-                            .where('name ILIKE ?', "%#{params[:keyword]}%")
-                            .limit(30)
-                            .pluck(:name)
-  end
+    offset = params['offset'].to_i
+    limit = params['limit'].to_i.zero? ? 30 : params['limit'].to_i
 
-  get '/dashboard' do
-    dashboard_table_data = RecordQuery.new(Record.left_joins(:card)).belongs_to_user(@session['user_id']).filter(params)
-                                      .dashboard_table_data(params['dasboard_table'])
+    record_query = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params['record'] || {})
+                    .relation.select('records.name').group('records.name')
 
-    json dashboard_table: dashboard_table_data.relation.to_a
+    record_names_query = RecordNameQuery.new(record_query).belongs_to_user(@session['user_id']).filter(params).order(params).relation
+
+    json record_names: record_names_query.dup.offset(offset).limit(limit).as_json(except: :id),
+         offset: offset,
+         limit: limit,
+         total_count: Record.from(record_names_query.dup).count
   end
 
   post '/records' do
@@ -88,7 +92,7 @@ class ApiV1Controller < Sinatra::Application
       { message: saved_records.map(&:errors).map(&:full_messages).map { |m| m.join(', ') } }.to_json
   end
 
-  put '/records/batch' do
+  put '/records' do
     filtered_records = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation
 
     filtered_records.each { |record| record.update(params['batch_form']) } if params['batch_form']
@@ -108,7 +112,7 @@ class ApiV1Controller < Sinatra::Application
     halt 400, {'Content-Type' => 'application/json'}, { message: record.errors }.to_json
   end
 
-  delete '/records/batch' do
+  delete '/records' do
     RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.destroy_all
 
     halt 200
@@ -121,7 +125,7 @@ class ApiV1Controller < Sinatra::Application
   end
 
   get '/cards' do
-    json cards: Card.where(user_id: @session['user_id']).as_json(except: [:updated_at, :created_at, :user_id])
+    json cards: CardQuery.new.belongs_to_user(@session['user_id']).filter(@session['user_id'], params).order(params).relation.as_json
   end
 
   post '/cards' do
@@ -146,9 +150,7 @@ class ApiV1Controller < Sinatra::Application
   end
 
   get '/tags' do
-    json tags: Tag.where(user_id: @session['user_id'])
-                  .where('name ILIKE ?', "%#{params[:keyword]}%")
-                  .as_json(except: [:updated_at, :created_at])
+    json tags: TagQuery.new.belongs_to_user(@session['user_id']).filter(@session['user_id'], params).order(params).relation.as_json                                 
   end
 
   post '/tags/:name' do |name|

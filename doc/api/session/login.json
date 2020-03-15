@@ -1,0 +1,37 @@
+{
+  "resource": "Session",
+  "resource_explanation": null,
+  "http_method": "POST",
+  "route": "/session",
+  "description": "login",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/session",
+      "request_body": "{\"username\":\"young\",\"password\":\"password\",\"secure_login\":true}",
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"session_token\": \"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMywiZXhwIjoxNTg0MzAzMjcxfQ.i6z3BzayNtnUxjdahe2FOhD1hS5ZKVqtilPszNNhS9M\"\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "127"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/session\" -d '{\"username\":\"young\",\"password\":\"password\",\"secure_login\":true}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

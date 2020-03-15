@@ -15,6 +15,8 @@ gem 'jwt'
 gem 'nokogiri'
 # The 'pg' Ruby library, an interface to the PostgreSQL Relational Database Management System.
 gem 'pg'
+# Rspec Api Documentation Browser
+gem 'raddocs'
 # A make-like build utility for Ruby. https://ruby.github.io/rake
 gem 'rake'
 # Classy web-development dressed in a DSL (official / canonical repo) http://www.sinatrarb.com/
@@ -30,10 +32,16 @@ group :development, :test do
 end
 
 group :test do
+  # Strategies for cleaning databases in Ruby. Can be used to ensure a clean state for testing.
+  gem 'database_cleaner-active_record'
   # A library for setting up Ruby objects as test data. https://thoughtbot.com/open-source
   gem 'factory_bot'
   # A library for generating fake data such as names, addresses, and phone numbers.
   gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+  # RSpec meta-gem that depends on the other components 
+  gem 'rspec'
+  # Automatically generate API documentation from RSpec 
+  gem 'rspec_api_documentation', '~> 6.1'
   # Create customizable MiniTest output formats.
   gem 'minitest-reporters'
   # Rack::Test is a layer on top of Rack's MockRequest similar to Merb's RequestHelper

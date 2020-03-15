@@ -22,8 +22,8 @@ class RecordQuery
     if params['card'].present?
       @relation = @relation.left_joins(:card)
 
-      include_card_list = params['card'].split('&').reject { |card| card.eql? '!' }.map { |card| "%#{card}%" }
-      exclude_card_list = params['card'].split('&').select { |card| card.eql? '!' }.map { |card| "%#{card[1..-1]}%" }
+      include_card_list = params['card'].split('&').reject { |card| card[0].eql? '!' }.map { |card| "%#{card}%" }
+      exclude_card_list = params['card'].split('&').select { |card| card[0].eql? '!' }.map { |card| "%#{card[1..-1]}%" }
 
       if include_card_list.present?
         @relation = @relation.where('cards.name ILIKE ANY (array[?])', include_card_list)
@@ -37,8 +37,8 @@ class RecordQuery
     if params['tags'].present?
       @relation = @relation.left_joins(:tags)
 
-      include_tag_list = params['tags'].split('&').reject { |tag| tag.eql? '!' }.map { |tag| "%#{tag}%" }
-      exclude_tag_list = params['tags'].split('&').select { |tag| tag.eql? '!' }.map { |tag| "%#{tag[1..-1]}%" }
+      include_tag_list = params['tags'].split('&').reject { |tag| tag[0].eql? '!' }.map { |tag| "%#{tag}%" }
+      exclude_tag_list = params['tags'].split('&').select { |tag| tag[0].eql? '!' }.map { |tag| "%#{tag[1..-1]}%" }
 
       if include_tag_list.present?
         @relation = @relation.where('tags.name ILIKE ANY (array[?])', include_tag_list)
@@ -49,49 +49,32 @@ class RecordQuery
       end
     end
 
-    if date_from = valid_date?(params['from'])
-      @relation = @relation.where('records.performed_at > ?', date_from)
+    if params['performed_at'] && valid_date?(params['performed_at']['gt'])
+      @relation = @relation.where('records.performed_at > ?', valid_date?(params['performed_at']['gt']))
     end
 
-    if date_to = valid_date?(params['to'])
-      @relation = @relation.where('records.performed_at < ?', date_to + 1.day)
+    if params['performed_at'] && valid_date?(params['performed_at']['lt'])
+      @relation = @relation.where('records.performed_at < ?', valid_date?(params['performed_at']['lt']) + 1.day)
+    end
+
+    if params['amount'] && params['amount']['lt']
+      @relation = @relation.where('records.amount < ?', params['amount']['lt'].to_i)
+    end
+
+    if params['amount'] && params['amount']['gt']
+      @relation = @relation.where('records.amount > ?', params['amount']['gt'].to_i)
     end
 
     self
   end
 
-  def dashboard_table_data(table)
-    case table
-    when 'cards'
-      cards_data
-    when 'replenishments'
-      replenishments_data
-    when 'expenses'
-      expenses_data
-    when 'tags'
-      tags_data
+  def order(params)
+    if valid_ordering_condition?(params)
+      @relation = @relation.order("#{params['order']['field'].downcase} #{params['order']['type'].downcase}")
     else
-      self
+      @relation = @relation.order('performed_at DESC') 
     end
-  end
 
-  def tags_data
-    @relation = @relation.joins(:tags).group('tags.name').order('sum_amount DESC').sum(:amount)
-    self
-  end
-
-  def replenishments_data
-    @relation = @relation.where('records.amount > ?', 0).group(:name).order('sum_amount DESC').sum(:amount)
-    self
-  end
-
-  def expenses_data
-    @relation = @relation.where('records.amount < ?', 0).group(:name).order('sum_amount ASC').sum(:amount)
-    self
-  end
-
-  def cards_data
-    @relation = @relation.group('cards.name').order('sum_amount DESC').sum(:amount)
     self
   end
 
@@ -116,5 +99,10 @@ class RecordQuery
     DateTime.parse(date_string)
   rescue
     nil
+  end
+
+  def valid_ordering_condition?(params)
+    params['order'] && params['order']['type'] && params['order']['field'] &&
+      %w(desc asc).include?(params['order']['type']) && Record.column_names.include?(params['order']['field'])
   end
 end

@@ -41,10 +41,8 @@ export default {
 
   methods: {
     findSuggestions(keyword) {
-      axios.get('/records/names', {params: { keyword: keyword }})
-        .then(resp => {
-          this.suggestedRecordNames = resp.data.record_names
-          })
+      axios.get('/records/names', {params: { name: keyword }})
+        .then(resp => this.suggestedRecordNames = resp.data.record_names.map(el => el.name))
         .catch(err => console.log(err.error));
     }
   }

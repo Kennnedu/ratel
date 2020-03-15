@@ -33,12 +33,11 @@ export default new Vuex.Store({
 
     filterParams: state => {
       return {
-        name: state.filter.name,
-        card: state.filter.card,
-        tags: state.filter.tags,
-        from: moment(state.filter.from).utc().format('llll'),
-        to: moment(state.filter.to).utc().format('llll'),
-        limit: 32
+        'name': state.filter.name,
+        'card': state.filter.card,
+        'tags': state.filter.tags,
+        'performed_at[gt]': moment(state.filter.from).utc().format('llll'),
+        'performed_at[lt]': moment(state.filter.to).utc().format('llll')
       }
     }
   },
@@ -77,14 +76,24 @@ export default new Vuex.Store({
     fetchRecords({ commit, getters }, params){
       !params && (params = {});
       return new Promise((resolve, reject) => {
-        axios.get('/records', { params: Object.assign({}, getters.filterParams, params) })
+        let paramsObj = Object.assign({}, getters.filterParams, { limit: 32 }, params)
+
+        if(!params.offset) { 
+          axios.get('/records/sum', { params: paramsObj })
+          .then(data => commit('updateTotalSum', { totalSum: data.data.sum }))
+          .catch(error => {
+            console.log(error.response);
+            reject(error.response);
+          })
+        }
+
+        axios.get('/records', { params: paramsObj })
         .then(data => {
           if(params.offset){
             commit('addRecords', { records: data.data.records });
           }
           else {
             commit('updateRecords', { records: data.data.records });
-            commit('updateTotalSum', { totalSum: data.data.total_sum });
             commit('updateTotalRecords', { totalRecords: data.data.total_count })
           }
 

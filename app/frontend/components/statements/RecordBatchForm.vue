@@ -37,7 +37,7 @@
 </template>
 <script>
 import axios from 'axios'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import TagsInput from '../TagsInput.vue'
 import CardSelector from '../CardSelector.vue'
 import RecordNameInput from '../RecordNameInput.vue'
@@ -65,6 +65,7 @@ export default {
 
   computed: {
     ...mapState(['filter']),
+    ...mapGetters(['filterParams']),
 
     validBatchForm() {
       const { name, card, addRecordsTags, removeRecordsTags } = this.batchForm
@@ -79,7 +80,7 @@ export default {
       e.preventDefault();
       this.submitButtonName = 'Saving...'
 
-      axios.put('/records/batch', this.submitFormParams())
+      axios.put('/records', this.submitFormParams())
         .then(res => {
           this.submitButtonName = 'Apply';
           this.fetchRecords();
@@ -93,7 +94,7 @@ export default {
 
       if (!confirm('Are you sure do you want tor remove all selected records?')) return null;
 
-      axios({url: '/records/batch', method: 'delete', params: this.filter })
+      axios({url: '/records', method: 'delete', params: this.filterParams })
         .then(res => {
           this.fetchRecords();
           this.$emit('close');
@@ -105,7 +106,11 @@ export default {
       const { batchForm, filter } = this
       let fd = new FormData();
 
-      Object.keys(filter).forEach(el => fd.append(el, filter[el]));
+      Object.keys(filter).forEach(el => { 
+        if(el === 'from') fd.append('performed_at[gt]', filter.from)
+        else if(el === 'to' ) fd.append('performed_at[lt]', filter.to)
+        else fd.append(el, filter[el])
+      });
 
       if(batchForm.name.length > 0) fd.append('batch_form[name]', batchForm.name)
       if(batchForm.card.id) fd.append('batch_form[card_id]', batchForm.card.id)

@@ -1,0 +1,145 @@
+{
+  "resources": [
+    {
+      "name": "Cards",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "create",
+          "link": "cards/create.json",
+          "groups": "all",
+          "route": "/cards",
+          "method": "post"
+        },
+        {
+          "description": "delete",
+          "link": "cards/delete.json",
+          "groups": "all",
+          "route": "/cards/:id",
+          "method": "delete"
+        },
+        {
+          "description": "index",
+          "link": "cards/index.json",
+          "groups": "all",
+          "route": "/cards",
+          "method": "get"
+        },
+        {
+          "description": "update",
+          "link": "cards/update.json",
+          "groups": "all",
+          "route": "/cards/:id",
+          "method": "put"
+        }
+      ]
+    },
+    {
+      "name": "Records",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "create",
+          "link": "records/create.json",
+          "groups": "all",
+          "route": "/records",
+          "method": "post"
+        },
+        {
+          "description": "delete",
+          "link": "records/delete.json",
+          "groups": "all",
+          "route": "/records/:id",
+          "method": "delete"
+        },
+        {
+          "description": "delete batch",
+          "link": "records/delete_batch.json",
+          "groups": "all",
+          "route": "/records",
+          "method": "delete"
+        },
+        {
+          "description": "index",
+          "link": "records/index.json",
+          "groups": "all",
+          "route": "/records",
+          "method": "get"
+        },
+        {
+          "description": "update",
+          "link": "records/update.json",
+          "groups": "all",
+          "route": "/records/:id",
+          "method": "put"
+        },
+        {
+          "description": "update batch",
+          "link": "records/update_batch.json",
+          "groups": "all",
+          "route": "/records",
+          "method": "put"
+        }
+      ]
+    },
+    {
+      "name": "Records Names",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "index",
+          "link": "records_names/index.json",
+          "groups": "all",
+          "route": "/records/names",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "name": "Records Sum",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "index",
+          "link": "records_sum/index.json",
+          "groups": "all",
+          "route": "/records/sum",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "name": "Session",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "login",
+          "link": "session/login.json",
+          "groups": "all",
+          "route": "/session",
+          "method": "post"
+        }
+      ]
+    },
+    {
+      "name": "Tags",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "find or create",
+          "link": "tags/find_or_create.json",
+          "groups": "all",
+          "route": "/tags/:name",
+          "method": "post"
+        },
+        {
+          "description": "index",
+          "link": "tags/index.json",
+          "groups": "all",
+          "route": "/tags",
+          "method": "get"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "resource": "Records",
+  "resource_explanation": null,
+  "http_method": "DELETE",
+  "route": "/records/:id",
+  "description": "delete",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "integer",
+      "name": "id",
+      "description": "Recrods id"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "DELETE",
+      "request_path": "/records/36",
+      "request_body": null,
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMH0.WhBzLj72y5u3JSFbZS2kLDjFmoRmNzQ-TeYLOX75GkM",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": null,
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "0"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/records/36\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMH0.WhBzLj72y5u3JSFbZS2kLDjFmoRmNzQ-TeYLOX75GkM\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
