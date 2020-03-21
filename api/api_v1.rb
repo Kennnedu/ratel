@@ -177,6 +177,6 @@ class ApiV1Controller < Sinatra::Application
   delete '/tags/:id' do |id|
     tag = Tag.find_by(id: id, user_id: @session['user_id'])
 
-    halt tag.delete ? 200 : 400
+    halt tag.destroy ? 200 : 400
   end
 end
