@@ -158,4 +158,25 @@ class ApiV1Controller < Sinatra::Application
     return json(tag: tag.as_json(except: [:updated_at, :created_at])) if tag.errors.empty?
     halt 400, {'Content-Type' => 'application/json'}, { message: tag.errors }.to_json
   end
+
+  post '/tags' do
+    tag = Tag.new(JSON.parse(request.body.read)['tag'].merge(user_id: @session['user_id']))
+
+    return halt(200) if tag.save
+    halt 400, {'Content-Type' => 'application/json'}, { message: tag.errors }.to_json
+  end
+
+  put '/tags/:id' do |id|
+    updating_attributes = JSON.parse(request.body.read)['tag']
+    tag = Tag.find_by(id: id, user_id: @session['user_id'])
+
+    return halt(200) if tag.update(updating_attributes)
+    halt 400, {'Content-Type' => 'application/json'}, { message: tag.errors }.to_json
+  end
+
+  delete '/tags/:id' do |id|
+    tag = Tag.find_by(id: id, user_id: @session['user_id'])
+
+    halt tag.delete ? 200 : 400
+  end
 end
