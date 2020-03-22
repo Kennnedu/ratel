@@ -120,7 +120,7 @@ class ApiV1Controller < Sinatra::Application
   delete '/records/:id' do |id|
     record = Record.find(id)
 
-    halt record.delete ? 200 : 400
+    halt record.destroy ? 200 : 400
   end
 
   get '/cards' do
