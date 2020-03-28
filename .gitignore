@@ -9,4 +9,5 @@ config/database.yml
 node_modules/
 .env
 *.dump
+*.dump.*
 .byebug_history

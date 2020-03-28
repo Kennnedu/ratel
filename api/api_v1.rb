@@ -40,16 +40,19 @@ class ApiV1Controller < Sinatra::Application
     offset = params['offset'].to_i
     limit = params['limit'].to_i.zero? ? 30 : params['limit'].to_i
 
-    query_record = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params)
+    filtered_query_record = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.distinct
+    ordered_query_record = RecordQuery.new(filtered_query_record).order(params).relation
+    paginated_query_record = RecordQuery.new(ordered_query_record.limit(limit).offset(offset)).preload_ref.relation
 
-    json records: query_record.dup.order(params).preload_ref.relation.offset(offset).limit(limit).map(&:as_json_records),
+    json records: paginated_query_record.map(&:as_json_records),
          offset: offset,
          limit: limit,
-         total_count: query_record.dup.relation.count
+         total_count: filtered_query_record.count
   end
 
   get '/records/sum' do
-    json sum: RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.sum('records.amount')
+    record_ids = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.distinct.pluck(:id)
+    json sum: Record.where(:id => record_ids).sum(:amount)
   end
 
   get '/records/names' do

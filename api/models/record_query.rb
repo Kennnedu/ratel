@@ -26,11 +26,11 @@ class RecordQuery
       exclude_card_list = params['card'].split('&').select { |card| card[0].eql? '!' }.map { |card| "%#{card[1..-1]}%" }
 
       if include_card_list.present?
-        @relation = @relation.where('cards.name ILIKE ANY (array[?])', include_card_list)
+        @relation = @relation.where('cards.name LIKE ANY (ARRAY[?])', include_card_list)
       end
 
       if exclude_card_list.present?
-        exclude_card_list.each { |card| @relation = @relation.where.not('cards.name ILIKE ?', card) }
+        @relation = @relation.where.not('cards.name LIKE ANY (ARRAY[?])', exclude_card_list).or(@relation.where('cards.name is null'))
       end
     end
 
@@ -41,11 +41,11 @@ class RecordQuery
       exclude_tag_list = params['tags'].split('&').select { |tag| tag[0].eql? '!' }.map { |tag| "%#{tag[1..-1]}%" }
 
       if include_tag_list.present?
-        @relation = @relation.where('tags.name ILIKE ANY (array[?])', include_tag_list)
+        @relation = @relation.where('tags.name LIKE ANY (ARRAY[?])', include_tag_list)
       end
 
       if exclude_tag_list.present?
-        exclude_tag_list.each { |tag| @relation = @relation.where.not('tags.name ILIKE ?', tag) }
+        @relation = @relation.where.not('tags.name LIKE ANY (ARRAY[?])', exclude_tag_list).or(@relation.where('tags.name is null'))
       end
     end
 
