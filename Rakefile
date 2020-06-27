@@ -14,6 +14,6 @@ end
 
 namespace :db do
   task :load_config do
-    require './api/api'
+    require './api/api_v1.rb'
   end
 end
