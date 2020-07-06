@@ -11,11 +11,11 @@ class RecordQuery
       exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
 
       if include_name_list.present?
-        @relation = @relation.where('records.name ILIKE ANY (array[?])', include_name_list)
+        @relation = @relation.where('records.name LIKE ANY (array[?])', include_name_list)
       end
 
       if exclude_name_list.present?
-        exclude_name_list.each { |name|  @relation = @relation.where.not('records.name ILIKE ?', name) }
+        exclude_name_list.each { |name|  @relation = @relation.where.not('records.name LIKE ?', name) }
       end
     end
 
