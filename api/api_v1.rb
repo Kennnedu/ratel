@@ -51,8 +51,8 @@ class ApiV1Controller < Sinatra::Application
   end
 
   get '/records/sum' do
-    record_ids = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.distinct.pluck(:id)
-    json sum: Record.where(:id => record_ids).sum(:amount)
+    record_query = RecordQuery.new.belongs_to_user(@session['user_id']).filter(params).relation.distinct.select(:id, :amount)
+    json sum: Record.from(record_query, 'names').sum('names.amount')
   end
 
   get '/records/names' do
