@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'base_row_decorator'
 
 class BelarusRowDecorator < BaseRowDecorator
@@ -10,7 +12,7 @@ class BelarusRowDecorator < BaseRowDecorator
   def amount
     amt = __getobj__.css('td')[6].content.to_f
 
-    return amt if is_replenish
+    return amt if replenish?
 
     amt * -1
   end
@@ -21,7 +23,7 @@ class BelarusRowDecorator < BaseRowDecorator
 
   private
 
-  def is_replenish
+  def replenish?
     __getobj__.css('td')[6].content.include? '+'
   end
 end

@@ -1,0 +1,13 @@
+AllCops:
+  Exclude: 
+    - specs/**/*
+    - db/migrate/*
+    - db/schema.rb
+    - config.ru
+    - config/application.rb
+    - Gemfile
+    - Rakefile
+  RubyInterpreters:
+    - ruby
+Layout/LineLength:
+  Max: 125

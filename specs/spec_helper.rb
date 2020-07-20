@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rack/test'
 require 'rspec'
 require 'rspec_api_documentation/dsl'
@@ -6,14 +8,16 @@ require 'database_cleaner/active_record'
 
 ENV['APP_ENV'] = 'test'
 
-require_relative './../api_v1'
+require_relative './../api'
 
 module RSpecMixin
   include Rack::Test::Methods
-  def app(); ApiV1Controller; end
+  def app
+    ApiController
+  end
 end
 
-FactoryBot.definition_file_paths = %w(api/specs/factories)
+FactoryBot.definition_file_paths = %w[api/specs/factories]
 DatabaseCleaner.strategy = :truncation
 
 # For RSpec 2.x and 3.x
@@ -28,9 +32,9 @@ RSpec.configure do |config|
 end
 
 RspecApiDocumentation.configure do |config|
-  config.app = ApiV1Controller
-  config.api_name = "Ratel API"
-  config.api_explanation = "An explanation of the API"
+  config.app = ApiController
+  config.api_name = 'Ratel API'
+  config.api_explanation = 'An explanation of the API'
   config.format = :json
   config.curl_host = 'http://localhost:4567'
   config.request_headers_to_include = %w[Content-Type Host Authorization]

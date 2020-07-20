@@ -1,10 +1,8 @@
-# frozen_string_literal: true
-
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 ruby '2.6.0'
 
-git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
+git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # The bcrypt Ruby gem provides a simple wrapper for safely handling passwords.
 gem 'bcrypt'
 # A Ruby gem to load environment variables from `.env`.
@@ -37,10 +35,10 @@ group :test do
   # A library for setting up Ruby objects as test data. https://thoughtbot.com/open-source
   gem 'factory_bot'
   # A library for generating fake data such as names, addresses, and phone numbers.
-  gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
-  # RSpec meta-gem that depends on the other components 
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  # RSpec meta-gem that depends on the other components
   gem 'rspec'
-  # Automatically generate API documentation from RSpec 
+  # Automatically generate API documentation from RSpec
   gem 'rspec_api_documentation', '~> 6.1'
   # Create customizable MiniTest output formats.
   gem 'minitest-reporters'

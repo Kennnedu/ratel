@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tag < ActiveRecord::Base
   belongs_to :user, required: true
   has_many :records_tags, dependent: :destroy

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../spec_helper'
 
 resource 'Records Sum' do
@@ -5,7 +7,7 @@ resource 'Records Sum' do
   let!(:records) { create_list :record, 10, user: user }
 
   before do
-    header 'Authorization', "Berier #{JWT.encode({user_id: user.id}, ENV.fetch('SECRET_KEY'), 'HS256')}"
+    header 'Authorization', "Berier #{JWT.encode({ user_id: user.id }, ENV.fetch('SECRET_KEY'), 'HS256')}"
   end
 
   header 'Accept', 'application/json'

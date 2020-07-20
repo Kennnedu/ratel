@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'faker'
 
 FactoryBot.define do
@@ -7,7 +9,7 @@ FactoryBot.define do
   end
 
   factory :record do
-    name { Faker::Food.send(%w(dish fruits ingredient spice sushi vegetables).sample) }
+    name { Faker::Food.send(%w[dish fruits ingredient spice sushi vegetables].sample) }
 
     trait(:replt) do
       amount { rand(1.00..100.00) }
@@ -17,8 +19,12 @@ FactoryBot.define do
       amount { rand(-100.00..-1.00) }
     end
 
+    trait(:mixed) do
+      amount { rand(-100.00..100.00) }
+    end
+
     rest { 99.00 }
-    performed_at { rand (Time.now - 1.year)...Time.now }
+    performed_at { rand((Time.now - 1.year)...Time.now) }
   end
 
   factory :card do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RecordQuery
   attr_reader :relation
 
@@ -10,12 +12,10 @@ class RecordQuery
       include_name_list = params['name'].split('&').reject { |name| name[0].eql? '!' }.map { |name| "%#{name}%" }
       exclude_name_list = params['name'].split('&').select { |name| name[0].eql? '!' }.map { |name| "%#{name[1..-1]}%" }
 
-      if include_name_list.present?
-        @relation = @relation.where('records.name LIKE ANY (array[?])', include_name_list)
-      end
+      @relation = @relation.where('records.name LIKE ANY (array[?])', include_name_list) if include_name_list.present?
 
       if exclude_name_list.present?
-        exclude_name_list.each { |name|  @relation = @relation.where.not('records.name LIKE ?', name) }
+        exclude_name_list.each { |name| @relation = @relation.where.not('records.name LIKE ?', name) }
       end
     end
 
@@ -25,12 +25,11 @@ class RecordQuery
       include_card_list = params['card'].split('&').reject { |card| card[0].eql? '!' }.map { |card| "%#{card}%" }
       exclude_card_list = params['card'].split('&').select { |card| card[0].eql? '!' }.map { |card| "%#{card[1..-1]}%" }
 
-      if include_card_list.present?
-        @relation = @relation.where('cards.name LIKE ANY (ARRAY[?])', include_card_list)
-      end
+      @relation = @relation.where('cards.name LIKE ANY (ARRAY[?])', include_card_list) if include_card_list.present?
 
       if exclude_card_list.present?
-        @relation = @relation.where.not('cards.name LIKE ANY (ARRAY[?])', exclude_card_list).or(@relation.where('cards.name is null'))
+        @relation = @relation.where.not('cards.name LIKE ANY (ARRAY[?])', exclude_card_list)
+                             .or(@relation.where('cards.name is null'))
       end
     end
 
@@ -40,12 +39,11 @@ class RecordQuery
       include_tag_list = params['tags'].split('&').reject { |tag| tag[0].eql? '!' }.map { |tag| "%#{tag}%" }
       exclude_tag_list = params['tags'].split('&').select { |tag| tag[0].eql? '!' }.map { |tag| "%#{tag[1..-1]}%" }
 
-      if include_tag_list.present?
-        @relation = @relation.where('tags.name LIKE ANY (ARRAY[?])', include_tag_list)
-      end
+      @relation = @relation.where('tags.name LIKE ANY (ARRAY[?])', include_tag_list) if include_tag_list.present?
 
       if exclude_tag_list.present?
-        @relation = @relation.where.not('tags.name LIKE ANY (ARRAY[?])', exclude_tag_list).or(@relation.where('tags.name is null'))
+        @relation = @relation.where.not('tags.name LIKE ANY (ARRAY[?])', exclude_tag_list)
+                             .or(@relation.where('tags.name is null'))
       end
     end
 
@@ -69,11 +67,11 @@ class RecordQuery
   end
 
   def order(params)
-    if valid_ordering_condition?(params)
-      @relation = @relation.order("#{params['order']['field'].downcase} #{params['order']['type'].downcase}")
-    else
-      @relation = @relation.order('performed_at DESC') 
-    end
+    @relation = if valid_ordering_condition?(params)
+                  @relation.order("#{params['order']['field'].downcase} #{params['order']['type'].downcase}")
+                else
+                  @relation.order('performed_at DESC')
+                end
 
     self
   end
@@ -97,12 +95,12 @@ class RecordQuery
 
   def valid_date?(date_string)
     DateTime.parse(date_string)
-  rescue
+  rescue StandardError
     nil
   end
 
   def valid_ordering_condition?(params)
     params['order'] && params['order']['type'] && params['order']['field'] &&
-      %w(desc asc).include?(params['order']['type']) && Record.column_names.include?(params['order']['field'])
+      %w[desc asc].include?(params['order']['type']) && Record.column_names.include?(params['order']['field'])
   end
 end
