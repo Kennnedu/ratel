@@ -15,7 +15,7 @@
     {
       "request_method": "POST",
       "request_path": "/records",
-      "request_body": "{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-03-15T23:04\",\"card_id\":22,\"records_tags_attributes\":[{\"tag_id\":1}]}}",
+      "request_body": "{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-07-22T21:05\",\"card_id\":22,\"records_tags_attributes\":[{\"tag_id\":1}]}}",
       "request_headers": {
         "Content-Type": "application/json",
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3fQ.BrddR8qVQrb2jRnCgFghT2mOvJdDxW5MaDlzQyAoPbw",
@@ -26,13 +26,13 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": null,
+      "response_body": "{\n  \"id\": 21,\n  \"name\": \"macdonalds\",\n  \"amount\": \"-3.55\",\n  \"rest\": 11.23,\n  \"performed_at\": \"2020-07-22T21:05:00.000Z\",\n  \"created_at\": \"2020-07-22T18:05:22.265Z\",\n  \"updated_at\": \"2020-07-22T18:05:22.265Z\",\n  \"user_id\": 7,\n  \"card_id\": 22\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "0"
+        "Content-Length": "206"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/records\" -d '{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-03-15T23:04\",\"card_id\":22,\"records_tags_attributes\":[{\"tag_id\":1}]}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3fQ.BrddR8qVQrb2jRnCgFghT2mOvJdDxW5MaDlzQyAoPbw\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/records\" -d '{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-07-22T21:05\",\"card_id\":22,\"records_tags_attributes\":[{\"tag_id\":1}]}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3fQ.BrddR8qVQrb2jRnCgFghT2mOvJdDxW5MaDlzQyAoPbw\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

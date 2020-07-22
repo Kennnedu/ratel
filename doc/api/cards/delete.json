@@ -30,10 +30,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": null,
+      "response_body": "{\n  \"id\": 21,\n  \"name\": \"6007-2269-4511-3737\",\n  \"user_id\": 4,\n  \"created_at\": \"2020-07-22T18:05:21.341Z\",\n  \"updated_at\": \"2020-07-22T18:05:21.341Z\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "0"
+        "Content-Length": "130"
       },
       "response_content_type": "application/json",
       "curl": "curl \"http://localhost:4567/cards/21\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo0fQ.GaNwVOzioNHYVksmNnL9MF57S07mAer7pK4ZyhHOZNI\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

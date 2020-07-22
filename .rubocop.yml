@@ -1,10 +1,10 @@
 AllCops:
   Exclude: 
-    - specs/**/*
+    - spec/**/*
     - db/migrate/*
     - db/schema.rb
     - config.ru
-    - config/application.rb
+    - application.rb
     - Gemfile
     - Rakefile
   RubyInterpreters:

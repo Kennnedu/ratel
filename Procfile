@@ -1,4 +1,4 @@
 web: bundle exec rackup config.ru -p $PORT
-console: irb -r ./config/application.rb
-test: bundle exec rspec specs
-generate_docs: bundle exec rspec api/specs --format RspecApiDocumentation::ApiFormatter
+console: irb -r ./application.rb
+test: bundle exec rspec -f d
+generate_docs: bundle exec rspec --format RspecApiDocumentation::ApiFormatter

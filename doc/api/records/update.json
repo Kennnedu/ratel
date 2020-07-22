@@ -30,10 +30,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": null,
+      "response_body": "{\n  \"id\": 26,\n  \"name\": \"Starbacks\",\n  \"amount\": \"-4.12\",\n  \"card_id\": 23,\n  \"performed_at\": \"2020-01-14T03:31:29.136Z\",\n  \"user_id\": 8,\n  \"rest\": 99.0,\n  \"created_at\": \"2020-07-22T18:05:22.536Z\",\n  \"updated_at\": \"2020-07-22T18:05:22.544Z\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "0"
+        "Content-Length": "204"
       },
       "response_content_type": "application/json",
       "curl": "curl \"http://localhost:4567/records/26\" -d '{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":23}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4fQ.QUc3jOsjm9GnkSog7y7mACqqmKsgU1RnyFf0kJxUppc\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
