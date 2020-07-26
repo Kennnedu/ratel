@@ -134,7 +134,7 @@ class ApiController < Sinatra::Application
 
   post '/cards' do
     crud_response(
-      CreateResource.new(Card, JSON.parse(request.body.read)['card'].merge(user_id: @current_user.id)).process
+      CreateResource.new(@current_user.cards, JSON.parse(request.body.read)['card']).process
     )
   end
 
