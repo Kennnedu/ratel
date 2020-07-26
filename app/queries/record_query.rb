@@ -14,9 +14,7 @@ class RecordQuery
 
       @relation = @relation.where('records.name LIKE ANY (array[?])', include_name_list) if include_name_list.present?
 
-      if exclude_name_list.present?
-        exclude_name_list.each { |name| @relation = @relation.where.not('records.name LIKE ?', name) }
-      end
+      @relation = @relation.where.not('records.name LIKE ANY (ARRAY[?])', exclude_name_list) if exclude_name_list.present?
     end
 
     if params['card'].present?
