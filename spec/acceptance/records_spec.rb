@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../spec_helper'
-require 'jwt'
-
 resource 'Records' do
   let(:user) { create :user }
-  let!(:records) { create_list :record, 5, :mixed, user: user }
+  let!(:records) { create_list :record, 5, user: user }
 
   before do
     header 'Authorization', "Berier #{JWT.encode({ user_id: user.id }, ENV.fetch('SECRET_KEY'), 'HS256')}"

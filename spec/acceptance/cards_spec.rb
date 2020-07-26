@@ -1,5 +1,5 @@
-puts ENV['APP_ENV']
-puts ENV['DATABASE_URL']
+# frozen_string_literal: true
+
 resource 'Cards' do
   let(:user) { create :user }
   let!(:cards) { create_list :card, 5, user: user }

@@ -13,14 +13,13 @@ module RSpecMixin
 end
 
 FactoryBot.find_definitions
-DatabaseCleaner.strategy = :truncation
 
 RSpec.configure do |config|
   config.include RSpecMixin
   config.include FactoryBot::Syntax::Methods
 
-  config.after(:suite) do
-    DatabaseCleaner.clean
+  config.after(:each) do
+    DatabaseCleaner.clean_with :truncation
   end
 
   config.expect_with :rspec do |expectations|

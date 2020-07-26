@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../spec_helper'
-
 resource 'Tags' do
   let(:user) { create :user }
 

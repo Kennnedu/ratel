@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative '../spec_helper'
-
 resource 'Records Names' do
   let(:user) { create :user }
   let!(:records) { create_list :record, 10, user: user }
