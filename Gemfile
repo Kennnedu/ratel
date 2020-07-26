@@ -27,15 +27,15 @@ gem 'sinatra-contrib'
 group :development, :test do
   # Debugging in Ruby 2
   gem 'byebug'
+  # A library for setting up Ruby objects as test data. https://thoughtbot.com/open-source
+  gem 'factory_bot'
+  # A library for generating fake data such as names, addresses, and phone numbers.
+  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 end
 
 group :test do
   # Strategies for cleaning databases in Ruby. Can be used to ensure a clean state for testing.
   gem 'database_cleaner-active_record'
-  # A library for setting up Ruby objects as test data. https://thoughtbot.com/open-source
-  gem 'factory_bot'
-  # A library for generating fake data such as names, addresses, and phone numbers.
-  gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
   # RSpec meta-gem that depends on the other components
   gem 'rspec'
   # Automatically generate API documentation from RSpec

@@ -2,8 +2,8 @@ require 'bundler'
 
 Bundler.require(:default, ENV['APP_ENV'] || 'development')
 
-Dotenv.load(File.expand_path("../.env.#{ENV['APP_ENV']}",  __FILE__))
-Dotenv.load(File.expand_path("../.env",  __FILE__))
+Dotenv.load(File.expand_path("../.env.#{ENV['APP_ENV']}.local",  __FILE__))
+Dotenv.load(File.expand_path("../.env.local",  __FILE__))
 
 ActiveRecord::Base.establish_connection(ENV['DATABASE_URL'])
 
