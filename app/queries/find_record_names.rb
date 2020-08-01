@@ -2,10 +2,11 @@
 
 class FindRecordNames < RecordsGrouped
   def call(params)
+    select_fields params['fields']
     filter_by_name params['name']
     filter_by_records_sum params['records_sum']
-    filter_by_create_at params['created_name_at']
-    order params['order']
+    filter_by_created_at params['created_name_at']
+    order params
   end
 
   protected
@@ -25,7 +26,7 @@ class FindRecordNames < RecordsGrouped
   def fields_map
     {
       'created_name_at' => 'min(records.created_at) as created_name_at',
-      'records_sum' => 'sum(records.amount) records_sum'
+      'records_sum' => 'sum(records.amount) as records_sum'
     }.freeze
   end
 
@@ -38,6 +39,8 @@ class FindRecordNames < RecordsGrouped
   end
 
   def filter_by_created_at(params)
+    return unless params
+
     greater = parse_date(params['gt'])
     less = parse_date(params['lt'])
 

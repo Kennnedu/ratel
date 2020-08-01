@@ -34,8 +34,9 @@ class RecordsGrouped < BaseQuery
   end
 
   def valid_order_params?(params)
-    super(params) && (fields_map.keys.any? { |f| params['fields']&.include?(f) } &&
-      fields_map.keys.include?(params['field']))
+    return super(params) unless fields_map.keys.include?(params.dig('order', 'field'))
+
+    super(params) && params['fields']&.include?(params['order']['field'])
   end
 
   def ordering_fields

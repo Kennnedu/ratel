@@ -10,8 +10,8 @@ class FindRecords < BaseQuery
     filter_by_tag params['tags']
     filter_by_ammount params['amount']
     filter_by_performed_at params['performed_at']
-    uniq if params['card'] || params['tags']
-    order params['order']
+    uniq params
+    order params
     @relation
   end
 
@@ -75,22 +75,14 @@ class FindRecords < BaseQuery
     @relation = @relation.less_performed_at(less_performed + 1.day) if less_performed
   end
 
-  def uniq
-    @relation = @relation.distinct
-  end
-
-  def order(params)
-    if params && valid_order_params?(params)
-      @relation.order("records.#{params['field'].downcase} #{params['type'].downcase}")
-    else
-      @relation.recent
-    end
+  def uniq(params)
+    @relation = @relation.distinct if params['card'] || params['tags']
   end
 
   private
 
   def get_lists_from(field)
-    field.split(KEYWORD_SEPARATOR).partition { |k| !k.first.eql? KEYWORD_EXCLUDE }.map do |l|
+    field.to_s.split(KEYWORD_SEPARATOR).partition { |k| !k.first.eql? KEYWORD_EXCLUDE }.map do |l|
       l.map { |k| k.presence ? "%#{k.gsub(KEYWORD_EXCLUDE, '')}%" : next }.compact
     end
   end

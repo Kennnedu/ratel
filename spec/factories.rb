@@ -19,13 +19,27 @@ FactoryBot.define do
 
     rest { 99.00 }
     performed_at { rand((Time.now - 1.year)...Time.now) }
+
+    factory :record_with_card_and_tags do
+      transient do
+        tags_count { 5 }
+      end
+
+      card { association :card, user: user}
+
+      after(:create) do |record, evaluator|
+        create_list :tag, evaluator.tags_count, user: record.user
+      end
+    end
   end
 
   factory :card do
     name { Faker::Finance.credit_card }
+    user
   end
 
   factory :tag do
     name { Faker::App.name }
+    user
   end
 end

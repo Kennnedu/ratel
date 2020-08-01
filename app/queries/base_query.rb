@@ -24,15 +24,15 @@ class BaseQuery
   end
 
   def order(params)
-    @relation = if params && valid_order_params?(params)
-                  @relation.order("#{params['field'].downcase} #{params['type'].downcase}")
+    @relation = if valid_order_params?(params)
+                  @relation.order("#{params['order']['field'].downcase} #{params['order']['type'].downcase}")
                 else
                   default_order
                 end
   end
 
   def valid_order_params?(params)
-    ORDER_TYPES.include?(params['type']) && ordering_fields.include?(params['field'])
+    params['order'] && ORDER_TYPES.include?(params['order']['type']) && ordering_fields.include?(params['order']['field'])
   end
 
   def ordering_fields

@@ -3,13 +3,14 @@
 class FindTags < RecordsGrouped
   def call(params, user)
     select_fields params['fields']
+    filter_by_tagname params['name']
 
-    if params['fields'].include?('records_sum')
+    if params['fields']&.include?('records_sum')
       joins_records(params['record'], user)
       filter_by_records_sum(params['records_sum'])
     end
 
-    order params['order']
+    order params
   end
 
   protected
@@ -35,10 +36,7 @@ class FindTags < RecordsGrouped
   end
 
   def joins_records(record_params, user)
-    @relation = @relation.joins('left join records_tags on records_tags.tag_id = tags.id')
-                         .joins("left join (#{filtered_records_sql(record_params, user)}) records on \
-                                records_tags.record_id = records.id")
-                         .group('tags.id')
+    @relation = @relation.join_record_query(filtered_records_sql(record_params, user))
   end
 
   def filter_by_tagname(tagname)

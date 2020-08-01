@@ -4,12 +4,12 @@ class FindCards < RecordsGrouped
   def call(params, user)
     select_fields params['fields']
 
-    if params['fields'].include?('records_sum')
+    if params['fields']&.include?('records_sum')
       joins_records(params['record'], user)
       filter_by_records_sum(params['records_sum'])
     end
 
-    order params['order']
+    order params
   end
 
   protected
@@ -35,8 +35,6 @@ class FindCards < RecordsGrouped
   end
 
   def joins_records(records_params, user)
-    @relation = @relation.joins("left join (#{filtered_records_sql(records_params, user)}) records on \
-                                cards.id = records.card_id")
-                         .group('cards.id')
+    @relation = @relation.join_record_query(filtered_records_sql(records_params, user))
   end
 end
