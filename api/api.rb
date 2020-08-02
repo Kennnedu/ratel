@@ -53,28 +53,28 @@ class ApiController < Sinatra::Application
   end
 
   get '/records' do
-    filtered_query_record = RecordQuery.new.belongs_to_user(@current_user.id).filter(params).relation.distinct
-    ordered_query_record = RecordQuery.new(filtered_query_record).order(params).relation
-    paginated_query_record = RecordQuery.new(paginate(ordered_query_record, params)).preload_ref.relation
-
-    json records: paginated_query_record.map(&:as_json_records),
+    json records: paginate(
+      FindRecords.new(@current_user.records.includes(:card, records_tags: [:tag])).call(params)
+    ).as_json,
          offset: @offset,
          limit: @limit,
          total_count: @total
   end
 
   get '/records/sum' do
-    record_query = RecordQuery.new.belongs_to_user(@current_user.id).filter(params).relation.distinct.select(:id, :amount)
-    json sum: Record.from(record_query, 'names').sum('names.amount')
+    json sum: Record.from(
+      FindRecords.new(@current_user.records).call(params).distinct.select(:id, :amount).reorder(:amount),
+      'names'
+    ).sum('names.amount')
   end
 
   get '/records/names' do
-    record_names_query = RecordNameQuery.new(
-      RecordQuery.new.belongs_to_user(@current_user.id).filter(params['record'] || {}).relation
-        .select('records.name').group('records.name')
-    ).belongs_to_user(@current_user.id).filter(params).order(params).relation
-
-    json record_names: paginate(record_names_query, params).as_json(except: :id),
+    json record_names: paginate(
+      FindRecordNames.new(
+        FindRecords.new(@current_user.records).call(params['record']).select('records.name').group('records.name')
+        .reorder('records.name asc')
+      ).call(params)
+    ).as_json(except: :id, include: {}),
          offset: @offset,
          limit: @limit,
          total_count: @total
@@ -105,21 +105,26 @@ class ApiController < Sinatra::Application
   end
 
   put '/records' do
-    filtered_records = RecordQuery.new.belongs_to_user(@current_user.id).filter(params).relation
-
-    UpdateBulkRecord.new(filtered_records, params['batch_form'], params['removing_tag_ids']).process
+    UpdateBulkRecord.new(
+      FindRecords.new(@current_user.records).call(params),
+      params['batch_form'],
+      params['removing_tag_ids']
+    ).process
 
     halt 200
   end
 
   put '/records/:id' do |id|
     crud_response(
-      UpdateResource.new(Record.find_by(id: id, user: @current_user), JSON.parse(request.body.read)['record']).process
+      UpdateResource.new(
+        Record.find_by(id: id, user: @current_user),
+        JSON.parse(request.body.read)['record']
+      ).process
     )
   end
 
   delete '/records' do
-    RecordQuery.new.belongs_to_user(@current_user.id).filter(params).relation.destroy_all
+    FindRecords.new(@current_user.records).call(params).destroy_all
     halt 200
   end
 
@@ -128,8 +133,7 @@ class ApiController < Sinatra::Application
   end
 
   get '/cards' do
-    json cards: CardQuery.new.belongs_to_user(@current_user.id).filter(@current_user.id, params).order(params).relation
-                         .as_json
+    json cards: FindCards.new(@current_user.cards).call(params, @current_user).as_json
   end
 
   post '/cards' do
@@ -152,8 +156,7 @@ class ApiController < Sinatra::Application
   end
 
   get '/tags' do
-    json tags: TagQuery.new.belongs_to_user(@current_user.id).filter(@current_user.id, params).order(params).relation
-                       .as_json
+    json tags: FindTags.new(@current_user.tags).call(params, @current_user).as_json
   end
 
   post '/tags/:name' do |name|

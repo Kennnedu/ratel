@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
 
   has_many :records, dependent: :destroy
   has_many :cards, dependent: :destroy
+  has_many :tags, dependent: :destroy
 end

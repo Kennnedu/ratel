@@ -20,32 +20,21 @@ class Record < ActiveRecord::Base
 
   accepts_nested_attributes_for :records_tags, allow_destroy: true
 
-  def as_json_records
-    result = as_json(except: %i[created_at updated_at user_id card_id],
-                     include: { card: { only: %i[name id] },
-                                records_tags: { only: %i[id tag_id],
-                                                include: { tag: { only: %i[id name] } } } })
-    return result if card
-
-    result.merge(card: Card.new(id: 0, name: '').as_json(only: %i[name id]))
-  end
-
-  # TODO: refactor this way
-  # def as_json(options = {})
-  #   options = {
-  #     except: %i[created_at updated_at user_id card_id],
-  #     include: {
-  #       card: { only: %i[name id] },
-  #       records_tags: { only: %i[id tag_id], include: { tag: { only: %i[id name] } } }
-  #     }
-  #   }.merge(options)
-
-  #   return super(options) if card
-
-  #   super(options).merge(card: { id: '', name: '' })
-  # end
-
   def set_performed_at
     self.performed_at = DateTime.current
+  end
+
+  def as_json(options = {})
+    options = {
+      except: %i[created_at updated_at user_id card_id],
+      include: {
+        card: { only: %i[name id] },
+        records_tags: { only: %i[id tag_id], include: { tag: { only: %i[id name] } } }
+      }
+    }.merge(options)
+
+    return super(options) if options[:include][:card] && card
+
+    super(options).merge(card: { id: '', name: '' })
   end
 end
