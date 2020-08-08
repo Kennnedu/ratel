@@ -7,10 +7,11 @@ class StatementParserBase
   def initialize(file)
     @file = file
     @result = []
-    @row_decorator = row_decorator_instance
   end
 
   def parse!
+    @row_decorator = row_decorator_instance
+
     @result = rows.map do |row|
       @row_decorator.__setobj__(row)
       @row_decorator.as_json
