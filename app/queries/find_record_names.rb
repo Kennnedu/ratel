@@ -16,11 +16,11 @@ class FindRecordNames < RecordsGrouped
   end
 
   def default_order
-    @relation.order('name ASC')
+    @relation.order('records.name ASC')
   end
 
   def default_fields
-    ['name'].freeze
+    ['records.name'].freeze
   end
 
   def fields_map

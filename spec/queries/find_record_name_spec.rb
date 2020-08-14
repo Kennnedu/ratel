@@ -5,7 +5,7 @@ RSpec.describe FindRecordNames do
     context 'without params' do
       let(:params) { {} }
 
-      it { expect(result.to_sql).to eq Record.select(:name).group(:name).order('name ASC').to_sql }
+      it { expect(result.to_sql).to eq Record.select(:name).group(:name).order('records.name ASC').to_sql }
     end
     
     subject(:params) { { 
@@ -33,12 +33,12 @@ RSpec.describe FindRecordNames do
       let(:records_sum_lt) { rand(1.00..100.00).round(2) }
       let(:created_name_at_gt) { rand((Time.now - 1.year)...Time.now).to_s }
       let(:created_name_at_lt) { rand(Time.now...(Time.now + 1.year)).to_s }
-      let(:order_field) { %w[name created_name_at records_sum].sample }
+      let(:order_field) { %w[records.name created_name_at records_sum].sample }
       let(:order_type) { %w[asc desc].sample }
 
       it 'equal sql string' do
-        query_sql = Record.select(:name).group(:name)
-                          .select('name, min(records.created_at) as created_name_at, sum(records.amount) as records_sum')  
+        query_sql = Record.select(:name).group(:name).unscope(:select)
+                          .select('records.name, min(records.created_at) as created_name_at, sum(records.amount) as records_sum')
                           .where('name LIKE ?', "%#{name}%").having('coalesce(sum(records.amount), 0) > ?', records_sum_gt)
                           .having('coalesce(sum(records.amount), 0) < ?', records_sum_lt)
                           .having('min(records.created_at) > ?', DateTime.parse(created_name_at_gt))
@@ -60,12 +60,12 @@ RSpec.describe FindRecordNames do
       let(:order_type) { %w[ascz dAesc].sample }
 
       it 'equal sql string' do
-        query_sql = Record.select(:name).group(:name)
-          .select('name')
+        query_sql = Record.select(:name).group(:name).unscope(:select)
+          .select('records.name')
           .where('name LIKE ?', "%#{name}%")
           .having('coalesce(sum(records.amount), 0) > ?', records_sum_gt.to_f)
           .having('coalesce(sum(records.amount), 0) < ?', records_sum_lt.to_f)
-          .order('name ASC').to_sql
+          .order('records.name ASC').to_sql
 
         expect(result.to_sql).to eq query_sql
       end 

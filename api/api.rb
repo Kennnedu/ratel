@@ -75,8 +75,7 @@ class ApiController < Sinatra::Application
   get '/records/names' do
     json record_names: paginate(
       FindRecordNames.new(
-        FindRecords.new(@current_user.records).call(params['record'] || {}).select('records.name').group('records.name')
-        .reorder('records.name asc')
+        FindRecords.new(@current_user.records).call(params['record'] || {}).select('records.name').group('records.name').unscope(:order)
       ).call(params)
     ).as_json(except: :id, include: {}),
          offset: @offset,

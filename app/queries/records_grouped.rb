@@ -14,7 +14,7 @@ class RecordsGrouped < BaseQuery
   def select_fields(params_fields)
     return unless params_fields
 
-    @relation = @relation.select(fields_string(params_fields))
+    @relation = @relation.unscope(:select).select(fields_string(params_fields))
   end
 
   def filter_by_records_sum(params)
