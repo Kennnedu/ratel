@@ -8,6 +8,8 @@ api/tests/statements_html/*.htm
 config/database.yml
 node_modules/
 .env
+.env.*
+.env.*.*
 *.dump
 *.dump.*
 .byebug_history

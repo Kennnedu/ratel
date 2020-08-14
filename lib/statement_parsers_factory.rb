@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './statement_parsers/belinvest_parser'
 require_relative './statement_parsers/belarus_parser'
 require 'nokogiri'
@@ -7,11 +9,11 @@ class StatementParsersFactory
     @file = Nokogiri::HTML(file)
   end
 
-  def self.get_parser(file)
-    new(file).get_parser
+  def self.new_parser(file)
+    new(file).new_parser
   end
 
-  def get_parser
+  def new_parser
     parser_class = @file.text.include?('BELARUSBANK') ? BelarusParser : BelinvestParser
     parser_class.new @file
   end

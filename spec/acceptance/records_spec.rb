@@ -1,12 +1,11 @@
-require_relative '../spec_helper'
-require 'jwt'
+# frozen_string_literal: true
 
 resource 'Records' do
   let(:user) { create :user }
   let!(:records) { create_list :record, 5, user: user }
 
   before do
-    header 'Authorization', "Berier #{JWT.encode({user_id: user.id}, ENV.fetch('SECRET_KEY'), 'HS256')}"
+    header 'Authorization', "Berier #{JWT.encode({ user_id: user.id }, ENV.fetch('SECRET_KEY'), 'HS256')}"
   end
 
   header 'Accept', 'application/json'
@@ -19,7 +18,7 @@ resource 'Records' do
     parameter :gt, 'Performed at greater than', scope: :performed_at, type: :string, example: '2020-02-02T18:56:00.000Z'
     parameter :lt, 'Performed at less than', scope: :performed_at, type: :string, example: '2020-02-02T18:56:00.000Z'
     parameter :field, 'Order field', scope: :order, type: :string, enum: Record.column_names, example: 'amount', default: 'performed_at'
-    parameter :type, 'Order type', scope: :order, type: :string, enum: %w(asc desc), example: 'asc', default: 'desc'
+    parameter :type, 'Order type', scope: :order, type: :string, enum: %w[asc desc], example: 'asc', default: 'desc'
     parameter :limit, 'Limit number of records', type: :integer, example: 10, default: 30
     parameter :offset, 'Offset number of records', type: :integer, example: 5, default: 0
 
@@ -33,18 +32,18 @@ resource 'Records' do
     let(:tag) { create :tag, name: 'food', user: user }
     let(:card) { create :card, user: user }
 
-    let(:raw_post) { 
+    let(:raw_post) do
       {
         record: {
           name: 'macdonalds',
           amount: -3.55,
           rest: 11.23,
-          performed_at: DateTime.current.strftime("%FT%R"),
+          performed_at: DateTime.current.strftime('%FT%R'),
           card_id: card.id,
-          records_tags_attributes: [ { tag_id: tag.id } ]
+          records_tags_attributes: [{ tag_id: tag.id }]
         }
       }.to_json
-     }
+    end
 
     example_request 'create' do
       expect(status).to eql 200
@@ -58,7 +57,7 @@ resource 'Records' do
     let!(:id) { record.id }
     let(:card) { create :card, user: user }
 
-    let(:raw_post) { 
+    let(:raw_post) do
       {
         record: {
           name: 'Starbacks',
@@ -66,7 +65,7 @@ resource 'Records' do
           card_id: card.id
         }
       }.to_json
-    }
+    end
 
     example_request 'update' do
       expect(status).to eql 200
@@ -80,10 +79,10 @@ resource 'Records' do
     parameter :gt, 'Performed at greater than', scope: :performed_at, type: :string, example: '2020-02-02T18:56:00.000Z'
     parameter :lt, 'Performed at less than', scope: :performed_at, type: :string, example: '2020-02-02T18:56:00.000Z'
     parameter :name, 'Record name for updating', scope: :batch_form, type: :string, example: 'food'
-    parameter :card_id, 'Card id for updating', scope: :batch_form, type: :integer, example: 1 
-    parameter :removing_tag_ids, type: :array, scope: :batch_form, items: { type: :integer }, example: [1,2,3], default: []
+    parameter :card_id, 'Card id for updating', scope: :batch_form, type: :integer, example: 1
+    parameter :removing_tag_ids, type: :array, scope: :batch_form, items: { type: :integer }, example: [1, 2, 3], default: []
     parameter :records_tags_attributes, type: :array, scope: :batch_form, items: { type: :hash },
-      example: [{ tag_id: 1 }, {tag_id: 2}], default: []
+                                        example: [{ tag_id: 1 }, { tag_id: 2 }], default: []
 
     example_request 'update batch' do
       expect(status).to eql 200

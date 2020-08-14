@@ -1,5 +1,5 @@
-require_relative './api/api_v1'
+require_relative './api/api'
 require 'raddocs'
 
-map('/api/v1') { run ApiV1Controller }
+map('/api/v1') { run ApiController }
 map('/api/docs') { run Raddocs::App }
