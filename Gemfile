@@ -26,7 +26,7 @@ gem 'sinatra-contrib'
 
 group :development, :test do
   # Debugging in Ruby 2
-  gem 'byebug'
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # A library for setting up Ruby objects as test data. https://thoughtbot.com/open-source
   gem 'factory_bot'
   # A library for generating fake data such as names, addresses, and phone numbers.
