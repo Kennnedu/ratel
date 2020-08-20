@@ -11,6 +11,8 @@ gem 'dotenv'
 gem 'jwt'
 # Nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support.
 gem 'nokogiri'
+# New Relic RPM Ruby Agent
+gem 'newrelic_rpm'
 # The 'pg' Ruby library, an interface to the PostgreSQL Relational Database Management System.
 gem 'pg'
 # Rspec Api Documentation Browser
