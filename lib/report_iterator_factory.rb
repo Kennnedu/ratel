@@ -14,7 +14,7 @@ class ReportIteratorFactory
   end
 
   def new_iterator
-    iterator_class = @file.text.include?('BELARUSBANK') ? HtmlIterator : HtmlIterator
+    iterator_class = @file.text.include?('BELARUSBANK') ? HtmlIterator : HtmlTableIterator
     iterator_class.new @file
   end
 end
