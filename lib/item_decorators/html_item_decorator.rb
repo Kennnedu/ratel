@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative 'base_row_decorator'
+require_relative 'base_item_decorator'
 
-class BelarusRowDecorator < BaseRowDecorator
+class HtmlItemDecorator < BaseItemDecorator
   attr_accessor :card
 
   def name
@@ -10,7 +10,7 @@ class BelarusRowDecorator < BaseRowDecorator
   end
 
   def amount
-    amt = __getobj__.css('td')[6].content.to_f
+    amt = __getobj__.css('td')[6].content.gsub(',', '.').to_f
 
     return amt if replenish?
 
@@ -18,7 +18,9 @@ class BelarusRowDecorator < BaseRowDecorator
   end
 
   def performed_at
-    DateTime.parse(__getobj__.css('td')[0].text.strip).to_s
+    @last_peformed_at = DateTime.parse(__getobj__.css('td')[0].text.strip).to_s
+  rescue StandardError
+    @last_peformed_at ||= Time.now
   end
 
   private

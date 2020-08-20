@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative 'base_row_decorator'
+require_relative 'base_item_decorator'
 
-class BelinvestRowDecorator < BaseRowDecorator
+class HtmlTableItemDecorator < BaseItemDecorator
   def name
-    replenish? ? 'REPLENISHMENT' : __getobj__.css('td')[6].content.squish.gsub("\"", '')
+    replenish? ? 'REPLENISHMENT' : __getobj__.css('td')[6].content.squish.gsub('"', '')
   end
 
   def card
