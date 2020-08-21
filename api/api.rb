@@ -24,7 +24,7 @@ class ApiController < Sinatra::Application
     if resource.nil?
       halt 404, { 'Content-Type' => 'application/json' }, { message: 'Not found' }.to_json
     elsif resource.errors.presence
-      halt 400, { 'Content-Type' => 'application/json' }, { message: resource.errors.messages }.to_json
+      halt 400, { 'Content-Type' => 'application/json' }, { message: resource.errors.full_messages }.to_json
     else
       json resource.as_json
     end
@@ -75,7 +75,8 @@ class ApiController < Sinatra::Application
   get '/records/names' do
     json record_names: paginate(
       FindRecordNames.new(
-        FindRecords.new(@current_user.records).call(params['record'] || {}).select('records.name').group('records.name').unscope(:order)
+        FindRecords.new(@current_user.records).call(params['record'] || {}).select('records.name').group('records.name')
+          .unscope(:order)
       ).call(params)
     ).as_json(except: :id, include: {}),
          offset: @offset,
