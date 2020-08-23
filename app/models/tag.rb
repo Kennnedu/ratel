@@ -14,7 +14,7 @@ class Tag < ActiveRecord::Base
       .group('tags.id')
   }
 
-  before_save :prepare_name
+  before_validation :prepare_name
 
   def prepare_name
     self.name = name.strip.downcase

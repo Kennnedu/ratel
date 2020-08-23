@@ -151,7 +151,7 @@ class ApiController < Sinatra::Application
   end
 
   post '/tags/:name' do |name|
-    tag = Tag.find_or_create_by(name: name, user_id: @current_user.id)
+    tag = Tag.find_or_create_by(name: name.downcase, user_id: @current_user.id)
 
     return json(tag: tag.as_json(except: %i[updated_at created_at])) if tag.errors.empty?
 
