@@ -33,6 +33,8 @@ group :development, :test do
   gem 'factory_bot'
   # A library for generating fake data such as names, addresses, and phone numbers.
   gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+  # Restarts an app when the filesystem changes. Uses growl and FSEventStream if on OS X.
+  gem 'rerun'
 end
 
 group :test do

@@ -5,9 +5,7 @@ require_relative '../item_decorators/html_item_decorator'
 
 class HtmlIterator < ReportIteratorBase
   def item_decorator_instance
-    instance = HtmlItemDecorator.new nil
-    instance.card = card
-    instance
+    HtmlItemDecorator.new(nil).tap { |d| d.card = card }
   end
 
   def collection

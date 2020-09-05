@@ -2,11 +2,14 @@
 
 require_relative './report_iterators/html_table_iterator.rb'
 require_relative './report_iterators/html_iterator.rb'
+require_relative './report_iterators/xml_iterator.rb'
 require 'nokogiri'
 
 class ReportIteratorFactory
+  MIN_HTML_TABLES = 1.freeze
+
   def initialize(file)
-    @file = Nokogiri::HTML(file)
+    @file = file
   end
 
   def self.new_iterator(file)
@@ -14,7 +17,12 @@ class ReportIteratorFactory
   end
 
   def new_iterator
-    iterator_class = @file.text.include?('BELARUSBANK') ? HtmlIterator : HtmlTableIterator
-    iterator_class.new @file
+    case File.extname @file
+    when '.html', 'htm'
+      html = Nokogiri::HTML(@file)
+      (html.css('table').size.eql?(MIN_HTML_TABLES) ? HtmlTableIterator : HtmlIterator).new html
+    when '.xml'
+      XmlIterator.new Nokogiri::XML(@file)
+    end
   end
 end

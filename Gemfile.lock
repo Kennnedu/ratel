@@ -35,6 +35,7 @@ GEM
     dotenv (2.7.2)
     factory_bot (5.1.1)
       activesupport (>= 4.2.0)
+    ffi (1.13.1)
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
@@ -42,6 +43,9 @@ GEM
       concurrent-ruby (~> 1.0)
     json (2.3.0)
     jwt (2.2.1)
+    listen (3.2.1)
+      rb-fsevent (~> 0.10, >= 0.10.3)
+      rb-inotify (~> 0.9, >= 0.9.10)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
     minitest-reporters (1.4.2)
@@ -66,6 +70,11 @@ GEM
       json
       sinatra (~> 2.0)
     rake (12.3.2)
+    rb-fsevent (0.10.4)
+    rb-inotify (0.10.1)
+      ffi (~> 1.0)
+    rerun (0.13.0)
+      listen (~> 3.0)
     rspec (3.9.0)
       rspec-core (~> 3.9.0)
       rspec-expectations (~> 3.9.0)
@@ -123,6 +132,7 @@ DEPENDENCIES
   rack-test
   raddocs
   rake
+  rerun
   rspec
   rspec_api_documentation (~> 6.1)
   sinatra

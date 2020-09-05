@@ -91,7 +91,7 @@ class ApiController < Sinatra::Application
   end
 
   post '/records/bulk' do
-    CreateBulkRecord.new(@current_user, params['html_file']['tempfile'].read).process
+    CreateBulkRecord.new(@current_user, params['html_file']['tempfile']).process
     halt 200
   end
 
