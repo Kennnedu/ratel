@@ -4,7 +4,9 @@ resource 'Tags' do
   let(:user) { create :user }
 
   before do
-    create_list :tag, 10, user: user
+    Array.new(10){ Faker::App.name }.uniq.each do |name|
+      create :tag, name: name, user: user
+    end
   end
 
   before do

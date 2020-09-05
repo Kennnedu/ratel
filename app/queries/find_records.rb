@@ -5,6 +5,7 @@ class FindRecords < BaseQuery
   KEYWORD_EXCLUDE = '!'
 
   def call(params)
+    filter_by_ids params
     filter_by_name params['name']
     filter_by_card params['card']
     filter_by_tag params['tags']
@@ -23,6 +24,16 @@ class FindRecords < BaseQuery
 
   def default_order
     @relation.recent
+  end
+
+  def filter_by_ids(params)
+    if params['ids'] && params['ids'].is_a?(Array)
+      @relation = @relation.where(id: params['ids'])
+    end
+
+    if params['except_ids'] && params['except_ids'].is_a?(Array)
+      @relation = @relation.where.not(id: params['except_ids'])
+    end
   end
 
   def filter_by_name(params_name)
