@@ -150,14 +150,6 @@ class ApiController < Sinatra::Application
     json tags: FindTags.new(@current_user.tags).call(params, @current_user).as_json
   end
 
-  post '/tags/:name' do |name|
-    tag = Tag.find_or_create_by(name: name.downcase, user_id: @current_user.id)
-
-    return json(tag: tag.as_json(except: %i[updated_at created_at])) if tag.errors.empty?
-
-    halt 400, { 'Content-Type' => 'application/json' }, { message: tag.errors }.to_json
-  end
-
   post '/tags' do
     crud_response(
       CreateResource.new(Tag, JSON.parse(request.body.read)['tag'].merge(user_id: @current_user.id)).process
@@ -171,6 +163,23 @@ class ApiController < Sinatra::Application
   end
 
   delete '/tags/:id' do |id|
-    crud_response Tag.find_by(id: id)&.destroy
+    crud_response Tag.find_by(id: id, user_id: @current_user.id)&.destroy
+  end
+
+  get '/reports' do
+    json reports: paginate(
+      FindReports.new(@current_user.reports).call
+    ).as_json,
+         offset: @offset,
+         limit: @limit,
+         total_count: @total
+  end
+
+  post '/reports' do
+    crud_response CreateResource.new(Report, params.merge(user_id: @current_user.id)).process
+  end
+
+  delete '/reports/:id' do |id|
+    crud_response Report.find_by(id: id, user_id: @current_user.id)&.destroy
   end
 end

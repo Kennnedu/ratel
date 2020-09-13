@@ -19,6 +19,12 @@ gem 'pg'
 gem 'raddocs'
 # A make-like build utility for Ruby. https://ruby.github.io/rake
 gem 'rake'
+# File Attachment toolkit for Ruby applications
+gem 'shrine'
+# Google Drive Storage for Shrine
+gem 'shrine-gdrive_storage', git: 'https://github.com/Kennnedu/shrine-gdrive_storage.git'
+# Simple, efficient background processing for Ruby
+gem 'sidekiq'
 # Classy web-development dressed in a DSL (official / canonical repo) http://www.sinatrarb.com/
 gem 'sinatra'
 # Extends Sinatra with ActiveRecord helper methods and Rake tasks.

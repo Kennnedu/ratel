@@ -27,13 +27,9 @@ class FindRecords < BaseQuery
   end
 
   def filter_by_ids(params)
-    if params['ids'] && params['ids'].is_a?(Array)
-      @relation = @relation.where(id: params['ids'])
-    end
+    @relation = @relation.where(id: params['ids']) if params['ids']&.is_a?(Array)
 
-    if params['except_ids'] && params['except_ids'].is_a?(Array)
-      @relation = @relation.where.not(id: params['except_ids'])
-    end
+    @relation = @relation.where.not(id: params['except_ids']) if params['except_ids']&.is_a?(Array)
   end
 
   def filter_by_name(params_name)

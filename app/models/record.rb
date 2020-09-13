@@ -3,6 +3,7 @@
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
   belongs_to :card
+  belongs_to :report
   has_many :records_tags, dependent: :destroy
   has_many :tags, through: :records_tags
 
