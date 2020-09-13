@@ -40,14 +40,4 @@ resource 'Tags' do
       expect(status).to eq 200
     end
   end
-
-  post '/tags/:name' do
-    parameter :name, 'Tag name'
-
-    let(:name) { 'shop' }
-
-    example_request 'find or create' do
-      expect(status).to eq 200
-    end
-  end
 end
