@@ -5,6 +5,8 @@ ruby '2.6.0'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # The bcrypt Ruby gem provides a simple wrapper for safely handling passwords.
 gem 'bcrypt'
+# Organize your code into reusable components
+gem 'dry-system'
 # A Ruby gem to load environment variables from `.env`.
 gem 'dotenv'
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
