@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class FindRecords
-  attr_reader :record_params
+  attr_accessor :scope
+  attr_reader :params
 
   def initialize(scope = Record.all)
     @params = RecordsParams.new

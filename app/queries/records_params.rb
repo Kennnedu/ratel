@@ -79,15 +79,15 @@ class RecordsParams
   end
 
   def order_type
-    return 'desc' unless %w[asc desc].include? params.dig('order', 'type')
+    type = params.dig('order', 'type')
 
-    params.dig('order', 'type')
+    %w[asc desc].include?(type) ? type : 'desc'
   end
 
   def order_field
-    return 'records.performed_at' unless Record.column_names.include? params.dig('order', 'field')
+    field = params.dig('order', 'field')
 
-    "records.#{params.dig('order', 'field')}"
+    Record.column_names.include?(field) ? "records.#{field}" : 'records.performed_at'
   end
 
   private

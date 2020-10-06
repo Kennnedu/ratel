@@ -4,12 +4,12 @@ RSpec.describe FindTags do
   let(:user) { User.last }
 
   describe '.call' do
-    subject(:result) { described_class.new.call(params, user) }
+    subject(:result) { described_class.new.call(user, params) }
 
     context 'without params' do
       let(:params) { {} }
 
-      it { expect(result.to_sql).to eq Tag.order('created_at DESC').to_sql }
+      it { expect(result.to_sql).to eq Tag.order('tags.created_at': 'desc').to_sql }
     end
 
     subject(:params) { {
@@ -73,17 +73,18 @@ RSpec.describe FindTags do
           .greater_amount(record_amount_gt).less_amount(record_amount_lt)
           .greater_performed_at(DateTime.parse(record_performed_gt))
           .less_performed_at(DateTime.parse(record_performed_lt) + 1.day)
-          .distinct.recent.to_sql
+          .distinct.order('records.performed_at': 'desc').to_sql
 
-        
+        query_order_field = order_field.eql?('records_sum') ? 'records_sum' : "tags.#{order_field}"
+
         query_sql = Tag.all
           .select('tags.id, tags.name, tags.created_at, tags.updated_at, coalesce(sum(records.amount), 0) as records_sum')
           .join_record_query(records_sql)
           .where('tags.name LIKE ?', "%#{name}%")
           .having('coalesce(sum(records.amount), 0) > ?', records_sum_gt)
           .having('coalesce(sum(records.amount), 0) < ?', records_sum_lt)
-          .order("#{order_field} #{order_type}").to_sql
-        
+          .order(query_order_field => order_type).to_sql
+
         expect(result.to_sql).to eq query_sql
       end 
     end
@@ -107,7 +108,7 @@ RSpec.describe FindTags do
         records_sql = Record.all
           .where(user: user)
           .greater_amount(record_amount_gt.to_f).less_amount(record_amount_lt.to_f)
-          .recent.to_sql
+          .order('records.performed_at': 'desc').to_sql
 
         query_sql = Tag.all
           .select("tags.id, tags.name, coalesce(sum(records.amount), 0) as records_sum")
@@ -115,7 +116,7 @@ RSpec.describe FindTags do
           .where('tags.name LIKE ?', "%#{name}%")
           .having('coalesce(sum(records.amount), 0) > ?', records_sum_gt.to_f)
           .having('coalesce(sum(records.amount), 0) < ?', records_sum_lt.to_f)
-          .order('created_at DESC').to_sql
+          .order('tags.created_at': 'desc').to_sql
 
         expect(result.to_sql).to eq query_sql
       end

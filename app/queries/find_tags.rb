@@ -1,45 +1,48 @@
 # frozen_string_literal: true
 
-class FindTags < RecordsGrouped
-  def call(params, user)
-    select_fields params['fields']
-    filter_by_tagname params['name']
+class FindTags
+  attr_accessor :scope
+  attr_reader :params, :record_query_object
 
-    if params['fields']&.include?('records_sum')
-      joins_records(params['record'], user)
-      filter_by_records_sum(params['records_sum'])
-    end
-
-    order params
+  def initialize(scope = Tag.all)
+    @record_query_object = FindRecords.new
+    @params = TagsParams.new
+    @scope = scope
   end
 
-  protected
-
-  def default_relation
-    Tag.all
+  def call(user, params = {})
+    @params.params = params
+    select_fields
+    filter_by_name
+    filter_by_records_sum(user)
+    order
+    @scope
   end
 
-  def default_order
-    @relation.order('created_at DESC')
+  private
+
+  def select_fields
+    @scope = @scope.unscope(:select).select(@params.select_fields) if @params.select_fields
   end
 
-  def default_fields
-    ['tags.id', 'tags.name'].freeze
+  def filter_by_name
+    @scope = @scope.where('tags.name LIKE ?', "%#{@params.name}%") if @params.name
   end
 
-  def fields_map
-    {
-      'created_at' => 'tags.created_at',
-      'updated_at' => 'tags.updated_at',
-      'records_sum' => 'coalesce(sum(records.amount), 0) as records_sum'
-    }.freeze
+  def filter_by_records_sum(user)
+    return unless @params.join_records?
+
+    @record_query_object.scope = user.records if user
+
+    @scope = @scope.join_record_query(
+      @record_query_object.call(@params.record_params || {}).to_sql
+    )
+
+    @scope = @scope.having('coalesce(sum(records.amount), 0) > ?', @params.record_sum_gt) if @params.record_sum_gt
+    @scope = @scope.having('coalesce(sum(records.amount), 0) < ?', @params.record_sum_lt) if @params.record_sum_lt
   end
 
-  def joins_records(record_params, user)
-    @relation = @relation.join_record_query(filtered_records_sql(record_params, user))
-  end
-
-  def filter_by_tagname(tagname)
-    @relation = @relation.where('tags.name LIKE ?', "%#{tagname}%") if tagname
+  def order
+    @scope = @scope.order @params.order_field => @params.order_type
   end
 end
