@@ -1,11 +1,11 @@
 RSpec.describe FindRecords do  
   describe '.call' do
-    subject(:result) { described_class.new.call(params) }
+    subject(:result) { described_class.new(RecordsParams.new, Record.all).call(params) }
 
     context 'without params' do
       let(:params) { {} }
 
-      it { expect(result.to_sql).to eq Record.recent.to_sql }
+      it { expect(result.to_sql).to eq Record.order('records.performed_at': 'desc').to_sql }
     end
 
     context 'with correct params' do
@@ -49,7 +49,7 @@ RSpec.describe FindRecords do
         query_sql = query.except_keywords('tags.name', except_tags.map {|t| "%#{t}%" }).or(query.where('tags.name is null'))
                          .greater_amount(amount_gt).less_amount(amount_lt)
                          .greater_performed_at(DateTime.parse(performed_gt)).less_performed_at(DateTime.parse(performed_lt) + 1.day)
-                         .distinct.order("#{order_field} #{order_type}").to_sql
+                         .distinct.order(order_field => order_type).to_sql
 
         expect(result.to_sql).to eq query_sql
       end
@@ -76,7 +76,8 @@ RSpec.describe FindRecords do
 
       it 'equal sql string' do 
         query_sql = Record.left_joins(:tags).only_keywords('tags.name', ["%#{only_tags.to_s}%"]).greater_amount(0.0)
-                          .distinct.recent.to_sql
+                          .distinct.order('records.performed_at': 'desc').to_sql
+
         expect(result.to_sql).to eq  query_sql
       end
     end
