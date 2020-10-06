@@ -1,40 +1,43 @@
 # frozen_string_literal: true
 
-class FindCards < RecordsGrouped
-  def call(params, user)
-    select_fields params['fields']
+class FindCards
+  attr_accessor :scope
+  attr_reader :params, :record_query_object
 
-    if params['fields']&.include?('records_sum')
-      joins_records(params['record'], user)
-      filter_by_records_sum(params['records_sum'])
-    end
-
-    order params
+  def initialize(scope = Card.all)
+    @record_query_object = FindRecords.new
+    @params = CardsParams.new
+    @scope = scope
   end
 
-  protected
-
-  def default_relation
-    Card.all
+  def call(user, params = {})
+    @params.params = params
+    select_fields
+    filter_by_records_sum(user)
+    order
+    @scope
   end
 
-  def default_order
-    @relation.order('cards.created_at DESC')
+  private
+
+  def select_fields
+    @scope = @scope.unscope(:select).select(@params.select_fields) if @params.select_fields
   end
 
-  def default_fields
-    %w[cards.id cards.name].freeze
+  def filter_by_records_sum(user)
+    return unless @params.join_records?
+
+    @record_query_object.scope = user.records if user
+
+    @scope = @scope.join_record_query(
+      @record_query_object.call(@params.record_params || {}).to_sql
+    )
+
+    @scope = @scope.having('coalesce(sum(records.amount), 0) > ?', @params.record_sum_gt) if @params.record_sum_gt
+    @scope = @scope.having('coalesce(sum(records.amount), 0) < ?', @params.record_sum_lt) if @params.record_sum_lt
   end
 
-  def fields_map
-    {
-      'created_at' => 'cards.created_at',
-      'updated_at' => 'cards.updated_at',
-      'records_sum' => 'coalesce(sum(records.amount), 0) as records_sum'
-    }.freeze
-  end
-
-  def joins_records(records_params, user)
-    @relation = @relation.join_record_query(filtered_records_sql(records_params, user))
+  def order
+    @scope = @scope.order @params.order_field => @params.order_type
   end
 end
