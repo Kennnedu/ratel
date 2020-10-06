@@ -58,7 +58,7 @@ RSpec.describe FindRecordNames do
       let(:records_sum_lt) { 'ten' }
       let(:created_name_at_gt) { 'today' }
       let(:created_name_at_lt) { 'tomorrow' }
-      let(:order_field) { %w[word created_time_name_at tags_sum records_sum].sample }
+      let(:order_field) { %w[word created_time_name_at tags_sum records_susm].sample }
       let(:order_type) { %w[ascz dAesc].sample }
 
       it 'equal sql string' do

@@ -124,7 +124,7 @@ class ApiController < Sinatra::Application
   end
 
   get '/cards' do
-    json cards: FindCards.new(@current_user.cards).call(params, @current_user).as_json
+    json cards: FindCards.new(@current_user.cards).call(@current_user, params).as_json
   end
 
   post '/cards' do
@@ -147,7 +147,7 @@ class ApiController < Sinatra::Application
   end
 
   get '/tags' do
-    json tags: FindTags.new(@current_user.tags).call(params, @current_user).as_json
+    json tags: FindTags.new(@current_user.tags).call(@current_user, params).as_json
   end
 
   post '/tags' do
