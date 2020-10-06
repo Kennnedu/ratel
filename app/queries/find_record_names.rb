@@ -1,50 +1,46 @@
 # frozen_string_literal: true
 
-class FindRecordNames < RecordsGrouped
-  def call(params)
-    select_fields params['fields']
-    filter_by_name params['name']
-    filter_by_records_sum params['records_sum']
-    filter_by_created_at params['created_name_at']
-    order params
+class FindRecordNames
+  attr_accessor :scope
+  attr_reader :params, :record_query_object
+
+  def initialize(scope = Record.select(:name).group(:name))
+    @record_query_object = FindRecords.new
+    @params = RecordNamesParams.new
+    @scope = scope
   end
 
-  protected
-
-  def default_relation
-    Record.select(:name).group(:name)
+  def call(params = {})
+    @params.params = params
+    select_fields
+    filter_by_name
+    filter_by_records_sum
+    filter_by_created_at
+    order
+    @scope
   end
 
-  def default_order
-    @relation.order('records.name ASC')
+  private
+
+  def select_fields
+    @scope = @scope.unscope(:select).select(@params.select_fields) if @params.select_fields
   end
 
-  def default_fields
-    ['records.name'].freeze
+  def filter_by_name
+    @scope = @scope.where('name LIKE ?', "%#{@params.name}%") if @params.name
   end
 
-  def fields_map
-    {
-      'created_name_at' => 'min(records.created_at) as created_name_at',
-      'records_sum' => 'sum(records.amount) as records_sum'
-    }.freeze
+  def filter_by_created_at
+    @scope = @scope.having('min(records.created_at) > ?', @params.created_at_gt) if @params.created_at_gt
+    @scope = @scope.having('min(records.created_at) < ?', @params.created_at_lt) if @params.created_at_lt
   end
 
-  def ordering_fields
-    default_fields + fields_map.keys
+  def filter_by_records_sum
+    @scope = @scope.having('coalesce(sum(records.amount), 0) > ?', @params.record_sum_gt) if @params.record_sum_gt
+    @scope = @scope.having('coalesce(sum(records.amount), 0) < ?', @params.record_sum_lt) if @params.record_sum_lt
   end
 
-  def filter_by_name(name)
-    @relation = @relation.where('name LIKE ?', "%#{name}%") if name
-  end
-
-  def filter_by_created_at(params)
-    return unless params
-
-    greater = parse_date(params['gt'])
-    less = parse_date(params['lt'])
-
-    @relation = @relation.having('min(records.created_at) > ?', greater) if greater
-    @relation = @relation.having('min(records.created_at) < ?', less) if less
+  def order
+    @scope = @scope.order @params.order_field => @params.order_type
   end
 end
