@@ -38,7 +38,7 @@ RSpec.describe FindRecords do
       let(:performed_gt) { rand((Time.now - 1.year)...Time.now).to_s }
       let(:performed_lt) { rand(Time.now...(Time.now + 1.year)).to_s }
       let(:order_field) { Record.column_names.sample }
-      let(:order_type) { BaseQuery::ORDER_TYPES.sample }
+      let(:order_type) { %w[asc desc].sample }
 
       it 'equal sql string' do
         query = Record.only_keywords('records.name', only_names.map {|n| "%#{n}%" })

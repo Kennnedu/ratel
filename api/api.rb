@@ -168,7 +168,7 @@ class ApiController < Sinatra::Application
 
   get '/reports' do
     json reports: paginate(
-      FindReports.new(@current_user.reports).call
+      Report.all.order(created_at: :desc)
     ).as_json,
          offset: @offset,
          limit: @limit,

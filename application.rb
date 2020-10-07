@@ -35,8 +35,5 @@ Shrine.plugin :restore_cached_data # re-extract metadata when attaching a cached
 Shrine.plugin :rack_file # for non-Rails apps
 
 # last for uploading
-require_relative 'app/queries/base_query'
-require_relative 'app/queries/records_grouped'
-
 Dir[File.dirname(__FILE__) + '/app/**/*.rb'].each { |file| require file }
 Dir[File.dirname(__FILE__) + '/lib/**/*.rb'].each { |file| require file }
