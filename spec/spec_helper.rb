@@ -1,21 +1,19 @@
 ENV['APP_ENV'] = 'test'
 
-require_relative './../api/api'
+require_relative './../api/base_api_controller.rb'
+
+require_relative './../api/record_controller.rb'
+require_relative './../api/card_controller.rb'
+require_relative './../api/tag_controller.rb'
+require_relative './../api/report_controller.rb'
+require_relative './../api/session_controller.rb'
 
 require 'rspec_api_documentation/dsl'
 require 'database_cleaner/active_record'
 
-module RSpecMixin
-  include Rack::Test::Methods
-  def app
-    ApiController
-  end
-end
-
 FactoryBot.find_definitions
 
 RSpec.configure do |config|
-  config.include RSpecMixin
   config.include FactoryBot::Syntax::Methods
 
   config.after(:each) do
@@ -105,7 +103,13 @@ RSpec.configure do |config|
 end
 
 RspecApiDocumentation.configure do |config|
-  config.app = ApiController
+  config.app = Rack::Builder.new do
+    map('/cards') { run CardController.new }
+    map('/records') { run RecordController.new }
+    map('/tags') { run TagController.new }
+    map('/reports') { run ReportController.new }
+    map('/session') { run SessionController.new }
+  end
   config.api_name = 'Ratel API'
   config.api_explanation = 'An explanation of the API'
   config.format = :json
