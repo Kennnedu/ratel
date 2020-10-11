@@ -35,31 +35,23 @@ class RecordsController < BaseApiController
 
   post '/' do
     crud_response(
-      CreateResource.new(Record, JSON.parse(request.body.read)['record'].merge(user_id: @current_user.id)).process
+      @current_user.records.new(JSON.parse(request.body.read)['record']).tap { |r| r.save }
     )
   end
 
   post '/bulk' do
-    CreateBulkRecord.new(@current_user, params['html_file']['tempfile'].read).process
+    CreateBulkRecord.new.process(@current_user, params['html_file']['tempfile'].read)
     halt 200
   end
 
   put '/' do
-    UpdateBulkRecord.new(
-      FindRecords.new(@current_user.records).call(params),
-      params['batch_form'],
-      params['removing_tag_ids']
-    ).process
-
+    UpdateBulkRecord.new.process(@current_user, params)
     halt 200
   end
 
   put '/:id' do |id|
     crud_response(
-      UpdateResource.new(
-        Record.find_by(id: id, user: @current_user),
-        JSON.parse(request.body.read)['record']
-      ).process
+      @current_user.records.find_by(id: id)&.tap { |r| r.update(JSON.parse(request.body.read)['record']) }
     )
   end
 

@@ -9,7 +9,7 @@ class ProcessingReportWorker
     report = Report.find id
 
     ActiveRecord::Base.transaction do
-      CreateBulkRecord.new(report.user, report.document.open).process(report: report)
+      CreateBulkRecord.new.process(report.user, report.document.open, report: report)
       report.update(status: 1)
     end
   rescue StandardError => e

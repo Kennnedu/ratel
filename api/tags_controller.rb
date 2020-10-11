@@ -11,13 +11,13 @@ class TagsController < BaseApiController
 
   post '/' do
     crud_response(
-      CreateResource.new(Tag, JSON.parse(request.body.read)['tag'].merge(user_id: @current_user.id)).process
+      @current_user.tags.new(JSON.parse(request.body.read)['tag']).tap { |t| t.save }
     )
   end
 
   put '/:id' do |id|
     crud_response(
-      UpdateResource.new(Tag.find_by(id: id, user_id: @current_user.id), JSON.parse(request.body.read)['tag']).process
+      @current_user.tags.find_by(id: id)&.tap { |t| t.update(JSON.parse(request.body.read)['tag']) }
     )
   end
 

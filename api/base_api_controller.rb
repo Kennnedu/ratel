@@ -44,7 +44,7 @@ class BaseApiController < Sinatra::Application
 
   before do
     pass if request.path.include?('/session')
-    @current_user = AuthorizeRequest.new(request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)).process
+    @current_user = AuthorizeRequest.new.process request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)
   rescue JWT::DecodeError, JWT::ExpiredSignature
     halt 401, { 'Content-Type' => 'application/json' }, { message: 'Auth Token is incorrect!' }.to_json
   rescue ActiveRecord::RecordNotFound

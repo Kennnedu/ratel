@@ -15,7 +15,7 @@ class ReportsController < BaseApiController
   end
 
   post '/' do
-    crud_response CreateResource.new(Report, params.merge(user_id: @current_user.id)).process
+    crud_response(@current_user.reports.new(params).tap { |r| r.save })
   end
 
   delete '/:id' do |id|
