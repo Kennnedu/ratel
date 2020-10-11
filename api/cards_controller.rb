@@ -1,6 +1,6 @@
 require_relative './base_api_controller.rb'
 
-class CardController < BaseApiController
+class CardsController < BaseApiController
   def initialize
     super
   end

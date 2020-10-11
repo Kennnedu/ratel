@@ -1,6 +1,6 @@
 require_relative './base_api_controller.rb'
 
-class ReportController < BaseApiController
+class ReportsController < BaseApiController
   def initialize
     super
   end

@@ -6,7 +6,7 @@ resource 'Session' do
   header 'Accept', 'application/json'
   header 'Content-Type', 'application/json'
 
-  post '/session' do
+  post '/sessions' do
     let(:raw_post) { { username: user.username, password: user.password, secure_login: true }.to_json }
 
     example_request 'login' do

@@ -1,6 +1,6 @@
 require_relative './base_api_controller'
 
-class SessionController < BaseApiController
+class SessionsController < BaseApiController
   post '/' do
     token = CreateSession.new(JSON.parse(request.body.read)).process
     return json(session_token: token) if token

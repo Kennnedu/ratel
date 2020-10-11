@@ -1,6 +1,6 @@
 require_relative './base_api_controller.rb'
 
-class TagController < BaseApiController
+class TagsController < BaseApiController
   def initialize
     super
   end 
