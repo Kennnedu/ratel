@@ -13,6 +13,9 @@ class UpdateBulkRecord
         RecordsTag .joins("INNER JOIN (#{record_query.to_sql}) rec ON rec.id = records_tags.record_id")
                    .where(tag_id: removing_tag_ids).destroy_all
       end
+
+    rescue Exception => e
+      e.message
     end
   end
 end

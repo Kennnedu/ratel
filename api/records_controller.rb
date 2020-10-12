@@ -45,8 +45,9 @@ class RecordsController < BaseApiController
   end
 
   put '/' do
-    UpdateBulkRecord.new.process(@current_user, params)
-    halt 200
+    result = UpdateBulkRecord.new.process(@current_user, params)
+    return halt(200) unless  result
+    halt 400, { 'Content-Type' => 'application/json' }, { message: result }.to_json
   end
 
   put '/:id' do |id|

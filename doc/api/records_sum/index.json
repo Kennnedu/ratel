@@ -3,7 +3,7 @@
   "resource_explanation": null,
   "http_method": "GET",
   "route": "/records/sum",
-  "description": "index",
+  "description": "Index",
   "explanation": null,
   "parameters": [
     {
@@ -49,7 +49,7 @@
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.rDJnQMHwP-b_VQ5NF_n8F2LIXvKRjRux5UPMpwEopEc",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -64,7 +64,7 @@
         "Content-Length": "13"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:4567/records/sum?name=bo\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMn0.rDJnQMHwP-b_VQ5NF_n8F2LIXvKRjRux5UPMpwEopEc\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:4567/records/sum?name=bo\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

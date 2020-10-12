@@ -3,7 +3,7 @@
   "resource_explanation": null,
   "http_method": "GET",
   "route": "/records/names",
-  "description": "index",
+  "description": "Index",
   "explanation": null,
   "parameters": [
     {
@@ -119,8 +119,7 @@
       "request_path": "/records/names?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name",
       "request_body": null,
       "request_headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1fQ.Pg9QKr6NNAVTmumzgssxiRAB2LjRdD1pkj3yyeE-Di0",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -130,16 +129,16 @@
           "field": "name"
         }
       },
-      "request_content_type": "application/json",
+      "request_content_type": null,
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"record_names\": [\n    {\n      \"name\": \"Sea bream\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Scallop\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Rhubarb\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Peaches\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Mustard Seed Brown\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Mulled Wine Spices\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Milt\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Herbes de Provence\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Chicken Wings\",\n      \"records_sum\": null\n    },\n    {\n      \"name\": \"Allspice Ground\",\n      \"records_sum\": null\n    }\n  ],\n  \"offset\": 0,\n  \"limit\": 30,\n  \"total_count\": 10\n}",
+      "response_body": "{\n  \"record_names\": [\n    {\n      \"name\": \"Trout\",\n      \"records_sum\": \"-40.33\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Sweet Laurel\",\n      \"records_sum\": \"-84.76\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Rockmelon\",\n      \"records_sum\": \"8.89\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Oranges\",\n      \"records_sum\": \"-9.44\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Meatballs with Sauce\",\n      \"records_sum\": \"72.48\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Marjoram\",\n      \"records_sum\": \"31.45\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Japanese whiting\",\n      \"records_sum\": \"55.31\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Garlic Powder\",\n      \"records_sum\": \"-11.02\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"French Eschallots\",\n      \"records_sum\": \"25.54\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"name\": \"Alaskan pink shrimp\",\n      \"records_sum\": \"1.2\",\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"offset\": 0,\n  \"limit\": 30,\n  \"total_count\": 10\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "483"
+        "Content-Length": "793"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:4567/records/names?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo1fQ.Pg9QKr6NNAVTmumzgssxiRAB2LjRdD1pkj3yyeE-Di0\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:4567/records/names?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

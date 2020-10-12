@@ -1,0 +1,42 @@
+{
+  "resource": "Records",
+  "resource_explanation": null,
+  "http_method": "PUT",
+  "route": "/records/:id",
+  "description": "Update validation error",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "integer",
+      "name": "id",
+      "description": "Record id"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "PUT",
+      "request_path": "/records/5",
+      "request_body": "{\"record\":{\"name\":\"\",\"amount\":null,\"card_id\":1}}",
+      "request_headers": {
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_status": 400,
+      "response_status_text": "Bad Request",
+      "response_body": "{\n  \"message\": [\n    \"Name can't be blank\",\n    \"Amount can't be blank\"\n  ]\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "59"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/records/5\" -d '{\"record\":{\"name\":\"\",\"amount\":null,\"card_id\":1}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

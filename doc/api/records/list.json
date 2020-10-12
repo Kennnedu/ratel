@@ -3,7 +3,7 @@
   "resource_explanation": null,
   "http_method": "GET",
   "route": "/records",
-  "description": "index",
+  "description": "List",
   "explanation": null,
   "parameters": [
     {
@@ -50,7 +50,8 @@
         "created_at",
         "updated_at",
         "user_id",
-        "card_id"
+        "card_id",
+        "report_id"
       ],
       "example": "amount",
       "default": "performed_at",
@@ -93,22 +94,21 @@
       "request_path": "/records",
       "request_body": null,
       "request_headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2fQ.q0rBDF2OYIDs_Gn8Ob1DTnmKGInnqSE7wG6HjeO7wwU",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org"
       },
       "request_query_parameters": {
       },
-      "request_content_type": "application/json",
+      "request_content_type": null,
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"records\": [\n    {\n      \"id\": 14,\n      \"name\": \"Loquats\",\n      \"amount\": \"62.44293516505\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-05-05T21:56:58.981Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 12,\n      \"name\": \"Fettuccine Alfredo\",\n      \"amount\": \"-36.3994927975597\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2019-10-17T15:36:14.013Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 11,\n      \"name\": \"Squash\",\n      \"amount\": \"7.82937681962201\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2019-10-13T15:44:31.782Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 15,\n      \"name\": \"Mexican Salsa Mix\",\n      \"amount\": \"-56.0845145995258\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2019-10-10T21:00:29.147Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 13,\n      \"name\": \"Cardamom Whole\",\n      \"amount\": \"73.7780535119352\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2019-09-13T16:18:18.000Z\",\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": 0,\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"offset\": 0,\n  \"limit\": 30,\n  \"total_count\": 5\n}",
+      "response_body": "{\n  \"records\": [\n    {\n      \"id\": 2,\n      \"name\": \"Bok Choy\",\n      \"amount\": \"59.04\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-08-19T00:27:12.608Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 4,\n      \"name\": \"Limes\",\n      \"amount\": \"-30.2\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-07-17T19:24:58.422Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Mackerel\",\n      \"amount\": \"57.89\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-06-10T23:52:59.315Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Japanese horse mackerel\",\n      \"amount\": \"-4.94\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-05-31T10:24:10.677Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Mulberries\",\n      \"amount\": \"-71.34\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2019-10-15T05:34:04.502Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"offset\": 0,\n  \"limit\": 30,\n  \"total_count\": 5\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "843"
+        "Content-Length": "866"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:4567/records\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo2fQ.q0rBDF2OYIDs_Gn8Ob1DTnmKGInnqSE7wG6HjeO7wwU\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:4567/records\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

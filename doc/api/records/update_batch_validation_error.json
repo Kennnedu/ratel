@@ -3,7 +3,7 @@
   "resource_explanation": null,
   "http_method": "PUT",
   "route": "/records",
-  "description": "Update batch",
+  "description": "Update batch validation error",
   "explanation": null,
   "parameters": [
     {
@@ -97,7 +97,7 @@
     {
       "request_method": "PUT",
       "request_path": "/records",
-      "request_body": "batch_form[name]=shopping",
+      "request_body": "batch_form[name]=",
       "request_headers": {
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org",
@@ -106,15 +106,15 @@
       "request_query_parameters": {
       },
       "request_content_type": "application/x-www-form-urlencoded",
-      "response_status": 200,
-      "response_status_text": "OK",
-      "response_body": null,
+      "response_status": 400,
+      "response_status_text": "Bad Request",
+      "response_body": "{\n  \"message\": \"Validation failed: Name can't be blank\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "0"
+        "Content-Length": "52"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/records\" -d 'batch_form[name]=shopping' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/records\" -d 'batch_form[name]=' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

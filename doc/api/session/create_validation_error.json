@@ -1,0 +1,37 @@
+{
+  "resource": "Session",
+  "resource_explanation": null,
+  "http_method": "POST",
+  "route": "/sessions",
+  "description": "Create validation error",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/sessions",
+      "request_body": "{\"username\":\"sherilyn\",\"password\":\"111\",\"secure_login\":true}",
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/json",
+      "response_status": 400,
+      "response_status_text": "Bad Request",
+      "response_body": "{\n  \"message\": \"Username or Password is incorrect!\"\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "48"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/sessions\" -d '{\"username\":\"sherilyn\",\"password\":\"111\",\"secure_login\":true}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

@@ -13,3 +13,4 @@ node_modules/
 *.dump
 *.dump.*
 .byebug_history
+spec/fixtures/report.htm

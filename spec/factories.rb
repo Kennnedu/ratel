@@ -42,4 +42,8 @@ FactoryBot.define do
     name { Faker::App.name }
     user
   end
+
+  factory :report do
+    document { Rack::Test::UploadedFile.new("#{Dir.pwd}/spec/fixtures/report.htm", "text/html") }
+  end
 end

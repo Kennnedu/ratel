@@ -1,15 +1,15 @@
 {
-  "resource": "Records",
+  "resource": "Reports",
   "resource_explanation": null,
   "http_method": "DELETE",
-  "route": "/records/:id",
+  "route": "/reports/:id",
   "description": "Delete",
   "explanation": null,
   "parameters": [
     {
       "type": "integer",
       "name": "id",
-      "description": "Recrods id"
+      "description": "Report id"
     }
   ],
   "response_fields": [
@@ -18,7 +18,7 @@
   "requests": [
     {
       "request_method": "DELETE",
-      "request_path": "/records/5",
+      "request_path": "/reports/1",
       "request_body": null,
       "request_headers": {
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
@@ -30,13 +30,13 @@
       "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 5,\n  \"name\": \"Arugula\",\n  \"amount\": \"-66.27\",\n  \"rest\": 99.0,\n  \"performed_at\": \"2020-08-12T00:26:17.927Z\",\n  \"report_id\": null,\n  \"records_tags\": [\n\n  ],\n  \"card\": {\n    \"id\": \"\",\n    \"name\": \"\"\n  }\n}",
+      "response_body": "{\n  \"id\": 1,\n  \"user_id\": 1,\n  \"status\": \"queue\",\n  \"error_message\": null,\n  \"created_at\": \"2020-10-12T23:30:25.258Z\",\n  \"document_url\": \"/uploads/b1a32696721f4506a56a61673dc63b9d.htm\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "159"
+        "Content-Length": "161"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/records/5\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/reports/1\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

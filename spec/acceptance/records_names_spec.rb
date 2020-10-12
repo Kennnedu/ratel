@@ -9,7 +9,6 @@ resource 'Records Names' do
   end
 
   header 'Accept', 'application/json'
-  header 'Content-Type', 'application/json'
 
   get '/records/names' do
     parameter :name, 'Records name', type: :string, example: 'bo'
@@ -30,7 +29,7 @@ resource 'Records Names' do
     let(:type) { 'desc' }
     let(:field) { 'name' }
 
-    example_request 'index' do
+    example_request 'Index' do
       expect(status).to eq 200
     end
   end
