@@ -30,10 +30,10 @@
       "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 5,\n  \"name\": \"Arugula\",\n  \"amount\": \"-66.27\",\n  \"rest\": 99.0,\n  \"performed_at\": \"2020-08-12T00:26:17.927Z\",\n  \"report_id\": null,\n  \"records_tags\": [\n\n  ],\n  \"card\": {\n    \"id\": \"\",\n    \"name\": \"\"\n  }\n}",
+      "response_body": "{\n  \"id\": 5,\n  \"name\": \"Cherries\",\n  \"amount\": \"-84.44\",\n  \"rest\": 99.0,\n  \"performed_at\": \"2019-12-12T14:35:57.231Z\",\n  \"report_id\": null,\n  \"records_tags\": [\n\n  ],\n  \"card\": {\n    \"id\": \"\",\n    \"name\": \"\"\n  }\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "159"
+        "Content-Length": "160"
       },
       "response_content_type": "application/json",
       "curl": "curl \"http://localhost:4567/records/5\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""

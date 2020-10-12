@@ -74,6 +74,13 @@
           "method": "post"
         },
         {
+          "description": "Create bulk",
+          "link": "records/create_bulk.json",
+          "groups": "all",
+          "route": "/records/bulk",
+          "method": "post"
+        },
+        {
           "description": "Create validation error",
           "link": "records/create_validation_error.json",
           "groups": "all",

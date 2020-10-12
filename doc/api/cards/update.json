@@ -30,7 +30,7 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"user_id\": 1,\n  \"id\": 5,\n  \"name\": \"saving\",\n  \"created_at\": \"2020-10-12T23:30:19.046Z\",\n  \"updated_at\": \"2020-10-12T23:30:19.054Z\"\n}",
+      "response_body": "{\n  \"user_id\": 1,\n  \"id\": 5,\n  \"name\": \"saving\",\n  \"created_at\": \"2020-10-12T23:46:52.914Z\",\n  \"updated_at\": \"2020-10-12T23:46:52.921Z\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
         "Content-Length": "116"

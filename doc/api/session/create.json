@@ -15,7 +15,7 @@
     {
       "request_method": "POST",
       "request_path": "/sessions",
-      "request_body": "{\"username\":\"art_adams\",\"password\":\"password\",\"secure_login\":true}",
+      "request_body": "{\"username\":\"myles_nikolaus\",\"password\":\"password\",\"secure_login\":true}",
       "request_headers": {
         "Content-Type": "application/json",
         "Host": "example.org"
@@ -25,13 +25,13 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"session_token\": \"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MDI1NDYwMjZ9.jn2yhaAhib37KqUqMo5Hx5pCiqFh8upjq0vUsmWupNE\"\n}",
+      "response_body": "{\n  \"session_token\": \"eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2MDI1NDcwMjB9.CD8H04O2vFEK4DEAmt9pPqMRfFWvZqWh1tdMeNdZgHU\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
         "Content-Length": "125"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/sessions\" -d '{\"username\":\"art_adams\",\"password\":\"password\",\"secure_login\":true}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/sessions\" -d '{\"username\":\"myles_nikolaus\",\"password\":\"password\",\"secure_login\":true}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

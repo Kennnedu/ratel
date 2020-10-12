@@ -30,10 +30,10 @@
       "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 5,\n  \"name\": \"Starbacks\",\n  \"amount\": \"-4.12\",\n  \"performed_at\": \"2020-04-06T04:33:21.188Z\",\n  \"rest\": 99.0,\n  \"report_id\": null,\n  \"card\": {\n    \"id\": 1,\n    \"name\": \"3529-7551-2011-7879\"\n  },\n  \"records_tags\": [\n\n  ]\n}",
+      "response_body": "{\n  \"id\": 5,\n  \"name\": \"Starbacks\",\n  \"amount\": \"-4.12\",\n  \"performed_at\": \"2020-01-22T21:38:11.251Z\",\n  \"rest\": 99.0,\n  \"report_id\": null,\n  \"card\": {\n    \"id\": 1,\n    \"name\": \"6759-2675-1856-4264-483\"\n  },\n  \"records_tags\": [\n\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "178"
+        "Content-Length": "182"
       },
       "response_content_type": "application/json",
       "curl": "curl \"http://localhost:4567/records/5\" -d '{\"record\":{\"name\":\"Starbacks\",\"amount\":-4.12,\"card_id\":1}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""

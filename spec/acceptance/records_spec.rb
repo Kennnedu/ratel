@@ -69,6 +69,17 @@ resource 'Records' do
     end
   end
 
+  post '/records/bulk' do
+    parameter :html_file, type: :file
+
+    let(:html_file) { Rack::Test::UploadedFile.new("#{Dir.pwd}/spec/fixtures/report.htm", "text/html") }
+
+    example_request 'Create bulk' do
+      expect(status).to eq 200
+      expect(Record.count).to eq 70
+    end
+  end
+
   put '/records/:id' do
     parameter :id, 'Record id', type: :integer
 

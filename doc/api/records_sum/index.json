@@ -58,10 +58,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"sum\": \"0.0\"\n}",
+      "response_body": "{\n  \"sum\": \"11.15\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "13"
+        "Content-Length": "15"
       },
       "response_content_type": "application/json",
       "curl": "curl -g \"http://localhost:4567/records/sum?name=bo\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
