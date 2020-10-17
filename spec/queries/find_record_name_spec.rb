@@ -1,6 +1,6 @@
 RSpec.describe FindRecordNames do
   describe '.call' do
-    subject(:result) { described_class.new.call(params) }
+    subject(:result) { described_class.new.call(params: params) }
 
     context 'without params' do
       let(:params) { {} }

@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 class FindRecordNames
-  attr_accessor :scope
-  attr_reader :params, :record_query_object
+  attr_reader :params
 
-  def initialize(scope = Record.select(:name).group(:name))
-    @record_query_object = FindRecords.new
+  def initialize
     @params = RecordNamesParams.new
-    @scope = scope
   end
 
-  def call(params = {})
+  def call(scope: Record.select(:name).group(:name), params: {})
     @params.params = params
+    @scope = scope
     select_fields
     filter_by_name
     filter_by_records_sum

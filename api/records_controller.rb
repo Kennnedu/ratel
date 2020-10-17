@@ -25,10 +25,11 @@ class RecordsController < BaseApiController
 
   get '/names' do
     json record_names: paginate(
-      FindRecordNames.new(
-        FindRecords.new(@current_user.records).call(params['record'] || {}).select('records.name').group('records.name')
-          .unscope(:order)
-      ).call(params)
+      FindRecordNames.new.call(
+        scope: FindRecords.new(@current_user.records).call(params['record'] || {}).select('records.name')
+          .group('records.name').unscope(:order),
+        params: params
+      )
     ).as_json(except: :id, include: {}),
          offset: @offset,
          limit: @limit,
