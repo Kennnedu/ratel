@@ -7,6 +7,8 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem 'bcrypt'
 # A Ruby gem to load environment variables from `.env`.
 gem 'dotenv'
+# Organize your code into reusable components
+gem 'dry-system', '~> 0.18.1'
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt'
 # Nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support.
