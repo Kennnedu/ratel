@@ -24,7 +24,7 @@ class TagsParams
   end
 
   def record_params
-    params['record'].presence
+    params['record'].presence || {}
   end
 
   def record_sum_gt

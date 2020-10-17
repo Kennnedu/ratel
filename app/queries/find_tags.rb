@@ -35,7 +35,7 @@ class FindTags
     @record_query_object.scope = user.records if user
 
     @scope = @scope.join_record_query(
-      @record_query_object.call(@params.record_params || {}).to_sql
+      @record_query_object.call(@params.record_params).to_sql
     )
 
     @scope = @scope.having('coalesce(sum(records.amount), 0) > ?', @params.record_sum_gt) if @params.record_sum_gt
