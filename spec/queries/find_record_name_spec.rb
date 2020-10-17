@@ -1,6 +1,6 @@
-RSpec.describe FindRecordNames do
+RSpec.describe 'FindRecordNames' do
   describe '.call' do
-    subject(:result) { described_class.new.call(params: params) }
+    subject(:result) { Container['queries.find_record_names'].call(params: params) }
 
     context 'without params' do
       let(:params) { {} }

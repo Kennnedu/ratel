@@ -3,13 +3,17 @@
 require_relative './base_api_controller.rb'
 
 class RecordsController < BaseApiController
+  attr_reader :find_records, :find_record_names
+
   def initialize
     super
+    @find_records = Container['queries.find_records']
+    @find_record_names = Container['queries.find_record_names']
   end
 
   get '/' do
     json records: paginate(
-      FindRecords.new.call(scope: @current_user.records.includes(:card, records_tags: [:tag]), params: params)
+      find_records.call(scope: @current_user.records.includes(:card, records_tags: [:tag]), params: params)
     ).as_json,
          offset: @offset,
          limit: @limit,
@@ -18,15 +22,15 @@ class RecordsController < BaseApiController
 
   get '/sum' do
     json sum: Record.from(
-      FindRecords.new.call(scope: @current_user.records, params: params).distinct.select(:id, :amount).reorder(:amount),
+      find_records.call(scope: @current_user.records, params: params).distinct.select(:id, :amount).reorder(:amount),
       'names'
     ).sum('names.amount')
   end
 
   get '/names' do
     json record_names: paginate(
-      FindRecordNames.new.call(
-        scope: FindRecords.new.call(scope: @current_user.records, params: params['record']).select('records.name')
+      find_record_names.call(
+        scope: find_records.call(scope: @current_user.records, params: params['record']).select('records.name')
           .group('records.name').unscope(:order),
         params: params
       )
@@ -49,7 +53,7 @@ class RecordsController < BaseApiController
 
   put '/' do
     result = UpdateBulkRecord.new.process(
-      FindRecords.new.call(scope: @current_user.records, params: params),
+      find_records.call(scope: @current_user.records, params: params),
       params['batch_form'],
       params['removing_tag_ids']
     )
@@ -65,7 +69,7 @@ class RecordsController < BaseApiController
   end
 
   delete '/' do
-    FindRecords.new.call(scope: @current_user.records, params: params).destroy_all
+    find_records.call(scope: @current_user.records, params: params).destroy_all
     halt 200
   end
 

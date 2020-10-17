@@ -1,10 +1,10 @@
-RSpec.describe FindCards do
+RSpec.describe 'FindCards' do
   before { create :user }
 
   let(:user) { User.last }
 
   describe '.call' do
-    subject(:result) { described_class.new.call(record_scope: user.records, params: params) }
+    subject(:result) { Container['queries.find_cards'].call(record_scope: user.records, params: params) }
 
     context 'without params' do
       let(:params) { {} }

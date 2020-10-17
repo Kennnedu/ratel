@@ -3,12 +3,15 @@
 require_relative './base_api_controller.rb'
 
 class CardsController < BaseApiController
+  attr_reader :find_cards
+
   def initialize
     super
+    @find_cards = Container['queries.find_cards']
   end
 
   get '/' do
-    json cards: FindCards.new.call(scope: @current_user.cards, record_scope: @current_user.records, params: params).as_json
+    json cards: find_cards.call(scope: @current_user.cards, record_scope: @current_user.records, params: params).as_json
   end
 
   post '/' do

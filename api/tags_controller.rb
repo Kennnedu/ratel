@@ -3,12 +3,15 @@
 require_relative './base_api_controller.rb'
 
 class TagsController < BaseApiController
+  attr_reader :find_tags
+
   def initialize
     super
+    @find_tags = Container['queries.find_tags']
   end
 
   get '/' do
-    json tags: FindTags.new.call(scope: @current_user.tags, record_scope: @current_user.records, params: params).as_json
+    json tags: find_tags.call(scope: @current_user.tags, record_scope: @current_user.records, params: params).as_json
   end
 
   post '/' do
