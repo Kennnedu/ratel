@@ -3,12 +3,14 @@
 require_relative './base_api_controller.rb'
 
 class RecordsController < BaseApiController
-  attr_reader :find_records, :find_record_names
+  attr_reader :find_records, :find_record_names, :create_bulk_record, :update_bulk_record
 
   def initialize
     super
     @find_records = Container['queries.find_records']
     @find_record_names = Container['queries.find_record_names']
+    @create_bulk_record = Container['services.create_bulk_record']
+    @update_bulk_record = Container['services.update_bulk_record']
   end
 
   get '/' do
@@ -47,12 +49,12 @@ class RecordsController < BaseApiController
   end
 
   post '/bulk' do
-    CreateBulkRecord.new.process(@current_user, params['html_file']['tempfile'].read)
+    create_bulk_record.process(@current_user, params['html_file']['tempfile'].read)
     halt 200
   end
 
   put '/' do
-    result = UpdateBulkRecord.new.process(
+    result = update_bulk_record.process(
       find_records.call(scope: @current_user.records, params: params),
       params['batch_form'],
       params['removing_tag_ids']

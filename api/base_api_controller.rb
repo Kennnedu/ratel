@@ -9,8 +9,11 @@ require 'sinatra/cookies'
 class BaseApiController < Sinatra::Application
   LIMIT_SIZE = 30
 
+  attr_reader :authorize_request
+
   def initialize
     super
+    @authorize_request = Container['services.authorize_request']
   end
 
   def paginate(query)
@@ -44,7 +47,7 @@ class BaseApiController < Sinatra::Application
 
   before do
     pass if request.path.include?('/session')
-    @current_user = AuthorizeRequest.new.process request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)
+    @current_user = authorize_request.process request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)
   rescue JWT::DecodeError, JWT::ExpiredSignature
     halt 401, { 'Content-Type' => 'application/json' }, { message: 'Auth Token is incorrect!' }.to_json
   rescue ActiveRecord::RecordNotFound
