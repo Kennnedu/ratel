@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
 class FindRecords
-  attr_accessor :scope
   attr_reader :params
 
-  def initialize(scope = Record.all)
+  def initialize
     @params = RecordsParams.new
-    @scope = scope
   end
 
-  def call(params = {})
+  def call(scope: Record.all, params: {})
     @params.params = params
+    @scope = scope
     filter
     order
     @scope

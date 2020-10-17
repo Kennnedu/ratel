@@ -6,8 +6,8 @@ class RecordsParams
 
   attr_reader :params
 
-  def params=(params = {})
-    @params = params
+  def params=(params)
+    @params = params || {}
     @only_names = nil
     @except_names = nil
     @only_cards = nil

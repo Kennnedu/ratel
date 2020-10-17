@@ -9,7 +9,7 @@ class RecordsController < BaseApiController
 
   get '/' do
     json records: paginate(
-      FindRecords.new(@current_user.records.includes(:card, records_tags: [:tag])).call(params)
+      FindRecords.new.call(scope: @current_user.records.includes(:card, records_tags: [:tag]), params: params)
     ).as_json,
          offset: @offset,
          limit: @limit,
@@ -18,7 +18,7 @@ class RecordsController < BaseApiController
 
   get '/sum' do
     json sum: Record.from(
-      FindRecords.new(@current_user.records).call(params).distinct.select(:id, :amount).reorder(:amount),
+      FindRecords.new.call(scope: @current_user.records, params: params).distinct.select(:id, :amount).reorder(:amount),
       'names'
     ).sum('names.amount')
   end
@@ -26,7 +26,7 @@ class RecordsController < BaseApiController
   get '/names' do
     json record_names: paginate(
       FindRecordNames.new.call(
-        scope: FindRecords.new(@current_user.records).call(params['record'] || {}).select('records.name')
+        scope: FindRecords.new.call(scope: @current_user.records, params: params['record']).select('records.name')
           .group('records.name').unscope(:order),
         params: params
       )
@@ -61,7 +61,7 @@ class RecordsController < BaseApiController
   end
 
   delete '/' do
-    FindRecords.new(@current_user.records).call(params).destroy_all
+    FindRecords.new.call(scope: @current_user.records, params: params).destroy_all
     halt 200
   end
 

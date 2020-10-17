@@ -2,7 +2,7 @@
 
 class UpdateBulkRecord
   def process(user, params)
-    record_query = FindRecords.new(user.records).call(params)
+    record_query = FindRecords.new.call(scope: user.records, params: params)
     batch_form = params['batch_form'].presence
     removing_tag_ids = params['removing_tag_ids'].presence
 

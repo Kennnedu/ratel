@@ -10,8 +10,8 @@ class TagsParams
 
   attr_reader :params
 
-  def params=(params = {})
-    @params = params
+  def params=(params)
+    @params = params || {}
     @select_fields = nil
   end
 

@@ -9,8 +9,8 @@ class RecordNamesParams
 
   attr_reader :params
 
-  def params=(params = {})
-    @params = params
+  def params=(params)
+    @params = params || {}
     @select_fields = nil
     @created_at_gt = nil
     @created_at_lt = nil
