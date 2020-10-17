@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './base_api_controller'
 
 class SessionsController < BaseApiController
@@ -10,4 +12,3 @@ class SessionsController < BaseApiController
     halt 400, { 'Content-Type' => 'application/json' }, { message: 'Username or Password can\'t be blank!' }.to_json
   end
 end
-

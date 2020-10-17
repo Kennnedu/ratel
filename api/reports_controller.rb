@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative './base_api_controller.rb'
 
 class ReportsController < BaseApiController
   def initialize
     super
   end
-  
+
   get '/' do
     json reports: paginate(
       Report.all.order(created_at: :desc)
@@ -15,7 +17,7 @@ class ReportsController < BaseApiController
   end
 
   post '/' do
-    crud_response(@current_user.reports.new(params).tap { |r| r.save })
+    crud_response(@current_user.reports.new(params).tap(&:save))
   end
 
   delete '/:id' do |id|

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require_relative './base_api_controller.rb'
 
 class TagsController < BaseApiController
   def initialize
     super
-  end 
+  end
 
   get '/' do
     json tags: FindTags.new(@current_user.tags).call(@current_user, params).as_json
@@ -11,7 +13,7 @@ class TagsController < BaseApiController
 
   post '/' do
     crud_response(
-      @current_user.tags.new(JSON.parse(request.body.read)['tag']).tap { |t| t.save }
+      @current_user.tags.new(JSON.parse(request.body.read)['tag']).tap(&:save)
     )
   end
 

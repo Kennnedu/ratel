@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require_relative './base_api_controller.rb'
 
 class RecordsController < BaseApiController
   def initialize
     super
-  end 
-  
+  end
+
   get '/' do
     json records: paginate(
       FindRecords.new(@current_user.records.includes(:card, records_tags: [:tag])).call(params)
@@ -35,7 +37,7 @@ class RecordsController < BaseApiController
 
   post '/' do
     crud_response(
-      @current_user.records.new(JSON.parse(request.body.read)['record']).tap { |r| r.save }
+      @current_user.records.new(JSON.parse(request.body.read)['record']).tap(&:save)
     )
   end
 
@@ -46,7 +48,8 @@ class RecordsController < BaseApiController
 
   put '/' do
     result = UpdateBulkRecord.new.process(@current_user, params)
-    return halt(200) unless  result
+    return halt(200) unless result
+
     halt 400, { 'Content-Type' => 'application/json' }, { message: result }.to_json
   end
 
@@ -65,4 +68,3 @@ class RecordsController < BaseApiController
     crud_response Record.find_by(id: id)&.destroy
   end
 end
-
