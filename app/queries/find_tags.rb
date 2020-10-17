@@ -4,17 +4,17 @@ class FindTags
   attr_accessor :scope
   attr_reader :params, :record_query_object
 
-  def initialize(scope = Tag.all)
+  def initialize
     @record_query_object = FindRecords.new
     @params = TagsParams.new
-    @scope = scope
   end
 
-  def call(user, params = {})
+  def call(scope: Tag.all, record_scope: nil, params: {})
     @params.params = params
+    @scope = scope
     select_fields
     filter_by_name
-    filter_by_records_sum(user)
+    filter_by_records_sum(record_scope)
     order
     @scope
   end
@@ -29,10 +29,10 @@ class FindTags
     @scope = @scope.where('tags.name LIKE ?', "%#{@params.name}%") if @params.name
   end
 
-  def filter_by_records_sum(user)
+  def filter_by_records_sum(record_scope)
     return unless @params.join_records?
 
-    @record_query_object.scope = user.records if user
+    @record_query_object.scope = record_scope if record_scope
 
     @scope = @scope.join_record_query(
       @record_query_object.call(@params.record_params).to_sql

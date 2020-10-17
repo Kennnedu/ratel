@@ -8,7 +8,7 @@ class TagsController < BaseApiController
   end
 
   get '/' do
-    json tags: FindTags.new(@current_user.tags).call(@current_user, params).as_json
+    json tags: FindTags.new.call(scope: @current_user.tags, record_scope: @current_user.records, params: params).as_json
   end
 
   post '/' do
