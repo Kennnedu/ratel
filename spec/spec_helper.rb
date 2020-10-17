@@ -1,12 +1,6 @@
 ENV['APP_ENV'] = 'test'
 
-require_relative './../api/base_api_controller.rb'
-
-require_relative './../api/records_controller.rb'
-require_relative './../api/cards_controller.rb'
-require_relative './../api/tags_controller.rb'
-require_relative './../api/reports_controller.rb'
-require_relative './../api/sessions_controller.rb'
+require_relative '../application'
 
 require 'rspec_api_documentation/dsl'
 require 'database_cleaner/active_record'
@@ -104,11 +98,11 @@ end
 
 RspecApiDocumentation.configure do |config|
   config.app = Rack::Builder.new do
-    map('/cards') { run CardsController.new }
-    map('/records') { run RecordsController.new }
-    map('/tags') { run TagsController.new }
-    map('/reports') { run ReportsController.new }
-    map('/sessions') { run SessionsController.new }
+    map('/cards') { run Container['api.cards_controller'] }
+    map('/records') { run Container['api.records_controller'] }
+    map('/tags') { run Container['api.tags_controller'] }
+    map('/reports') { run Container['api.reports_controller'] }
+    map('/sessions') { run Container['api.sessions_controller'] }
   end
   config.api_name = 'Ratel API'
   config.api_explanation = 'An explanation of the API'

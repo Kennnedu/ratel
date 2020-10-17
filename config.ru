@@ -1,13 +1,9 @@
-require_relative './api/cards_controller.rb'
-require_relative './api/records_controller.rb'
-require_relative './api/reports_controller.rb'
-require_relative './api/tags_controller.rb'
-require_relative './api/sessions_controller.rb'
+require_relative './application'
 require 'raddocs'
 
-map('/api/v1/cards') { run CardsController.new }
-map('/api/v1/records') { run RecordsController.new }
-map('/api/v1/tags') { run TagsController.new }
-map('/api/v1/reports') { run ReportsController.new }
-map('/api/v1/sessions') { run SessionsController.new }
+map('/api/v1/cards') { run Container['api.cards_controller'] }
+map('/api/v1/records') { run Container['api.records_controller'] }
+map('/api/v1/tags') { run Container['api.tags_controller'] }
+map('/api/v1/reports') { run Container['api.reports_controller'] }
+map('/api/v1/sessions') { run Container['api.sessions_controller'] }
 map('/api/docs') { run Raddocs::App}
