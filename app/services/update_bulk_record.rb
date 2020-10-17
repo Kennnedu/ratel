@@ -10,7 +10,7 @@ class UpdateBulkRecord
                    .where(tag_id: removing_tag_ids).destroy_all
       end
 
-    rescue  StandardError => e
+    rescue StandardError => e
       e.message
     end
   end

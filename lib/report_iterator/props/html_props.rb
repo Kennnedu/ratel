@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
+require 'import'
+
 module Props
   class HtmlProps
-    attr_reader :html_item_adapter
-    attr_accessor :report
+    include Import['report_iterator.item_adapters.html_item_adapter']
 
-    def initialize
-      @html_item_adapter = ItemAdapters::HtmlItemAdapter.new
-    end
+    attr_accessor :report
 
     def collection
       initial_query.select { |t| t.css('td').size.eql? 7 }

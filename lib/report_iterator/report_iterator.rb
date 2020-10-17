@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-class ReportIterator
-  attr_reader :props_factory
+require 'import'
 
-  def initialize
-    @props_factory = PropsFactory.new
-  end
+class ReportIterator
+  include Import['report_iterator.props_factory']
 
   def foreach(file)
     report_props = props_factory.get_props(Nokogiri::HTML(file))

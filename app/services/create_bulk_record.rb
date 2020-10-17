@@ -2,7 +2,7 @@
 
 class CreateBulkRecord
   def initialize
-    @iterator = ReportIterator.new
+    @iterator = Container['report_iterator.report_iterator']
   end
 
   def process(user, report, rec_opt = {})

@@ -36,4 +36,5 @@ Shrine.plugin :rack_file # for non-Rails apps
 
 # last for uploading
 Dir[File.dirname(__FILE__) + '/app/**/*.rb'].each { |file| require file }
-Dir[File.dirname(__FILE__) + '/lib/report_iterator/**/*.rb'].each { |file| require file }
+
+require_relative 'system/container.rb'

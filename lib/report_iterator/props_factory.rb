@@ -1,15 +1,12 @@
 # frozen_string_literal: true
 
-class PropsFactory
-  attr_reader :html_report_props, :html_table_report_props
+require 'import'
 
-  def initialize
-    @html_report_props = Props::HtmlProps.new
-    @html_table_report_props = Props::HtmlTableProps.new
-  end
+class PropsFactory
+  include Import['report_iterator.props.html_props', 'report_iterator.props.html_table_props']
 
   def get_props(file)
-    props = file.css('table').size > 1 ? html_report_props : html_table_report_props
+    props = file.css('table').size > 1 ? html_props : html_table_props
     props.report = file
     props
   end
