@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 class FindCards
-  attr_accessor :scope
-  attr_reader :params, :record_query_object
+  attr_reader :params
 
-  def initialize(scope = Card.all)
+  def initialize
     @record_query_object = FindRecords.new
     @params = CardsParams.new
-    @scope = scope
   end
 
-  def call(user, params = {})
+  def call(scope: Card.all, record_scope: nil, params: {})
     @params.params = params
+    @scope = scope
     select_fields
-    filter_by_records_sum(user)
+    filter_by_records_sum(record_scope)
     order
     @scope
   end
@@ -24,13 +23,13 @@ class FindCards
     @scope = @scope.unscope(:select).select(@params.select_fields) if @params.select_fields
   end
 
-  def filter_by_records_sum(user)
+  def filter_by_records_sum(record_scope)
     return unless @params.join_records?
 
-    @record_query_object.scope = user.records if user
+    @record_query_object.scope = record_scope if record_scope
 
     @scope = @scope.join_record_query(
-      @record_query_object.call(@params.record_params || {}).to_sql
+      @record_query_object.call(@params.record_params).to_sql
     )
 
     @scope = @scope.having('coalesce(sum(records.amount), 0) > ?', @params.record_sum_gt) if @params.record_sum_gt

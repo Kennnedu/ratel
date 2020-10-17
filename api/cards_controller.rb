@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative './base_api_controller.rb'
 
 class CardsController < BaseApiController
@@ -6,12 +8,12 @@ class CardsController < BaseApiController
   end
 
   get '/' do
-    json cards: FindCards.new(@current_user.cards).call(@current_user, params).as_json
+    json cards: FindCards.new.call(scope: @current_user.cards, record_scope: @current_user.records, params: params).as_json
   end
 
   post '/' do
     crud_response(
-      @current_user.cards.new(JSON.parse(request.body.read)['card']).tap { |c| c.save }
+      @current_user.cards.new(JSON.parse(request.body.read)['card']).tap(&:save)
     )
   end
 

@@ -4,7 +4,7 @@ RSpec.describe FindCards do
   let(:user) { User.last }
 
   describe '.call' do
-    subject(:result) { described_class.new.call(user, params) }
+    subject(:result) { described_class.new.call(record_scope: user.records, params: params) }
 
     context 'without params' do
       let(:params) { {} }
