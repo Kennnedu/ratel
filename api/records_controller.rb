@@ -48,7 +48,11 @@ class RecordsController < BaseApiController
   end
 
   put '/' do
-    result = UpdateBulkRecord.new.process(@current_user, params)
+    result = UpdateBulkRecord.new.process(
+      FindRecords.new.call(scope: @current_user.records, params: params),
+      params['batch_form'],
+      params['removing_tag_ids']
+    )
     return halt(200) unless result
 
     halt 400, { 'Content-Type' => 'application/json' }, { message: result }.to_json
