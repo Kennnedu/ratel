@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'import'
-
 class PropsFactory
   include Import['report_iterator.props.html_props', 'report_iterator.props.html_table_props']
 

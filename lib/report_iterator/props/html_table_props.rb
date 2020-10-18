@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'import'
-
 module Props
   class HtmlTableProps
     include Import['report_iterator.item_adapters.html_table_item_adapter']

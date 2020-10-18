@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'api/base_controller'
-require 'import'
 
 module Api
   class CardsController < BaseController

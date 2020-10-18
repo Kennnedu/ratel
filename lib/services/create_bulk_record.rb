@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'import'
-
 module Services
   class CreateBulkRecord
     include Import['report_iterator.report_iterator']

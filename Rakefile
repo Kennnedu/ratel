@@ -7,6 +7,6 @@ end
 
 namespace :db do
   task :load_config do
-    require './application.rb'
+    require 'system/boot'
   end
 end

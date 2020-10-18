@@ -3,7 +3,6 @@
 require 'sinatra/base'
 require 'sinatra/json'
 require 'sinatra/cookies'
-require 'import'
 
 module Api
   class BaseController < Sinatra::Application

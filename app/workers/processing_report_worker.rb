@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative './../../application.rb'
+require_relative './../../system/boot'
+require 'sidekiq'
 
 class ProcessingReportWorker
   include Sidekiq::Worker

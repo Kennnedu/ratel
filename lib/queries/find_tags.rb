@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'import'
-
 module Queries
   class FindTags
     include Import['queries.find_records', 'queries.tags_params']

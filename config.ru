@@ -1,4 +1,4 @@
-require_relative './application'
+require_relative 'system/boot'
 require 'raddocs'
 
 map('/api/v1/cards') { run Container['api.cards_controller'] }

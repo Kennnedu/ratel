@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'import'
-
 module Queries
   class FindCards
     include Import['queries.find_records', 'queries.cards_params']

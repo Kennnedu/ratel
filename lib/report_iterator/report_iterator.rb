@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'import'
-
 class ReportIterator
   include Import['report_iterator.props_factory']
 

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'import'
-
 module Queries
   class FindRecords
     include Import['queries.records_params']

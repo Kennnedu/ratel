@@ -1,6 +1,14 @@
-require 'bundler'
+require 'bundler/setup'
+require 'dotenv'
+require 'jwt'
+require 'nokogiri'
+require 'shrine'
+require 'sinatra/activerecord'
 
-Bundler.require(:default, ENV['APP_ENV'] || 'development')
+begin
+  require 'byebug'
+rescue LoadError
+end
 
 Dotenv.load(File.expand_path("../.env.#{ENV['APP_ENV']}.local",  __FILE__))
 Dotenv.load(File.expand_path("../.env.local",  __FILE__))
@@ -11,7 +19,6 @@ unless ENV['APP_ENV'].eql? 'test'
   ActiveRecord::Base.logger = Logger.new(STDOUT)
 end 
 
-require 'shrine'
 
 if ENV['APP_ENV'].eql? 'production'
   require 'shrine/storage/google_drive_storage'
@@ -35,7 +42,10 @@ Shrine.plugin :restore_cached_data # re-extract metadata when attaching a cached
 Shrine.plugin :rack_file # for non-Rails apps
 
 # last for uploading
-Dir[File.dirname(__FILE__) + '/app/models/*.rb'].each { |file| require file }
-Dir[File.dirname(__FILE__) + '/app/workers/*.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + '/../app/models/*.rb'].each { |file| require file }
+Dir[File.dirname(__FILE__) + '/../app/workers/*.rb'].each { |file| require file }
 
-require_relative 'system/container.rb'
+require_relative 'container'
+require_relative 'import'
+
+Container.finalize!

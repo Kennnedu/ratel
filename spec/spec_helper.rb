@@ -1,7 +1,9 @@
 ENV['APP_ENV'] = 'test'
 
-require_relative '../application'
+require_relative '../system/boot'
 
+require 'factory_bot'
+require 'faker'
 require 'rspec_api_documentation/dsl'
 require 'database_cleaner/active_record'
 
