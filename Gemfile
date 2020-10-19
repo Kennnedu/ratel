@@ -5,6 +5,8 @@ ruby '2.6.0'
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # The bcrypt Ruby gem provides a simple wrapper for safely handling passwords.
 gem 'bcrypt'
+# Bugsnag error monitoring & reporting software for rails, sinatra, rack and ruby
+gem 'bugsnag', '~> 6.17'
 # A Ruby gem to load environment variables from `.env`.
 gem 'dotenv'
 # Organize your code into reusable components
@@ -55,3 +57,4 @@ group :test do
   # Rack::Test is a layer on top of Rack's MockRequest similar to Merb's RequestHelper
   gem 'rack-test'
 end
+

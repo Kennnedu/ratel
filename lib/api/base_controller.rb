@@ -9,6 +9,10 @@ module Api
 
     LIMIT_SIZE = 30
 
+    set :raise_errors, true
+
+    use Bugsnag::Rack
+
     def paginate(query)
       set_paginate_vars
       @total = query.klass.from(query).count

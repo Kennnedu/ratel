@@ -6,6 +6,9 @@ require 'factory_bot'
 require 'faker'
 require 'rspec_api_documentation/dsl'
 require 'database_cleaner/active_record'
+require 'sidekiq/testing' 
+
+Sidekiq::Testing.inline!
 
 FactoryBot.find_definitions
 
