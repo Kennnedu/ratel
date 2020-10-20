@@ -30,41 +30,90 @@ resource 'Cards' do
     let(:type) { 'desc' }
     let(:field) { 'name' }
 
-    example_request 'index' do
+    example_request 'List' do
       expect(status).to eq 200
     end
   end
 
   post '/cards' do
-    let(:raw_post) { { card: { name: 'cash' } }.to_json }
+    context 'status 200' do
+      let(:raw_post) { { card: { name: 'cash' } }.to_json }
+  
+      example_request 'Create' do
+        expect(status).to eq 200
+      end
+    end
 
-    example_request 'create' do
-      expect(status).to eq 200
+    context 'status 400' do
+      let(:raw_post) { { card: { name: '' } }.to_json }
+
+      example_request 'Create validation error' do
+        expected_resp = {
+          "message" => ['Name can\'t be blank']
+        }.to_json
+
+        expect(status).to eq 400
+        expect(response_body).to eq expected_resp
+      end
     end
   end
 
   put '/cards/:id' do
     parameter :id, 'Card id', type: :integer
 
-    let(:card) { cards.last }
-    let!(:id) { card.id }
+    context 'status 200' do
+      let!(:id) { cards.last.id }
+      let(:name) { 'saving' }
 
-    let(:raw_post) { { card: { name: 'saving' } }.to_json }
+      let(:raw_post) { { card: { name: name } }.to_json }
 
-    example_request 'update' do
-      expect(status).to eq 200
-      expect(Card.last.name).to eq 'saving'
+      example_request 'Update' do
+        expect(status).to eq 200
+        expect(Card.last.name).to eq name
+      end
+    end
+
+    context 'status 400' do
+      let!(:id) { cards.last.id }
+
+      let!(:raw_post) { { card: { name: cards.first.name } }.to_json }
+
+      example_request 'Update validation error' do
+        expect(status).to eq 400
+        expect(response_body).to eq({ "message" => ['Name has already been taken'] }.to_json)
+      end
+    end
+
+    context 'status 404' do
+      let!(:id) { 666 }
+
+      let(:raw_post) { { card: { name: 'saving' } }.to_json }
+
+      example_request 'Update not found' do
+        expect(status).to eq 404
+        expect(response_body).to eq({ 'message' => 'Not found' }.to_json)
+      end
     end
   end
 
   delete '/cards/:id' do
     parameter :id, 'Card id', type: :integer
 
-    let(:card) { cards.last }
-    let!(:id) { card.id }
+    context 'status 200' do
+      let!(:id) { cards.last.id }
 
-    example_request 'delete' do
-      expect(status).to eq 200
+      example_request 'Delete' do
+        expect(status).to eq 200
+      end
+    end
+
+    context 'status 404' do
+      let!(:id) { 666 }
+
+      example_request 'Delete Not found' do
+        expect(status).to eq 404
+        expect(response_body).to eq({ 'message' => 'Not found' }.to_json)
+      end
     end
   end
 end

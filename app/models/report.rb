@@ -15,6 +15,6 @@ class Report < ActiveRecord::Base
   def as_json(options = {})
     options = { except: %i[updated_at document_data] }.merge(options)
 
-    super(options).merge(document_url: document.url)
+    super(options).merge(document_url: document&.url)
   end
 end

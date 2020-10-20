@@ -3,7 +3,7 @@
   "resource_explanation": null,
   "http_method": "POST",
   "route": "/records",
-  "description": "create",
+  "description": "Create",
   "explanation": null,
   "parameters": [
 
@@ -15,24 +15,24 @@
     {
       "request_method": "POST",
       "request_path": "/records",
-      "request_body": "{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-07-22T21:05\",\"card_id\":22,\"records_tags_attributes\":[{\"tag_id\":1}]}}",
+      "request_body": "{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-10-13T02:46\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}",
       "request_headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3fQ.BrddR8qVQrb2jRnCgFghT2mOvJdDxW5MaDlzQyAoPbw",
-        "Host": "example.org"
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org",
+        "Content-Type": "application/x-www-form-urlencoded"
       },
       "request_query_parameters": {
       },
-      "request_content_type": "application/json",
+      "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 21,\n  \"name\": \"macdonalds\",\n  \"amount\": \"-3.55\",\n  \"rest\": 11.23,\n  \"performed_at\": \"2020-07-22T21:05:00.000Z\",\n  \"created_at\": \"2020-07-22T18:05:22.265Z\",\n  \"updated_at\": \"2020-07-22T18:05:22.265Z\",\n  \"user_id\": 7,\n  \"card_id\": 22\n}",
+      "response_body": "{\n  \"id\": 6,\n  \"name\": \"macdonalds\",\n  \"amount\": \"-3.55\",\n  \"rest\": 11.23,\n  \"performed_at\": \"2020-10-13T02:46:00.000Z\",\n  \"report_id\": null,\n  \"card\": {\n    \"id\": 1,\n    \"name\": \"4159-7452-5573-4023\"\n  },\n  \"records_tags\": [\n    {\n      \"id\": 1,\n      \"tag_id\": 1,\n      \"tag\": {\n        \"id\": 1,\n        \"name\": \"food\"\n      }\n    }\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "206"
+        "Content-Length": "228"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/records\" -d '{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-07-22T21:05\",\"card_id\":22,\"records_tags_attributes\":[{\"tag_id\":1}]}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo3fQ.BrddR8qVQrb2jRnCgFghT2mOvJdDxW5MaDlzQyAoPbw\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/records\" -d '{\"record\":{\"name\":\"macdonalds\",\"amount\":-3.55,\"rest\":11.23,\"performed_at\":\"2020-10-13T02:46\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

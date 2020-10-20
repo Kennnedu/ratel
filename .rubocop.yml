@@ -3,8 +3,8 @@ AllCops:
     - spec/**/*
     - db/migrate/*
     - db/schema.rb
+    - system/boot.rb
     - config.ru
-    - application.rb
     - Gemfile
     - Rakefile
   RubyInterpreters:

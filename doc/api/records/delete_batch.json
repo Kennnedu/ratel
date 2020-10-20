@@ -3,7 +3,7 @@
   "resource_explanation": null,
   "http_method": "DELETE",
   "route": "/records",
-  "description": "delete batch",
+  "description": "Delete batch",
   "explanation": null,
   "parameters": [
     {
@@ -48,13 +48,13 @@
       "request_path": "/records",
       "request_body": null,
       "request_headers": {
-        "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMX0.Ls-102GiuVIzdJBrYGLC0e42h6uxrbmRrK-UFfSoThw",
-        "Host": "example.org"
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org",
+        "Content-Type": "application/x-www-form-urlencoded"
       },
       "request_query_parameters": {
       },
-      "request_content_type": "application/json",
+      "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
       "response_body": null,
@@ -63,7 +63,7 @@
         "Content-Length": "0"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/records\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMX0.Ls-102GiuVIzdJBrYGLC0e42h6uxrbmRrK-UFfSoThw\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/records\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

@@ -1,21 +1,18 @@
 ENV['APP_ENV'] = 'test'
 
-require_relative './../api/api'
+require_relative '../system/boot'
 
+require 'factory_bot'
+require 'faker'
 require 'rspec_api_documentation/dsl'
 require 'database_cleaner/active_record'
+require 'sidekiq/testing' 
 
-module RSpecMixin
-  include Rack::Test::Methods
-  def app
-    ApiController
-  end
-end
+Sidekiq::Testing.inline!
 
 FactoryBot.find_definitions
 
 RSpec.configure do |config|
-  config.include RSpecMixin
   config.include FactoryBot::Syntax::Methods
 
   config.after(:each) do
@@ -105,7 +102,13 @@ RSpec.configure do |config|
 end
 
 RspecApiDocumentation.configure do |config|
-  config.app = ApiController
+  config.app = Rack::Builder.new do
+    map('/cards') { run Container['api.cards_controller'] }
+    map('/records') { run Container['api.records_controller'] }
+    map('/tags') { run Container['api.tags_controller'] }
+    map('/reports') { run Container['api.reports_controller'] }
+    map('/sessions') { run Container['api.sessions_controller'] }
+  end
   config.api_name = 'Ratel API'
   config.api_explanation = 'An explanation of the API'
   config.format = :json

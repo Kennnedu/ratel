@@ -20,8 +20,9 @@ resource 'Records Sum' do
 
     let(:name) { 'bo' }
 
-    example_request 'index' do
+    example_request 'Index' do
       expect(status).to eq 200
+      expect(JSON.parse(response_body).keys).to include 'sum'
     end
   end
 end

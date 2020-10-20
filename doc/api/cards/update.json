@@ -3,7 +3,7 @@
   "resource_explanation": null,
   "http_method": "PUT",
   "route": "/cards/:id",
-  "description": "update",
+  "description": "Update",
   "explanation": null,
   "parameters": [
     {
@@ -18,11 +18,11 @@
   "requests": [
     {
       "request_method": "PUT",
-      "request_path": "/cards/16",
+      "request_path": "/cards/5",
       "request_body": "{\"card\":{\"name\":\"saving\"}}",
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.343IY0hz3a0h6JWYPvSGUVba8PzbO30mv6ZkNcdxrNA",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -30,13 +30,13 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 16,\n  \"name\": \"saving\",\n  \"user_id\": 3,\n  \"created_at\": \"2020-07-22T18:05:21.075Z\",\n  \"updated_at\": \"2020-07-22T18:05:21.081Z\"\n}",
+      "response_body": "{\n  \"user_id\": 1,\n  \"id\": 5,\n  \"name\": \"saving\",\n  \"created_at\": \"2020-10-12T23:46:52.914Z\",\n  \"updated_at\": \"2020-10-12T23:46:52.921Z\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "117"
+        "Content-Length": "116"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/cards/16\" -d '{\"card\":{\"name\":\"saving\"}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjozfQ.343IY0hz3a0h6JWYPvSGUVba8PzbO30mv6ZkNcdxrNA\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/cards/5\" -d '{\"card\":{\"name\":\"saving\"}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

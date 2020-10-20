@@ -1,0 +1,114 @@
+{
+  "resource": "Records",
+  "resource_explanation": null,
+  "http_method": "GET",
+  "route": "/records",
+  "description": "List",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "string",
+      "example": "ex&!blo",
+      "name": "name",
+      "description": "Record name (enumiration through & and ! to exclude)"
+    },
+    {
+      "type": "string",
+      "example": "33&!66",
+      "name": "card",
+      "description": "Card name (enumiration through & and ! to exclude)"
+    },
+    {
+      "type": "string",
+      "example": "blo&!mor",
+      "name": "tags",
+      "description": "Tags name (enumiration through & and ! to exclude)"
+    },
+    {
+      "scope": "performed_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "gt",
+      "description": "Performed at greater than"
+    },
+    {
+      "scope": "performed_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "lt",
+      "description": "Performed at less than"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "id",
+        "name",
+        "amount",
+        "rest",
+        "performed_at",
+        "created_at",
+        "updated_at",
+        "user_id",
+        "card_id",
+        "report_id"
+      ],
+      "example": "amount",
+      "default": "performed_at",
+      "name": "field",
+      "description": "Order field"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "example": "asc",
+      "default": "desc",
+      "name": "type",
+      "description": "Order type"
+    },
+    {
+      "type": "integer",
+      "example": 10,
+      "default": 30,
+      "name": "limit",
+      "description": "Limit number of records"
+    },
+    {
+      "type": "integer",
+      "example": 5,
+      "default": 0,
+      "name": "offset",
+      "description": "Offset number of records"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/records",
+      "request_body": null,
+      "request_headers": {
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": null,
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"records\": [\n    {\n      \"id\": 4,\n      \"name\": \"Wholegrain Bread\",\n      \"amount\": \"13.38\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-08-25T11:59:01.718Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Shiitake Mushrooms\",\n      \"amount\": \"-2.02\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-08-04T00:06:37.334Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Pears\",\n      \"amount\": \"-0.33\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-04-05T15:11:33.848Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 1,\n      \"name\": \"Asian Greens\",\n      \"amount\": \"0.86\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-03-31T03:32:27.401Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Mulberries\",\n      \"amount\": \"-17.49\",\n      \"rest\": 99.0,\n      \"performed_at\": \"2020-01-30T07:09:17.411Z\",\n      \"report_id\": null,\n      \"records_tags\": [\n\n      ],\n      \"card\": {\n        \"id\": \"\",\n        \"name\": \"\"\n      }\n    }\n  ],\n  \"offset\": 0,\n  \"limit\": 30,\n  \"total_count\": 5\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "872"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl -g \"http://localhost:4567/records\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

@@ -5,29 +5,57 @@
       "explanation": null,
       "examples": [
         {
-          "description": "create",
+          "description": "Create",
           "link": "cards/create.json",
           "groups": "all",
           "route": "/cards",
           "method": "post"
         },
         {
-          "description": "delete",
+          "description": "Create validation error",
+          "link": "cards/create_validation_error.json",
+          "groups": "all",
+          "route": "/cards",
+          "method": "post"
+        },
+        {
+          "description": "Delete",
           "link": "cards/delete.json",
           "groups": "all",
           "route": "/cards/:id",
           "method": "delete"
         },
         {
-          "description": "index",
-          "link": "cards/index.json",
+          "description": "Delete Not found",
+          "link": "cards/delete_not_found.json",
+          "groups": "all",
+          "route": "/cards/:id",
+          "method": "delete"
+        },
+        {
+          "description": "List",
+          "link": "cards/list.json",
           "groups": "all",
           "route": "/cards",
           "method": "get"
         },
         {
-          "description": "update",
+          "description": "Update",
           "link": "cards/update.json",
+          "groups": "all",
+          "route": "/cards/:id",
+          "method": "put"
+        },
+        {
+          "description": "Update not found",
+          "link": "cards/update_not_found.json",
+          "groups": "all",
+          "route": "/cards/:id",
+          "method": "put"
+        },
+        {
+          "description": "Update validation error",
+          "link": "cards/update_validation_error.json",
           "groups": "all",
           "route": "/cards/:id",
           "method": "put"
@@ -39,45 +67,87 @@
       "explanation": null,
       "examples": [
         {
-          "description": "create",
+          "description": "Create",
           "link": "records/create.json",
           "groups": "all",
           "route": "/records",
           "method": "post"
         },
         {
-          "description": "delete",
+          "description": "Create bulk",
+          "link": "records/create_bulk.json",
+          "groups": "all",
+          "route": "/records/bulk",
+          "method": "post"
+        },
+        {
+          "description": "Create validation error",
+          "link": "records/create_validation_error.json",
+          "groups": "all",
+          "route": "/records",
+          "method": "post"
+        },
+        {
+          "description": "Delete",
           "link": "records/delete.json",
           "groups": "all",
           "route": "/records/:id",
           "method": "delete"
         },
         {
-          "description": "delete batch",
+          "description": "Delete batch",
           "link": "records/delete_batch.json",
           "groups": "all",
           "route": "/records",
           "method": "delete"
         },
         {
-          "description": "index",
-          "link": "records/index.json",
+          "description": "Delete not found",
+          "link": "records/delete_not_found.json",
+          "groups": "all",
+          "route": "/records/:id",
+          "method": "delete"
+        },
+        {
+          "description": "List",
+          "link": "records/list.json",
           "groups": "all",
           "route": "/records",
           "method": "get"
         },
         {
-          "description": "update",
+          "description": "Update",
           "link": "records/update.json",
           "groups": "all",
           "route": "/records/:id",
           "method": "put"
         },
         {
-          "description": "update batch",
+          "description": "Update batch",
           "link": "records/update_batch.json",
           "groups": "all",
           "route": "/records",
+          "method": "put"
+        },
+        {
+          "description": "Update batch validation error",
+          "link": "records/update_batch_validation_error.json",
+          "groups": "all",
+          "route": "/records",
+          "method": "put"
+        },
+        {
+          "description": "Update not found",
+          "link": "records/update_not_found.json",
+          "groups": "all",
+          "route": "/records/:id",
+          "method": "put"
+        },
+        {
+          "description": "Update validation error",
+          "link": "records/update_validation_error.json",
+          "groups": "all",
+          "route": "/records/:id",
           "method": "put"
         }
       ]
@@ -87,7 +157,7 @@
       "explanation": null,
       "examples": [
         {
-          "description": "index",
+          "description": "Index",
           "link": "records_names/index.json",
           "groups": "all",
           "route": "/records/names",
@@ -100,10 +170,44 @@
       "explanation": null,
       "examples": [
         {
-          "description": "index",
+          "description": "Index",
           "link": "records_sum/index.json",
           "groups": "all",
           "route": "/records/sum",
+          "method": "get"
+        }
+      ]
+    },
+    {
+      "name": "Reports",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "Create",
+          "link": "reports/create.json",
+          "groups": "all",
+          "route": "/reports",
+          "method": "post"
+        },
+        {
+          "description": "Delete",
+          "link": "reports/delete.json",
+          "groups": "all",
+          "route": "/reports/:id",
+          "method": "delete"
+        },
+        {
+          "description": "Delete Not found",
+          "link": "reports/delete_not_found.json",
+          "groups": "all",
+          "route": "/reports/:id",
+          "method": "delete"
+        },
+        {
+          "description": "List",
+          "link": "reports/list.json",
+          "groups": "all",
+          "route": "/reports",
           "method": "get"
         }
       ]
@@ -113,10 +217,17 @@
       "explanation": null,
       "examples": [
         {
-          "description": "login",
-          "link": "session/login.json",
+          "description": "Create",
+          "link": "session/create.json",
           "groups": "all",
-          "route": "/session",
+          "route": "/sessions",
+          "method": "post"
+        },
+        {
+          "description": "Create validation error",
+          "link": "session/create_validation_error.json",
+          "groups": "all",
+          "route": "/sessions",
           "method": "post"
         }
       ]
@@ -126,18 +237,60 @@
       "explanation": null,
       "examples": [
         {
-          "description": "find or create",
-          "link": "tags/find_or_create.json",
+          "description": "Create",
+          "link": "tags/create.json",
           "groups": "all",
-          "route": "/tags/:name",
+          "route": "/tags",
           "method": "post"
         },
         {
-          "description": "index",
-          "link": "tags/index.json",
+          "description": "Create validation error",
+          "link": "tags/create_validation_error.json",
+          "groups": "all",
+          "route": "/tags",
+          "method": "post"
+        },
+        {
+          "description": "Delete",
+          "link": "tags/delete.json",
+          "groups": "all",
+          "route": "/tags/:id",
+          "method": "delete"
+        },
+        {
+          "description": "Delete Not found",
+          "link": "tags/delete_not_found.json",
+          "groups": "all",
+          "route": "/tags/:id",
+          "method": "delete"
+        },
+        {
+          "description": "List",
+          "link": "tags/list.json",
           "groups": "all",
           "route": "/tags",
           "method": "get"
+        },
+        {
+          "description": "Update",
+          "link": "tags/update.json",
+          "groups": "all",
+          "route": "/tags/:id",
+          "method": "put"
+        },
+        {
+          "description": "Update not found",
+          "link": "tags/update_not_found.json",
+          "groups": "all",
+          "route": "/tags/:id",
+          "method": "put"
+        },
+        {
+          "description": "Update validation error",
+          "link": "tags/update_validation_error.json",
+          "groups": "all",
+          "route": "/tags/:id",
+          "method": "put"
         }
       ]
     }

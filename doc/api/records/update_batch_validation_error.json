@@ -1,0 +1,120 @@
+{
+  "resource": "Records",
+  "resource_explanation": null,
+  "http_method": "PUT",
+  "route": "/records",
+  "description": "Update batch validation error",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "string",
+      "example": "ex&!blo",
+      "name": "name",
+      "description": "Record name (enumiration through & and ! to exclude)"
+    },
+    {
+      "type": "string",
+      "example": "33&!66",
+      "name": "card",
+      "description": "Card name (enumiration through & and ! to exclude)"
+    },
+    {
+      "type": "string",
+      "example": "blo&!mor",
+      "name": "tags",
+      "description": "Tags name (enumiration through & and ! to exclude)"
+    },
+    {
+      "scope": "performed_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "gt",
+      "description": "Performed at greater than"
+    },
+    {
+      "scope": "performed_at",
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "lt",
+      "description": "Performed at less than"
+    },
+    {
+      "scope": "batch_form",
+      "type": "string",
+      "example": "food",
+      "name": "name",
+      "description": "Record name for updating"
+    },
+    {
+      "scope": "batch_form",
+      "type": "integer",
+      "example": 1,
+      "name": "card_id",
+      "description": "Card id for updating"
+    },
+    {
+      "type": "array",
+      "scope": "batch_form",
+      "items": {
+        "type": "integer"
+      },
+      "example": [
+        1,
+        2,
+        3
+      ],
+      "default": [
+
+      ],
+      "name": "removing_tag_ids",
+      "description": "Batch form removing tag ids"
+    },
+    {
+      "type": "array",
+      "scope": "batch_form",
+      "items": {
+        "type": "hash"
+      },
+      "example": [
+        {
+          "tag_id": 1
+        },
+        {
+          "tag_id": 2
+        }
+      ],
+      "default": [
+
+      ],
+      "name": "records_tags_attributes",
+      "description": "Batch form records tags attributes"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "PUT",
+      "request_path": "/records",
+      "request_body": "batch_form[name]=",
+      "request_headers": {
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_status": 400,
+      "response_status_text": "Bad Request",
+      "response_body": "{\n  \"message\": \"Validation failed: Name can't be blank\"\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "52"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/records\" -d 'batch_form[name]=' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

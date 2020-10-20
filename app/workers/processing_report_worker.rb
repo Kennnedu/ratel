@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-require_relative './../../application.rb'
-
 class ProcessingReportWorker
+  include Import['services.create_bulk_record']
   include Sidekiq::Worker
 
   def perform(id)
     report = Report.find id
 
     ActiveRecord::Base.transaction do
-      CreateBulkRecord.new(report.user, report.document.open).process(report: report)
+      create_bulk_record.process(report.user, report.document.open, report: report)
       report.update(status: 1)
     end
   rescue StandardError => e

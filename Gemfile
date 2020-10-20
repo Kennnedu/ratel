@@ -1,12 +1,16 @@
 source 'https://rubygems.org'
 
-ruby '2.6.0'
+ruby '2.6.6'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 # The bcrypt Ruby gem provides a simple wrapper for safely handling passwords.
 gem 'bcrypt'
+# Bugsnag error monitoring & reporting software for rails, sinatra, rack and ruby
+gem 'bugsnag', '~> 6.17'
 # A Ruby gem to load environment variables from `.env`.
 gem 'dotenv'
+# Organize your code into reusable components
+gem 'dry-system', '~> 0.18.1'
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt'
 # Nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support.
@@ -53,3 +57,6 @@ group :test do
   # Rack::Test is a layer on top of Rack's MockRequest similar to Merb's RequestHelper
   gem 'rack-test'
 end
+
+gem 'rubocop', '~> 0.93.1', :group => :development, require: false
+

@@ -36,8 +36,90 @@ resource 'Tags' do
     let(:type) { 'desc' }
     let(:field) { 'name' }
 
-    example_request 'index' do
+    example_request 'List' do
       expect(status).to eq 200
     end
   end
+
+  post '/tags' do
+    context 'status 200' do
+      let(:raw_post) { { tag: { name: 'food' } }.to_json }
+
+      example_request 'Create' do
+        expect(status).to eq 200
+      end
+    end
+
+    context 'status 400' do
+      let(:raw_post) { { tag: { name: '' } }.to_json }
+
+      example_request 'Create validation error' do
+        expected_resp = {
+          "message" => ['Name can\'t be blank']
+        }.to_json
+
+        expect(status).to eq 400
+        expect(response_body).to eq expected_resp
+      end
+    end
+  end
+
+  put '/tags/:id' do
+    parameter :id, 'Tag id', type: :integer
+
+    context 'status 200' do
+      let!(:id) { Tag.last.id }
+      let(:name) { 'iphone' }
+
+      let(:raw_post) { { tag: { name: name } }.to_json }
+
+      example_request 'Update' do
+        expect(status).to eq 200
+        expect(Tag.last.name).to eq name
+      end
+    end
+
+    context 'status 400' do
+      let!(:id) { Tag.last.id }
+
+      let!(:raw_post) { { tag: { name: Tag.first.name } }.to_json }
+
+      example_request 'Update validation error' do
+        expect(status).to eq 400
+        expect(response_body).to eq({ "message" => ['Name has already been taken'] }.to_json)
+      end
+    end
+
+    context 'status 404' do
+      let!(:id) { 666 }
+
+      let(:raw_post) { { tag: { name: 'saving' } }.to_json }
+
+      example_request 'Update not found' do
+        expect(status).to eq 404
+        expect(response_body).to eq({ 'message' => 'Not found' }.to_json)
+      end
+    end
+  end
+
+  delete '/tags/:id' do
+    parameter :id, 'Tag id', type: :integer
+
+    context 'status 200' do
+      let!(:id) { Tag.last.id }
+
+      example_request 'Delete' do
+        expect(status).to eq 200
+      end
+    end
+
+    context 'status 404' do
+      let!(:id) { 666 }
+
+      example_request 'Delete Not found' do
+        expect(status).to eq 404
+        expect(response_body).to eq({ 'message' => 'Not found' }.to_json)
+      end
+    end
+  end 
 end
