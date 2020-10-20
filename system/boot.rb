@@ -5,7 +5,7 @@ require 'nokogiri'
 
 begin
   require 'byebug'
-rescue
+rescue LoadError
 end
 
 Dotenv.load(".env.#{ENV['APP_ENV'] || 'development'}")
