@@ -56,12 +56,16 @@ module Queries
     def process_select_fields
       return unless params['fields'].presence
 
-      fields = params['fields']&.to_s&.split(',')&.map! { |f| FEILDS_MAP[f] }
-      fields&.compact!
-      fields = (fields || []).join(', ')
+      fields = extract_fields_str
       return unless fields.presence
 
       fields.insert(0, SELECT_SUBSTR)
+    end
+
+    def extract_fields_str
+      params['fields']&.to_s&.split(',')
+                      .tap { |fa| fa&.map! { |f| FEILDS_MAP[f] } }
+                      .tap { |fa| fa&.compact! }&.join(', ') || ''
     end
 
     def parse_date(date_string)

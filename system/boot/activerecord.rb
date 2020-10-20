@@ -10,6 +10,6 @@ Container.boot(:activerecord) do |app|
     ActiveRecord::Base.establish_connection(ENV.fetch('DATABASE_URL'))
     ActiveRecord::Base.logger = app['logger'] unless ENV['APP_ENV'].eql? 'test'
 
-    Dir[File.dirname(__FILE__) + '/../../app/models/*.rb'].each { |file| require file }
+    Dir[File.dirname(__FILE__) + '/../../app/models/*.rb'].sort.each { |file| require file }
   end
 end

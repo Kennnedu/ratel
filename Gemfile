@@ -58,3 +58,5 @@ group :test do
   gem 'rack-test'
 end
 
+gem 'rubocop', '~> 0.93.1', :group => :development, require: false
+

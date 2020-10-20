@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module ReportIterator
   module ItemAdapters
     class HtmlTableItemAdapter
