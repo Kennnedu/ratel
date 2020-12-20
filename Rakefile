@@ -7,6 +7,6 @@ end
 
 namespace :db do
   task :load_config do
-    require 'system/boot'
+    require_relative './system/boot'
   end
 end
