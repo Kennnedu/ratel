@@ -1,4 +1,4 @@
-require_relative 'system/boot'
+require_relative './system/boot'
 require 'raddocs'
 
 map('/api/v1/cards') { run Container['api.cards_controller'] }
@@ -6,8 +6,8 @@ map('/api/v1/records') { run Container['api.records_controller'] }
 map('/api/v1/tags') { run Container['api.tags_controller'] }
 map('/api/v1/reports') { run Container['api.reports_controller'] }
 map('/api/v1/sessions') { run Container['api.sessions_controller'] }
-map('api/v1/user') { run Container['api.users_controller'] }
-map('/oauth2/gmail') { run Container['api.oauth2_gmail_controller']  }
+map('/api/v1/user') { run Container['api.users_controller'] }
+map('/api/v1/oauth2/gmail') { run Container['api.oauth2_gmail_controller']  }
 map('/api/docs') { run Raddocs::App }
 map '/sidekiq' do
   use Rack::Auth::Basic, "Protected Area" do |username, password|
