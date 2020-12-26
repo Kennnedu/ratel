@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :gmail_connection
 
+  validates :username, presence: true, uniqueness: true
+
   def as_json(options = {})
     options = {
       only: %i[username],
