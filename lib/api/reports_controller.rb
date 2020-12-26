@@ -6,7 +6,7 @@ module Api
   class ReportsController < BaseController
     get '/' do
       json reports: paginate(
-        Report.all.order(created_at: :desc)
+        @current_user.reports.order(created_at: :desc)
       ).as_json,
            offset: @offset,
            limit: @limit,
