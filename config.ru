@@ -8,6 +8,7 @@ map('/api/v1/reports') { run Container['api.reports_controller'] }
 map('/api/v1/sessions') { run Container['api.sessions_controller'] }
 map('/api/v1/user') { run Container['api.users_controller'] }
 map('/api/v1/oauth2/gmail') { run Container['api.oauth2_gmail_controller']  }
+map('/static') { run Container['statics'] }
 map('/api/docs') { run Raddocs::App }
 map '/sidekiq' do
   use Rack::Auth::Basic, "Protected Area" do |username, password|
