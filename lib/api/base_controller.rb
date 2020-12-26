@@ -5,7 +5,7 @@ require 'sinatra/json'
 
 module Api
   class BaseController < Sinatra::Application
-    include Import['services.authorize_request']
+    include Import['services.authorize_request', 'logger']
 
     LIMIT_SIZE = 30
 
@@ -43,7 +43,8 @@ module Api
     end
 
     before do
-      pass if request.path.include?('/session')
+      logger.info params
+      pass if request.path.include?('/session') || request.path.include?('/callback')
       @current_user = authorize_request.process request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)
     rescue JWT::DecodeError, JWT::ExpiredSignature
       halt 401, { 'Content-Type' => 'application/json' }, { message: 'Auth Token is incorrect!' }.to_json

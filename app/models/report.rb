@@ -13,8 +13,16 @@ class Report < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    options = { except: %i[updated_at document_data] }.merge(options)
+    options = { except: %i[updated_at document_data user_id error_message] }.merge(options)
 
-    super(options).merge(document_url: document&.url)
+    super(options).merge(url: url, name: document['filename'])
+  end
+
+  def url
+    if ENV['APP_ENV'].eql? 'development'
+      "http://localhost:#{ENV['PORT']}/static#{document&.url}"
+    else
+      document&.url
+    end
   end
 end

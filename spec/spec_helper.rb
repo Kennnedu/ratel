@@ -108,6 +108,7 @@ RspecApiDocumentation.configure do |config|
     map('/tags') { run Container['api.tags_controller'] }
     map('/reports') { run Container['api.reports_controller'] }
     map('/sessions') { run Container['api.sessions_controller'] }
+    map('/user') { run Container['api.users_controller'] }
   end
   config.api_name = 'Ratel API'
   config.api_explanation = 'An explanation of the API'
