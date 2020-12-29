@@ -31,10 +31,10 @@
       "request_content_type": "multipart/form-data; boundary=----------XnJLe9ZIbbGUYtzPQJ16u1",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 1,\n  \"user_id\": 1,\n  \"status\": \"queue\",\n  \"error_message\": null,\n  \"created_at\": \"2020-10-12T23:46:59.558Z\",\n  \"document_url\": \"/uploads/d82cba3746a6d5cfbfb46a22a442471b.htm\"\n}",
+      "response_body": "{\n  \"id\": 1,\n  \"status\": \"queue\",\n  \"created_at\": \"2020-12-29T12:30:59.138Z\",\n  \"url\": \"/uploads/4154a4e484cfd34df01c2a8d986a7a47.htm\",\n  \"name\": \"report.htm\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "161"
+        "Content-Length": "139"
       },
       "response_content_type": "application/json",
       "curl": "curl \"http://localhost:4567/reports\" -d '------------XnJLe9ZIbbGUYtzPQJ16u1\r\nContent-Disposition: form-data; name=\"document\"; filename=\"report.htm\"\r\nContent-Type: text/html\r\nContent-Length: 52925\r\n\r\n[uploaded data]\r\n------------XnJLe9ZIbbGUYtzPQJ16u1--\r' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: multipart/form-data; boundary=----------XnJLe9ZIbbGUYtzPQJ16u1\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

@@ -1,0 +1,76 @@
+{
+  "resource": "Users",
+  "resource_explanation": null,
+  "http_method": "PUT",
+  "route": "/user",
+  "description": "Update validation error",
+  "explanation": null,
+  "parameters": [
+    {
+      "scope": "user",
+      "type": "string",
+      "example": "ivan",
+      "name": "username",
+      "description": "Username"
+    },
+    {
+      "scope": "user",
+      "type": "string",
+      "name": "password",
+      "description": "Password"
+    },
+    {
+      "scope": "user",
+      "type": "string",
+      "name": "password_confirmation",
+      "description": "Password Confirmaiton"
+    },
+    {
+      "scope": [
+        "user",
+        "gmail_connection_attributes"
+      ],
+      "type": "string",
+      "example": "sender@gmail.com",
+      "name": "report_sender",
+      "description": "Email of the contact who send reports"
+    },
+    {
+      "scope": [
+        "user",
+        "gmail_connection_attributes"
+      ],
+      "type": "string",
+      "example": "2020-02-02T18:56:00.000Z",
+      "name": "connected_at",
+      "description": "Date since last uploaded report"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "PUT",
+      "request_path": "/user",
+      "request_body": "user[username]=shannon.howell&user[password]=password&user[password_confirmation]=paaasword1%24&user[gmail_connection_attributes][report_sender]=antony%40hotmail.com&user[gmail_connection_attributes][connected_at]=2020-12-29+15%3A31%3A06+%2B0300",
+      "request_headers": {
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_status": 400,
+      "response_status_text": "Bad Request",
+      "response_body": "{\n  \"message\": [\n    \"Password confirmation doesn't match Password\"\n  ]\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "60"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/user\" -d 'user[username]=shannon.howell&user[password]=password&user[password_confirmation]=paaasword1%24&user[gmail_connection_attributes][report_sender]=antony%40hotmail.com&user[gmail_connection_attributes][connected_at]=2020-12-29+15%3A31%3A06+%2B0300' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

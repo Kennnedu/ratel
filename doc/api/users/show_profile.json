@@ -1,0 +1,37 @@
+{
+  "resource": "Users",
+  "resource_explanation": null,
+  "http_method": "GET",
+  "route": "/user",
+  "description": "Show profile",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/user",
+      "request_body": null,
+      "request_headers": {
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": null,
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"username\": \"harrison.gorczany\"\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "32"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl -g \"http://localhost:4567/user\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
