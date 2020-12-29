@@ -43,7 +43,7 @@ module Api
     end
 
     before do
-      logger.info params
+      logger.info params unless ENV['APP_ENV'].eql? 'test'
       pass if request.path.include?('/session') || request.path.include?('/callback')
       @current_user = authorize_request.process request.env['HTTP_AUTHORIZATION'].try(:split, ' ').try(:last)
     rescue JWT::DecodeError, JWT::ExpiredSignature
