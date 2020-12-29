@@ -7,6 +7,7 @@ module Api
     include Import[
       'queries.find_records',
       'queries.find_record_names',
+      'queries.find_records_sum',
       'services.create_bulk_record',
       'services.update_bulk_record'
     ]
@@ -25,6 +26,10 @@ module Api
         find_records.call(scope: @current_user.records, params: params).distinct.select(:id, :amount).reorder(:amount),
         'names'
       ).sum('names.amount')
+    end
+
+    get '/statistic/sum' do
+      json statistic: ActiveRecord::Base.connection.execute(find_records_sum.call(params: params).to_sql).to_a
     end
 
     get '/names' do
