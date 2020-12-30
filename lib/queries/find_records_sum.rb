@@ -23,7 +23,7 @@ module Queries
     end
 
     def filter_by_period_step(period_step)
-      period_step = %w[year month week day].include?(period_step) ? period_step : 'year'
+      period_step = %w[year quarter month week day].include?(period_step) ? period_step : 'year'
 
       @scope = Record.select("date_trunc('#{period_step}', performed_at) as performed_date, sum(amount) as sum_amount")
                      .from(@scope).group('performed_date')
