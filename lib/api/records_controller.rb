@@ -29,7 +29,9 @@ module Api
     end
 
     get '/statistic/sum' do
-      json statistic: ActiveRecord::Base.connection.execute(find_records_sum.call(params: params).to_sql).to_a
+      json statistic: ActiveRecord::Base.connection.execute(
+        find_records_sum.call(scope: @current_user.records, params: params).to_sql
+      ).to_a
     end
 
     get '/names' do
