@@ -1,0 +1,81 @@
+{
+  "resource": "Records Sum Statistic",
+  "resource_explanation": null,
+  "http_method": "GET",
+  "route": "/records/statistic/sum",
+  "description": "Index",
+  "explanation": null,
+  "parameters": [
+    {
+      "type": "string",
+      "example": "expenses",
+      "name": "type",
+      "description": "Expances or Replenishment"
+    },
+    {
+      "type": "string",
+      "enum": [
+        "year",
+        "month",
+        "week",
+        "day"
+      ],
+      "example": "month",
+      "default": "year",
+      "name": "period_step",
+      "description": "Round up performed at dates by interval"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "performed_date",
+        "sum_amount"
+      ],
+      "example": "amount",
+      "default": "performed_date",
+      "name": "field",
+      "description": "Order field"
+    },
+    {
+      "scope": "order",
+      "type": "string",
+      "enum": [
+        "asc",
+        "desc"
+      ],
+      "example": "asc",
+      "default": "desc",
+      "name": "type",
+      "description": "Order type"
+    }
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "GET",
+      "request_path": "/records/statistic/sum?period_step=month",
+      "request_body": null,
+      "request_headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org"
+      },
+      "request_query_parameters": {
+        "period_step": "month"
+      },
+      "request_content_type": "application/json",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"statistic\": [\n    {\n      \"performed_date\": \"2020-12-01 00:00:00\",\n      \"sum_amount\": \"-90.55\"\n    },\n    {\n      \"performed_date\": \"2020-08-01 00:00:00\",\n      \"sum_amount\": \"64.20\"\n    },\n    {\n      \"performed_date\": \"2020-07-01 00:00:00\",\n      \"sum_amount\": \"-12.61\"\n    },\n    {\n      \"performed_date\": \"2020-06-01 00:00:00\",\n      \"sum_amount\": \"-116.80\"\n    },\n    {\n      \"performed_date\": \"2020-05-01 00:00:00\",\n      \"sum_amount\": \"-48.02\"\n    },\n    {\n      \"performed_date\": \"2020-03-01 00:00:00\",\n      \"sum_amount\": \"-40.62\"\n    },\n    {\n      \"performed_date\": \"2020-02-01 00:00:00\",\n      \"sum_amount\": \"-94.34\"\n    }\n  ]\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "456"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl -g \"http://localhost:4567/records/statistic/sum?period_step=month\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}

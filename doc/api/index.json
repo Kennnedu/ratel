@@ -179,6 +179,19 @@
       ]
     },
     {
+      "name": "Records Sum Statistic",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "Index",
+          "link": "records_sum_statistic/index.json",
+          "groups": "all",
+          "route": "/records/statistic/sum",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "name": "Reports",
       "explanation": null,
       "examples": [
@@ -290,6 +303,33 @@
           "link": "tags/update_validation_error.json",
           "groups": "all",
           "route": "/tags/:id",
+          "method": "put"
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "Show profile",
+          "link": "users/show_profile.json",
+          "groups": "all",
+          "route": "/user",
+          "method": "get"
+        },
+        {
+          "description": "Update",
+          "link": "users/update.json",
+          "groups": "all",
+          "route": "/user",
+          "method": "put"
+        },
+        {
+          "description": "Update validation error",
+          "link": "users/update_validation_error.json",
+          "groups": "all",
+          "route": "/user",
           "method": "put"
         }
       ]
