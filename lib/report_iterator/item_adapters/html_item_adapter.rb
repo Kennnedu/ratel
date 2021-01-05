@@ -6,7 +6,9 @@ module ReportIterator
       attr_accessor :item, :card
 
       def as_json
-        { 'name' => name, 'amount' => amount, 'performed_at' => performed_at }
+        result = { 'name' => name, 'amount' => amount, 'performed_at' => performed_at }
+        result.merge!('card' => card) if card
+        result
       end
 
       protected
