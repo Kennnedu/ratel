@@ -30,7 +30,10 @@ module Api
 
     get '/statistic/sum' do
       json statistic: ActiveRecord::Base.connection.execute(
-        find_records_sum.call(scope: @current_user.records, params: params).to_sql
+        find_records_sum.call(
+          scope: Record.select('id, amount, performed_at, user_id').where('user_id = ?', @current_user.id),
+          params: params
+        ).to_sql
       ).to_a
     end
 

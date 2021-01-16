@@ -2,9 +2,12 @@
 
 module Queries
   class FindRecordsSum
-    def call(scope: Record.all, params: {})
+    include Import['queries.find_records']
+
+    def call(scope: Record.select('id, amount, performed_at'), params: {})
       @scope = scope
 
+      filter_by_records_filter params['record']
       filter_by_type params['type']
       filter_by_period_step params['period_step']
       order params['order']
@@ -14,11 +17,17 @@ module Queries
 
     private
 
+    def filter_by_records_filter(record_params)
+      return unless record_params.presence
+
+      @scope = @scope.from find_records.call(params: record_params)
+    end
+
     def filter_by_type(type)
       if type.eql? 'expences'
-        @scope = @scope.where('records.amount < 0')
+        @scope = @scope.where('amount < 0')
       elsif type.eql? 'replenish'
-        @scope = @scope.where('records.amount > 0')
+        @scope = @scope.where('amount > 0')
       end
     end
 
