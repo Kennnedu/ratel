@@ -10,7 +10,8 @@ module Services
       authorize(user.gmail_connection)
 
       fetch_messages(user.gmail_connection).each do |message|
-        save_report(user.reports.build, *fetch_data_report(message))
+        data_report = fetch_data_report(user.gmail_connection, message)
+        save_report(user.reports.build, *data_report) if data_report.presence
       end
 
       user.gmail_connection.update_attribute 'connected_at', Time.now
@@ -34,10 +35,16 @@ module Services
       gmail_api.list_user_messages(USER_ID, q: gmail_connection.q).messages || []
     end
 
-    def fetch_data_report(message)
-      last_message_part = gmail_api.get_user_message(USER_ID, message.id).payload.parts.last
-      attachment_id = last_message_part.body.attachment_id
-      [gmail_api.get_user_message_attachment(USER_ID, message.id, attachment_id).data, last_message_part.filename]
+    def fetch_data_report(gmail_connection, message)
+      msg = gmail_api.get_user_message(USER_ID, message.id)
+
+      if gmail_connection.report_sender.eql?('info@belinvestbank.by')
+        return [msg.payload.parts[0].body.data, "#{Time.now.to_i.to_s}.htm"] if msg.payload.parts.presence
+      else
+        last_message_part = msg.payload.parts.last
+        attachment_id = last_message_part.body.attachment_id
+        return [gmail_api.get_user_message_attachment(USER_ID, message.id, attachment_id).data, last_message_part.filename]
+      end
     end
 
     def save_report(new_report, data, filename)
