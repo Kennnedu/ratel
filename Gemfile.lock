@@ -237,6 +237,7 @@ DEPENDENCIES
   dry-system (~> 0.18.1)
   factory_bot
   faker!
+  faraday (~> 0.17.3)
   jwt
   minitest-reporters
   newrelic_rpm

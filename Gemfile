@@ -11,6 +11,8 @@ gem 'bugsnag', '~> 6.17'
 gem 'dotenv'
 # Organize your code into reusable components
 gem 'dry-system', '~> 0.18.1'
+# Simple, but flexible HTTP client library, with support for multiple backends.
+gem 'faraday', '~> 0.17.3'
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt'
 # Nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support.
