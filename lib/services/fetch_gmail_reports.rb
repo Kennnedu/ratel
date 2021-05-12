@@ -3,48 +3,55 @@
 module Services
   class FetchGmailReports
     USER_ID = 'me'
+    BELINVEST_INFO_SENDER = 'info@belinvestbank.by'
 
-    include Import['gmail_api', 'services.authorize_gmail_connection', 'logger']
+    include Import['logger', 'services.authorize_gmail_connection', { 'onesignal': 'onesignal.client' }]
+
+    attr_accessor :new_reports, :gmail_api, :user
 
     def process(user)
-      authorize(user.gmail_connection)
+      reset_state(user)
 
-      fetch_messages(user.gmail_connection).each do |message|
-        data_report = fetch_data_report(user.gmail_connection, message)
+      fetch_messages.each do |message|
+        data_report = fetch_data_report(message)
         save_report(user.reports.build, *data_report) if data_report.presence
       end
 
-      user.gmail_connection.update_attribute 'connected_at', Time.now
+      after_process
     rescue StandardError => e
       logger.fatal e
     end
 
     private
 
-    def authorize(connection)
-      logger.info "Process #{connection.inspect}"
-
-      credentials = authorize_gmail_connection.process connection
-
-      raise 'Not authorized connection' unless credentials
-
-      gmail_api.authorization = credentials
+    def reset_state(user)
+      self.user = user || raise('User not found')
+      self.new_reports = []
+      self.gmail_api = authorize_gmail_connection.process(user.gmail_connection)
     end
 
-    def fetch_messages(gmail_connection)
-      gmail_api.list_user_messages(USER_ID, q: gmail_connection.q).messages || []
+    def fetch_messages
+      gmail_api.list_user_messages(USER_ID, q: user.gmail_connection.q).messages || []
     end
 
-    def fetch_data_report(gmail_connection, message)
+    def fetch_data_report(message)
       msg = gmail_api.get_user_message(USER_ID, message.id)
 
-      if gmail_connection.report_sender.eql?('info@belinvestbank.by')
-        return [msg.payload.parts[0].body.data, "#{Time.now.to_i.to_s}.htm"] if msg.payload.parts.presence
+      if user.gmail_connection.report_sender.eql?(BELINVEST_INFO_SENDER)
+        fetch_table_data msg
       else
-        last_message_part = msg.payload.parts.last
-        attachment_id = last_message_part.body.attachment_id
-        return [gmail_api.get_user_message_attachment(USER_ID, message.id, attachment_id).data, last_message_part.filename]
+        fetch_attachment_data message.id, msg
       end
+    end
+
+    def fetch_table_data(msg)
+      [msg.payload.parts[0].body.data, "#{Time.now.to_i}.htm"] if msg.payload.parts.presence
+    end
+
+    def fetch_attachment_data(msg_id, msg)
+      last_message_part = msg.payload.parts.last
+      attachment_id = last_message_part.body.attachment_id
+      [gmail_api.get_user_message_attachment(USER_ID, msg_id, attachment_id).data, last_message_part.filename]
     end
 
     def save_report(new_report, data, filename)
@@ -54,9 +61,16 @@ module Services
       filename ||= File.basename tmp
       new_report.document = { filename: filename, tempfile: tmp, name: 'document' }
       new_report.save!
+      new_reports << new_report
     ensure
       tmp.close
       tmp.unlink
+    end
+
+    def after_process
+      user.gmail_connection.update_attribute 'connected_at', Time.now
+
+      onesignal.create_notification(user.username, 'New reports was fetched from your mailbox.') if new_reports.present?
     end
   end
 end
