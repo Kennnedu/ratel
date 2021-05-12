@@ -1,14 +1,11 @@
 # frozen_string_literal: true
 
-require 'observer'
-
 module Services
   class FetchGmailReports
     USER_ID = 'me'
     BELINVEST_INFO_SENDER = 'info@belinvestbank.by'
 
-    include Observable
-    include Import['logger', 'services.authorize_gmail_connection']
+    include Import['logger', 'services.authorize_gmail_connection', { 'onesignal': 'onesignal.client' }]
 
     attr_accessor :new_reports, :gmail_api, :user
 
@@ -20,8 +17,7 @@ module Services
         save_report(user.reports.build, *data_report) if data_report.presence
       end
 
-      changed
-      notify_observers(user, new_reports)
+      after_porcess
     rescue StandardError => e
       logger.fatal e
     end
@@ -69,6 +65,12 @@ module Services
     ensure
       tmp.close
       tmp.unlink
+    end
+
+    def after_porcess
+      user.gmail_connection.update_attribute 'connected_at', Time.now
+
+      onesignal.create_notification(user.username, 'New reports was fetched from your mailbox.') if new_reports.present?
     end
   end
 end
