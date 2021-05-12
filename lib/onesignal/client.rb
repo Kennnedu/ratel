@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module Onesignal
   class Client
-    BASE_URL = 'https://onesignal.com/api/v1/'.freeze
+    BASE_URL = 'https://onesignal.com/api/v1/'
 
     def initialize
       super
@@ -11,14 +13,14 @@ module Onesignal
       @app_id = ENV.fetch('ONESIGNAL_APP_ID', '')
     end
 
-    def create_notification(user_id, message, data={})
+    def create_notification(user_id, message, data = {})
       do_call(
         'notifications',
         {
-          "contents" => { "en" => message },
-          "channel_for_external_user_ids" => "push",
-          "include_external_user_ids" => [user_id],
-          "data" => data
+          'contents' => { 'en' => message },
+          'channel_for_external_user_ids' => 'push',
+          'include_external_user_ids' => [user_id],
+          'data' => data
         }
       )
     end
@@ -40,4 +42,3 @@ module Onesignal
     end
   end
 end
-

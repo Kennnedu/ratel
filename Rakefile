@@ -15,6 +15,9 @@ namespace :gmail_reports do
   desc 'Fetch reports from gmail account'
   task :fetch do
     fetcher = Container['services.fetch_gmail_reports']
+    fetch_observer = Container['services.fetch_reports_observer']
+
+    fetcher.add_observer fetch_observer
 
     User.joins(:gmail_connection).find_each(batch_size: 30) { |user| fetcher.process user }
   end
