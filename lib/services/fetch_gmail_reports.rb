@@ -17,7 +17,7 @@ module Services
         save_report(user.reports.build, *data_report) if data_report.presence
       end
 
-      after_porcess
+      after_process
     rescue StandardError => e
       logger.fatal e
     end
@@ -67,7 +67,7 @@ module Services
       tmp.unlink
     end
 
-    def after_porcess
+    def after_process
       user.gmail_connection.update_attribute 'connected_at', Time.now
 
       onesignal.create_notification(user.username, 'New reports was fetched from your mailbox.') if new_reports.present?
