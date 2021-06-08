@@ -2,6 +2,7 @@
 
 module Services
   class UpdateRecord
+    # TODO: not used try to integrate
     def process(record, params)
       @record = record
       @tags = params.delete('tags')
@@ -12,8 +13,11 @@ module Services
 
     private
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def assign_tags
       return unless @tags
+
       tags_attr = []
       all_tags = @record.user.tags.map(&:name)
       record_tags = @record.tags.map(&:name)
@@ -40,5 +44,6 @@ module Services
 
       @record.records_tags_attributes = tags_attr
     end
+    # rubocop:enable all
   end
 end

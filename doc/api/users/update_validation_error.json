@@ -53,7 +53,7 @@
     {
       "request_method": "PUT",
       "request_path": "/user",
-      "request_body": "user[username]=shannon.howell&user[password]=password&user[password_confirmation]=paaasword1%24&user[gmail_connection_attributes][report_sender]=antony%40hotmail.com&user[gmail_connection_attributes][connected_at]=2020-12-29+15%3A31%3A06+%2B0300",
+      "request_body": "user[username]=gregg&user[password]=password&user[password_confirmation]=paaasword1%24&user[gmail_connection_attributes][report_sender]=leonard.huel%40hotmail.com&user[gmail_connection_attributes][connected_at]=2021-06-08+15%3A57%3A44+%2B0300",
       "request_headers": {
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org",
@@ -70,7 +70,7 @@
         "Content-Length": "60"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/user\" -d 'user[username]=shannon.howell&user[password]=password&user[password_confirmation]=paaasword1%24&user[gmail_connection_attributes][report_sender]=antony%40hotmail.com&user[gmail_connection_attributes][connected_at]=2020-12-29+15%3A31%3A06+%2B0300' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/user\" -d 'user[username]=gregg&user[password]=password&user[password_confirmation]=paaasword1%24&user[gmail_connection_attributes][report_sender]=leonard.huel%40hotmail.com&user[gmail_connection_attributes][connected_at]=2021-06-08+15%3A57%3A44+%2B0300' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

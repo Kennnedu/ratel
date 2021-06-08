@@ -18,6 +18,9 @@ class Record < ActiveRecord::Base
   scope :recent, -> { order('records.performed_at desc') }
 
   before_validation :set_performed_at, unless: :performed_at
+  after_create do
+    ApplyRulesWorker.perform_async(id)
+  end
 
   accepts_nested_attributes_for :records_tags, allow_destroy: true
 

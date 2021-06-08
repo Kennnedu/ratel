@@ -30,7 +30,7 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 5,\n  \"name\": \"5349-9070-2896-4646\",\n  \"user_id\": 1,\n  \"created_at\": \"2020-12-29T12:30:51.430Z\",\n  \"updated_at\": \"2020-12-29T12:30:51.430Z\"\n}",
+      "response_body": "{\n  \"id\": 5,\n  \"name\": \"4939-4937-8613-2055\",\n  \"user_id\": 1,\n  \"created_at\": \"2021-06-08T12:57:27.935Z\",\n  \"updated_at\": \"2021-06-08T12:57:27.935Z\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
         "Content-Length": "129"

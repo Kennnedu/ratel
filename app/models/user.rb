@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :records, dependent: :destroy
   has_many :cards, dependent: :destroy
   has_many :tags, dependent: :destroy
+  has_many :rules, dependent: :destroy
   has_many :reports, dependent: :destroy
 
   accepts_nested_attributes_for :gmail_connection

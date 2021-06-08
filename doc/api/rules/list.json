@@ -1,9 +1,9 @@
 {
-  "resource": "Users",
+  "resource": "Rules",
   "resource_explanation": null,
   "http_method": "GET",
-  "route": "/user",
-  "description": "Show profile",
+  "route": "/rules",
+  "description": "List",
   "explanation": null,
   "parameters": [
 
@@ -14,7 +14,7 @@
   "requests": [
     {
       "request_method": "GET",
-      "request_path": "/user",
+      "request_path": "/rules",
       "request_body": null,
       "request_headers": {
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
@@ -25,13 +25,13 @@
       "request_content_type": null,
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"username\": \"danny\"\n}",
+      "response_body": "{\n  \"rules\": [\n\n  ],\n  \"offset\": 0,\n  \"limit\": 30,\n  \"total_count\": 0\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "20"
+        "Content-Length": "50"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:4567/user\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:4567/rules\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

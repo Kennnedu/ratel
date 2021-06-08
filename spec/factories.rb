@@ -46,4 +46,11 @@ FactoryBot.define do
   factory :report do
     document { Rack::Test::UploadedFile.new("#{Dir.pwd}/spec/fixtures/report.htm", "text/html") }
   end
+
+  factory :rule do
+    condition { { 'in' => ['a', {'var' => 'name'}] } }
+    type { %w(TagRule).sample }
+    name { Faker::App.name }
+    tag
+  end
 end

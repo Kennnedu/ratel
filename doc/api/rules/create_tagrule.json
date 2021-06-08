@@ -1,0 +1,38 @@
+{
+  "resource": "Rules",
+  "resource_explanation": null,
+  "http_method": "POST",
+  "route": "/rules",
+  "description": "Create TagRule",
+  "explanation": null,
+  "parameters": [
+
+  ],
+  "response_fields": [
+
+  ],
+  "requests": [
+    {
+      "request_method": "POST",
+      "request_path": "/rules",
+      "request_body": "{\"condition\":{\"in\":[\"shop\",{\"var\":\"name\"}]},\"tag_id\":1,\"type\":\"TagRule\",\"name\":\"Tag prodder\"}",
+      "request_headers": {
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Host": "example.org",
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      "request_query_parameters": {
+      },
+      "request_content_type": "application/x-www-form-urlencoded",
+      "response_status": 200,
+      "response_status_text": "OK",
+      "response_body": "{\n  \"id\": 1,\n  \"name\": \"Tag prodder\",\n  \"condition\": {\n    \"in\": [\n      \"shop\",\n      {\n        \"var\": \"name\"\n      }\n    ]\n  },\n  \"user_id\": 1,\n  \"tag_id\": 1,\n  \"created_at\": \"2021-06-08T12:57:38.271Z\",\n  \"updated_at\": \"2021-06-08T12:57:38.271Z\"\n}",
+      "response_headers": {
+        "Content-Type": "application/json",
+        "Content-Length": "175"
+      },
+      "response_content_type": "application/json",
+      "curl": "curl \"http://localhost:4567/rules\" -d '{\"condition\":{\"in\":[\"shop\",{\"var\":\"name\"}]},\"tag_id\":1,\"type\":\"TagRule\",\"name\":\"Tag prodder\"}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+    }
+  ]
+}
