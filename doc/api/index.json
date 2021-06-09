@@ -230,6 +230,13 @@
       "explanation": null,
       "examples": [
         {
+          "description": "Create CardRule",
+          "link": "rules/create_cardrule.json",
+          "groups": "all",
+          "route": "/rules",
+          "method": "post"
+        },
+        {
           "description": "Create TagRule",
           "link": "rules/create_tagrule.json",
           "groups": "all",

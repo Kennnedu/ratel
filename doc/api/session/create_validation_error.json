@@ -15,7 +15,7 @@
     {
       "request_method": "POST",
       "request_path": "/sessions",
-      "request_body": "{\"username\":\"emerson\",\"password\":\"111\",\"secure_login\":true}",
+      "request_body": "{\"username\":\"latasha.gusikowski\",\"password\":\"111\",\"secure_login\":true}",
       "request_headers": {
         "Content-Type": "application/json",
         "Host": "example.org"
@@ -31,7 +31,7 @@
         "Content-Length": "48"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/sessions\" -d '{\"username\":\"emerson\",\"password\":\"111\",\"secure_login\":true}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/sessions\" -d '{\"username\":\"latasha.gusikowski\",\"password\":\"111\",\"secure_login\":true}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

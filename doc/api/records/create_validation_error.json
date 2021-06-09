@@ -15,7 +15,7 @@
     {
       "request_method": "POST",
       "request_path": "/records",
-      "request_body": "{\"record\":{\"rest\":11.23,\"performed_at\":\"2021-06-08T15:57\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}",
+      "request_body": "{\"record\":{\"rest\":11.23,\"performed_at\":\"2021-06-09T13:53\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}",
       "request_headers": {
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org",
@@ -32,7 +32,7 @@
         "Content-Length": "59"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/records\" -d '{\"record\":{\"rest\":11.23,\"performed_at\":\"2021-06-08T15:57\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/records\" -d '{\"record\":{\"rest\":11.23,\"performed_at\":\"2021-06-09T13:53\",\"card_id\":1,\"records_tags_attributes\":[{\"tag_id\":1}]}}' -X POST \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

@@ -3,6 +3,7 @@
 resource 'Rules' do
   let(:user) { create :user }
   let(:tag) { create :tag, user: user }
+  let(:card) { create :card, user: user }
 
   before do
     header 'Authorization', "Berier #{JWT.encode({ user_id: user.id }, ENV.fetch('SECRET_KEY'), 'HS256')}"
@@ -21,6 +22,14 @@ resource 'Rules' do
       let(:raw_post) { { condition: { 'in' => ['shop', { 'var' => 'name' }] }, tag_id: tag.id, type: 'TagRule', name: "Tag #{tag.name}" }.to_json }
 
       example_request 'Create TagRule' do
+        expect(status).to eq 200
+      end
+    end
+
+    context 'status 200 CardRule type' do
+      let(:raw_post) { { condition: { 'in' => ['*999', { 'var' => 'card.name' }] }, card_id: card.id, type: 'CardRule', name: "Card #{card.name}" }.to_json }
+
+      example_request 'Create CardRule' do
         expect(status).to eq 200
       end
     end

@@ -25,10 +25,10 @@
       "request_content_type": null,
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"username\": \"danny\"\n}",
+      "response_body": "{\n  \"username\": \"randolph\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "20"
+        "Content-Length": "23"
       },
       "response_content_type": "application/json",
       "curl": "curl -g \"http://localhost:4567/user\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

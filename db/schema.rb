@@ -73,8 +73,10 @@ ActiveRecord::Schema.define(version: 2021_06_02_204351) do
     t.jsonb "condition"
     t.bigint "user_id"
     t.bigint "tag_id"
+    t.bigint "card_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_rules_on_card_id"
     t.index ["tag_id"], name: "index_rules_on_tag_id"
     t.index ["user_id"], name: "index_rules_on_user_id"
   end
