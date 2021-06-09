@@ -24,4 +24,8 @@ class Rule < ActiveRecord::Base
   rescue StandardError => e
     errors.add(:condition, e.message)
   end
+
+  def as_json(options = {})
+    super(options).merge(type: type)
+  end
 end
