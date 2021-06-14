@@ -3,8 +3,8 @@
 require 'json_logic'
 
 class Rule < ActiveRecord::Base
-  RECORD_SAMPLE = { 'id' => 1, 'name' => 'name', 'amount' => -3.5, 'rest' => 100.00, 'performed_at' => Time.now,
-                    'report_id' => nil, 'records_tags' => [], 'card' => { 'id' => '', 'name' => '' } }.freeze
+  RECORD_SAMPLE = { 'name' => 'name', 'amount' => -3.5,
+                    'card' => { 'id' => '', 'name' => '' } }.freeze
 
   belongs_to :user
 
