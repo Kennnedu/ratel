@@ -10,6 +10,7 @@ Container.boot(:activerecord) do |app|
     ActiveRecord::Base.establish_connection(ENV.fetch('DATABASE_URL'))
     ActiveRecord::Base.logger = app['logger'] unless ENV['APP_ENV'].eql? 'test'
 
+    app.require_from_root('app/models/rule')
     app.require_from_root('app/models/*')
   end
 end

@@ -53,7 +53,7 @@
     {
       "request_method": "PUT",
       "request_path": "/user",
-      "request_body": "user[username]=iraida_schmidt&user[password]=password&user[password_confirmation]=password&user[gmail_connection_attributes][report_sender]=maryanna%40yahoo.com&user[gmail_connection_attributes][connected_at]=2020-12-29+15%3A31%3A06+%2B0300",
+      "request_body": "user[username]=hung.bechtelar&user[password]=password&user[password_confirmation]=password&user[gmail_connection_attributes][report_sender]=kortney.hyatt%40hotmail.com&user[gmail_connection_attributes][connected_at]=2021-06-09+13%3A53%3A20+%2B0300",
       "request_headers": {
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
         "Host": "example.org",
@@ -64,13 +64,13 @@
       "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"username\": \"iraida_schmidt\",\n  \"gmail_connection\": {\n    \"connected\": false,\n    \"report_sender\": \"maryanna@yahoo.com\",\n    \"connected_at\": \"2020-12-29T12:31:06.000Z\"\n  }\n}",
+      "response_body": "{\n  \"username\": \"hung.bechtelar\",\n  \"gmail_connection\": {\n    \"connected\": false,\n    \"report_sender\": \"kortney.hyatt@hotmail.com\",\n    \"connected_at\": \"2021-06-09T10:53:20.000Z\"\n  }\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "147"
+        "Content-Length": "154"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/user\" -d 'user[username]=iraida_schmidt&user[password]=password&user[password_confirmation]=password&user[gmail_connection_attributes][report_sender]=maryanna%40yahoo.com&user[gmail_connection_attributes][connected_at]=2020-12-29+15%3A31%3A06+%2B0300' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/user\" -d 'user[username]=hung.bechtelar&user[password]=password&user[password_confirmation]=password&user[gmail_connection_attributes][report_sender]=kortney.hyatt%40hotmail.com&user[gmail_connection_attributes][connected_at]=2021-06-09+13%3A53%3A20+%2B0300' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

@@ -1,16 +1,12 @@
 {
-  "resource": "Reports",
+  "resource": "Rules",
   "resource_explanation": null,
   "http_method": "DELETE",
-  "route": "/reports/:id",
+  "route": "/rules/:id",
   "description": "Delete",
   "explanation": null,
   "parameters": [
-    {
-      "type": "integer",
-      "name": "id",
-      "description": "Report id"
-    }
+
   ],
   "response_fields": [
 
@@ -18,7 +14,7 @@
   "requests": [
     {
       "request_method": "DELETE",
-      "request_path": "/reports/1",
+      "request_path": "/rules/1",
       "request_body": null,
       "request_headers": {
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
@@ -30,13 +26,13 @@
       "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 1,\n  \"status\": \"processed\",\n  \"created_at\": \"2021-06-09T10:53:13.138Z\",\n  \"url\": \"/uploads/f6839a2f146039ff97adc592a0999c69.htm\",\n  \"name\": \"report.htm\"\n}",
+      "response_body": "{\n  \"id\": 1,\n  \"name\": \"Tres-Zap\",\n  \"condition\": {\n    \"in\": [\n      \"a\",\n      {\n        \"var\": \"name\"\n      }\n    ]\n  },\n  \"user_id\": 1,\n  \"tag_id\": 1,\n  \"card_id\": null,\n  \"created_at\": \"2021-06-09T10:53:15.730Z\",\n  \"updated_at\": \"2021-06-09T10:53:15.730Z\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "143"
+        "Content-Length": "184"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/reports/1\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/rules/1\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

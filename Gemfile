@@ -15,6 +15,8 @@ gem 'dry-system', '~> 0.18.1'
 gem 'faraday', '~> 0.17.3'
 # A ruby implementation of the RFC 7519 OAuth JSON Web Token (JWT) standard.
 gem 'jwt'
+# Build complex rules, serialize them as JSON, and execute them in ruby
+gem 'json_logic', '~> 0.4.7'
 # Nokogiri is a Rubygem providing HTML, XML, SAX, and Reader parsers with XPath and CSS selector support.
 gem 'nokogiri'
 # New Relic RPM Ruby Agent

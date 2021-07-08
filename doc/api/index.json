@@ -226,6 +226,54 @@
       ]
     },
     {
+      "name": "Rules",
+      "explanation": null,
+      "examples": [
+        {
+          "description": "Create CardRule",
+          "link": "rules/create_cardrule.json",
+          "groups": "all",
+          "route": "/rules",
+          "method": "post"
+        },
+        {
+          "description": "Create TagRule",
+          "link": "rules/create_tagrule.json",
+          "groups": "all",
+          "route": "/rules",
+          "method": "post"
+        },
+        {
+          "description": "Create validation error",
+          "link": "rules/create_validation_error.json",
+          "groups": "all",
+          "route": "/rules",
+          "method": "post"
+        },
+        {
+          "description": "Delete",
+          "link": "rules/delete.json",
+          "groups": "all",
+          "route": "/rules/:id",
+          "method": "delete"
+        },
+        {
+          "description": "Delete Not found",
+          "link": "rules/delete_not_found.json",
+          "groups": "all",
+          "route": "/rules/:id",
+          "method": "delete"
+        },
+        {
+          "description": "List",
+          "link": "rules/list.json",
+          "groups": "all",
+          "route": "/rules",
+          "method": "get"
+        }
+      ]
+    },
+    {
       "name": "Session",
       "explanation": null,
       "examples": [

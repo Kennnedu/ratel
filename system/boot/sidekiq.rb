@@ -9,6 +9,12 @@ Container.boot(:sidekiq) do |app|
       config.redis = { size: 1 }
     end
 
+    Sidekiq.configure_server do |config|
+      config.on(:startup) do
+        ActiveRecord::Base.clear_active_connections!
+      end
+    end
+
     app.require_from_root('app/workers/*')
   end
 end
