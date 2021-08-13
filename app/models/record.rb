@@ -19,7 +19,7 @@ class Record < ActiveRecord::Base
 
   before_validation :set_performed_at, unless: :performed_at
   after_create do
-    ApplyRulesWorker.perform_async(id)
+    ApplyRulesWorker.perform_async(id) if user.rules.present?
   end
 
   accepts_nested_attributes_for :records_tags, allow_destroy: true

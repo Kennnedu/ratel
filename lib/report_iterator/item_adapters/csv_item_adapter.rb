@@ -22,9 +22,9 @@ module ReportIterator
       end
 
       def performed_at
-        @last_peformed_at = DateTime.parse(item['date']).to_s
+        DateTime.parse(@item['date']).to_s
       rescue StandardError
-        @last_peformed_at ||= Time.now
+        Time.now
       end
     end
   end
