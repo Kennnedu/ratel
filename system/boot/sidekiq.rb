@@ -6,7 +6,7 @@ Container.boot(:sidekiq) do |app|
     require 'sidekiq/web'
 
     Sidekiq.configure_client do |config|
-      config.redis = { size: 1 }
+      config.redis = { url: ENV['REDIS_URL'], size: 1 }
     end
 
     Sidekiq.configure_server do |config|

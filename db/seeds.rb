@@ -1,3 +1,3 @@
 # frozen_string_literal: true
 
-User.create!(username: 'username', password: 'password')
+User.create!(username: 'roman', password: 'password1')
