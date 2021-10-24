@@ -5,11 +5,12 @@ module ReportIterator
     include Import['report_iterator.props.html_props', 'report_iterator.props.html_table_props',
                    'report_iterator.props.csv_props']
 
-    def get_props(file)
-      props = if File.extname(file).eql?('.csv')
+    def get_props(report)
+      props = if report.document.metadata['filename'].include?('.csv')
+                file = report.document.read.force_encoding('windows-1251').encode('utf-8')
                 csv_props
               else
-                file = Nokogiri::HTML(file)
+                file = Nokogiri::HTML(report.document.read)
                 file.css('table').size > 1 ? html_props : html_table_props
               end
 

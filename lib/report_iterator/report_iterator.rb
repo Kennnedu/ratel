@@ -4,8 +4,8 @@ module ReportIterator
   class ReportIterator
     include Import['report_iterator.props_factory']
 
-    def foreach(file)
-      report_props = props_factory.get_props(file)
+    def foreach(report)
+      report_props = props_factory.get_props(report)
       item_adapter = report_props.item_adapter
 
       report_props.collection.each do |item|

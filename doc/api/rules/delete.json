@@ -26,10 +26,10 @@
       "request_content_type": "application/x-www-form-urlencoded",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"id\": 1,\n  \"name\": \"Tres-Zap\",\n  \"condition\": {\n    \"in\": [\n      \"a\",\n      {\n        \"var\": \"name\"\n      }\n    ]\n  },\n  \"user_id\": 1,\n  \"tag_id\": 1,\n  \"card_id\": null,\n  \"created_at\": \"2021-06-09T10:53:15.730Z\",\n  \"updated_at\": \"2021-06-09T10:53:15.730Z\"\n}",
+      "response_body": "{\n  \"id\": 1,\n  \"name\": \"Cardify\",\n  \"condition\": {\n    \"in\": [\n      \"a\",\n      {\n        \"var\": \"name\"\n      }\n    ]\n  },\n  \"user_id\": 1,\n  \"tag_id\": 1,\n  \"card_id\": null,\n  \"created_at\": \"2021-10-24T11:12:44.829Z\",\n  \"updated_at\": \"2021-10-24T11:12:44.829Z\",\n  \"type\": \"TagRule\"\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "184"
+        "Content-Length": "200"
       },
       "response_content_type": "application/json",
       "curl": "curl \"http://localhost:4567/rules/1\" -d '' -X DELETE \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Content-Type: application/x-www-form-urlencoded\" \\\n\t-H \"Cookie: \""

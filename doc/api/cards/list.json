@@ -109,7 +109,7 @@
       "request_body": null,
       "request_headers": {
         "Content-Type": "application/json",
-        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
+        "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.G2W6r_z-A_g9qTsXOdKvmIQkRVjl3T2k_b167b2tSec",
         "Host": "example.org"
       },
       "request_query_parameters": {
@@ -122,13 +122,13 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"cards\": [\n    {\n      \"id\": 2,\n      \"name\": \"6498-6538-7386-4039\",\n      \"created_at\": \"2021-06-09T10:53:02.493Z\",\n      \"updated_at\": \"2021-06-09T10:53:02.493Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 1,\n      \"name\": \"6304285224671997\",\n      \"created_at\": \"2021-06-09T10:53:02.490Z\",\n      \"updated_at\": \"2021-06-09T10:53:02.490Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 3,\n      \"name\": \"5175-5178-5464-0878\",\n      \"created_at\": \"2021-06-09T10:53:02.496Z\",\n      \"updated_at\": \"2021-06-09T10:53:02.496Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 4,\n      \"name\": \"502615371743343\",\n      \"created_at\": \"2021-06-09T10:53:02.499Z\",\n      \"updated_at\": \"2021-06-09T10:53:02.499Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"3529-1000-1495-3859\",\n      \"created_at\": \"2021-06-09T10:53:02.502Z\",\n      \"updated_at\": \"2021-06-09T10:53:02.502Z\",\n      \"records_sum\": \"0.0\"\n    }\n  ]\n}",
+      "response_body": "{\n  \"cards\": [\n    {\n      \"id\": 4,\n      \"name\": \"6521-6284-2876-5551-4036\",\n      \"created_at\": \"2021-10-24T11:12:33.475Z\",\n      \"updated_at\": \"2021-10-24T11:12:33.475Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"6007-2229-8688-1936\",\n      \"created_at\": \"2021-10-24T11:12:33.481Z\",\n      \"updated_at\": \"2021-10-24T11:12:33.481Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 6,\n      \"name\": \"5019-7412-7724-8099\",\n      \"created_at\": \"2021-10-24T11:12:33.484Z\",\n      \"updated_at\": \"2021-10-24T11:12:33.484Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 7,\n      \"name\": \"3544-4417-9648-1375\",\n      \"created_at\": \"2021-10-24T11:12:33.487Z\",\n      \"updated_at\": \"2021-10-24T11:12:33.487Z\",\n      \"records_sum\": \"0.0\"\n    },\n    {\n      \"id\": 8,\n      \"name\": \"3499-703122-97298\",\n      \"created_at\": \"2021-10-24T11:12:33.490Z\",\n      \"updated_at\": \"2021-10-24T11:12:33.490Z\",\n      \"records_sum\": \"0.0\"\n    }\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "694"
+        "Content-Length": "704"
       },
       "response_content_type": "application/json",
-      "curl": "curl -g \"http://localhost:4567/cards?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl -g \"http://localhost:4567/cards?fields=created_at%2Cupdated_at%2Crecords_sum&order[type]=desc&order[field]=name\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoyfQ.G2W6r_z-A_g9qTsXOdKvmIQkRVjl3T2k_b167b2tSec\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

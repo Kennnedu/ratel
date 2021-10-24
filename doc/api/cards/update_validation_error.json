@@ -19,7 +19,7 @@
     {
       "request_method": "PUT",
       "request_path": "/cards/5",
-      "request_body": "{\"card\":{\"name\":\"5019-9251-4882-7831\"}}",
+      "request_body": "{\"card\":{\"name\":\"6771387113353739\"}}",
       "request_headers": {
         "Content-Type": "application/json",
         "Authorization": "Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4",
@@ -36,7 +36,7 @@
         "Content-Length": "43"
       },
       "response_content_type": "application/json",
-      "curl": "curl \"http://localhost:4567/cards/5\" -d '{\"card\":{\"name\":\"5019-9251-4882-7831\"}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
+      "curl": "curl \"http://localhost:4567/cards/5\" -d '{\"card\":{\"name\":\"6771387113353739\"}}' -X PUT \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""
     }
   ]
 }

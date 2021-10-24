@@ -8,7 +8,6 @@ module Api
       'queries.find_records',
       'queries.find_record_names',
       'queries.find_records_sum',
-      'services.create_bulk_record',
       'services.update_bulk_record'
     ]
 
@@ -54,11 +53,6 @@ module Api
       crud_response(
         @current_user.records.new(JSON.parse(request.body.read)['record']).tap(&:save)
       )
-    end
-
-    post '/bulk' do
-      create_bulk_record.process(@current_user, params['html_file']['tempfile'].read)
-      halt 200
     end
 
     put '/' do

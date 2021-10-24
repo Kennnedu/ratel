@@ -69,10 +69,10 @@
       "request_content_type": "application/json",
       "response_status": 200,
       "response_status_text": "OK",
-      "response_body": "{\n  \"statistic\": [\n    {\n      \"performed_date\": \"2021-05-01 00:00:00\",\n      \"sum_amount\": \"42.89\"\n    },\n    {\n      \"performed_date\": \"2021-04-01 00:00:00\",\n      \"sum_amount\": \"48.76\"\n    },\n    {\n      \"performed_date\": \"2021-03-01 00:00:00\",\n      \"sum_amount\": \"6.5\"\n    },\n    {\n      \"performed_date\": \"2021-01-01 00:00:00\",\n      \"sum_amount\": \"-47.63\"\n    },\n    {\n      \"performed_date\": \"2020-12-01 00:00:00\",\n      \"sum_amount\": \"44.3\"\n    },\n    {\n      \"performed_date\": \"2020-11-01 00:00:00\",\n      \"sum_amount\": \"10.6\"\n    },\n    {\n      \"performed_date\": \"2020-08-01 00:00:00\",\n      \"sum_amount\": \"-70.8\"\n    },\n    {\n      \"performed_date\": \"2020-07-01 00:00:00\",\n      \"sum_amount\": \"47.67\"\n    }\n  ]\n}",
+      "response_body": "{\n  \"statistic\": [\n    {\n      \"performed_date\": \"2021-09-01 00:00:00\",\n      \"sum_amount\": \"-54.0\"\n    },\n    {\n      \"performed_date\": \"2021-06-01 00:00:00\",\n      \"sum_amount\": \"20.15\"\n    },\n    {\n      \"performed_date\": \"2021-05-01 00:00:00\",\n      \"sum_amount\": \"74.92\"\n    },\n    {\n      \"performed_date\": \"2021-03-01 00:00:00\",\n      \"sum_amount\": \"4.91\"\n    },\n    {\n      \"performed_date\": \"2021-01-01 00:00:00\",\n      \"sum_amount\": \"-44.8\"\n    },\n    {\n      \"performed_date\": \"2020-12-01 00:00:00\",\n      \"sum_amount\": \"30.03\"\n    },\n    {\n      \"performed_date\": \"2020-11-01 00:00:00\",\n      \"sum_amount\": \"24.86\"\n    }\n  ]\n}",
       "response_headers": {
         "Content-Type": "application/json",
-        "Content-Length": "508"
+        "Content-Length": "448"
       },
       "response_content_type": "application/json",
       "curl": "curl -g \"http://localhost:4567/records/statistic/sum?period_step=month\" -X GET \\\n\t-H \"Accept: application/json\" \\\n\t-H \"Content-Type: application/json\" \\\n\t-H \"Authorization: Berier eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxfQ.wArNtp1Fffy0hox_5k4MtoxhjlLKnQEpTqaWV0wYue4\" \\\n\t-H \"Host: example.org\" \\\n\t-H \"Cookie: \""

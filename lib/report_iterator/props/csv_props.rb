@@ -29,11 +29,11 @@ module ReportIterator
       protected
 
       def initial_query
-        CSV.readlines(report, PARSE_OPTS)
+        CSV.parse(report, PARSE_OPTS)
       end
 
       def card
-        /(?<=Account number:)(.*)(?= Available balance)/.match(initial_query[0]['date']).to_s
+        /(?<=Номер счета:)(.*)(?= Доступный остаток)/.match(initial_query[0]['date']).to_s
       end
     end
   end
