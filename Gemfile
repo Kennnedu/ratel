@@ -27,6 +27,8 @@ gem 'pg'
 gem 'raddocs'
 # A make-like build utility for Ruby. https://ruby.github.io/rake
 gem 'rake'
+# Restarts an app when the filesystem changes. Uses growl and FSEventStream if on OS X.
+gem 'rerun', '~> 0.13.1'
 # File Attachment toolkit for Ruby applications
 gem 'shrine'
 # Google Drive Storage for Shrine
@@ -63,4 +65,3 @@ group :test do
 end
 
 gem 'rubocop', '~> 0.93.1', :group => :development, require: false
-
