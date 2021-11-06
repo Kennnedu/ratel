@@ -22,7 +22,7 @@ class ProcessingReportWorker
 
   def process_item(report, attr)
     card = report.user.cards.find_or_create_by(name: attr['card'])
-    attr.delete :card
+    attr.delete 'card'
     report.user.records.find_or_create_by(attr.merge(card: card).merge(report_id: report.id))
   end
 end

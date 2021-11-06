@@ -11,7 +11,13 @@ module ReportIterator
                 csv_props
               else
                 file = Nokogiri::HTML(report.document.read)
-                file.css('table').size > 1 ? html_props : html_table_props
+
+                if file.css('table').size > 1
+                  file = Nokogiri::HTML(report.document.read.force_encoding('windows-1251').encode('utf-8'))
+                  html_props
+                else
+                  html_table_props
+                end
               end
 
       props.report = file
