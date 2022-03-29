@@ -45,8 +45,7 @@ namespace :currency do
   desc 'Populate currency data'
 
   task :populate do
-
-    resp = Faraday.get("https://apilayer.net/api/live?access_key=#{ENV['CURRENCYLAYER_KEY']}}&currencies=EUR,BYN,PLN&source=USD")
+    resp = Faraday.get("https://apilayer.net/api/live?access_key=#{ENV['CURRENCYLAYER_KEY']}&currencies=EUR,BYN,PLN&source=USD")
     data = JSON.parse(resp.body)
 
     Usd.create(
