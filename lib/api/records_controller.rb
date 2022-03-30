@@ -13,7 +13,7 @@ module Api
 
     get '/' do
       json records: paginate(
-        find_records.call(scope: @current_user.records.includes(:card, records_tags: [:tag]), params: params)
+        find_records.call(scope: @current_user.records.includes(:card, :usd, records_tags: [:tag]), params: params)
       ).as_json,
            offset: @offset,
            limit: @limit,

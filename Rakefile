@@ -43,7 +43,6 @@ end
 
 namespace :currency do
   desc 'Populate currency data'
-
   task :populate do
     resp = Faraday.get("https://apilayer.net/api/live?access_key=#{ENV['CURRENCYLAYER_KEY']}&currencies=EUR,BYN,PLN&source=USD")
     data = JSON.parse(resp.body)
@@ -53,6 +52,13 @@ namespace :currency do
       pln: data.dig('quotes', 'USDPLN'),
       eur: data.dig('quotes', 'USDEUR')
     )
+  end
+
+  desc 'Assign usd_id to records'
+  task :assign_records do
+    Usd.find_each(batch_size: 50) do |usd|
+      Record.where(usd_id: nil).where('date(performed_at) = date(?)', usd.created_at).update_all(usd_id: usd.id)
+    end
   end
 end
 

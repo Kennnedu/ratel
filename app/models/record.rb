@@ -2,6 +2,7 @@
 
 class Record < ActiveRecord::Base
   belongs_to :user, required: true
+  belongs_to :usd, required: false
   belongs_to :card
   belongs_to :report
   has_many :records_tags, dependent: :destroy
@@ -32,6 +33,7 @@ class Record < ActiveRecord::Base
     options = {
       except: %i[created_at updated_at user_id card_id],
       include: {
+        usd: { only: %i[byn pln eur] },
         card: { only: %i[name id] },
         records_tags: { only: %i[id tag_id], include: { tag: { only: %i[id name] } } }
       }
