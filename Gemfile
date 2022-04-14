@@ -29,6 +29,8 @@ gem 'raddocs'
 gem 'rake'
 # Restarts an app when the filesystem changes. Uses growl and FSEventStream if on OS X.
 gem 'rerun', '~> 0.13.1'
+# ScoutAPM Ruby Agent. Supports Rails, Sinatra, Grape, Rack, and many other frameworks
+gem 'scout_apm', '~> 5.1'
 # File Attachment toolkit for Ruby applications
 gem 'shrine'
 # Google Drive Storage for Shrine
@@ -65,3 +67,4 @@ group :test do
 end
 
 gem 'rubocop', '~> 0.93.1', :group => :development, require: false
+
