@@ -67,4 +67,3 @@ group :test do
 end
 
 gem 'rubocop', '~> 0.93.1', :group => :development, require: false
-
