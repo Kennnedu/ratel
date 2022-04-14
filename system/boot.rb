@@ -14,6 +14,13 @@ Dotenv.load('.env')
 require_relative 'container'
 require_relative 'import'
 
+
+if ENV['APP_ENV'].eql?('production')
+  require 'scout_apm'
+
+  ScoutApm::Rack.install!
+end
+
 Container.finalize!
 
 
