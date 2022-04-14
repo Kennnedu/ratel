@@ -1,6 +1,12 @@
 require_relative './system/boot'
 require 'raddocs'
 
+if ENV['APP_ENV'].eql?('production')
+  require 'scout_apm'
+
+  ScoutApm::Rack.install!
+end
+
 map('/api/v1/rules') { run Container['api.rules_controller'] }
 map('/api/v1/cards') { run Container['api.cards_controller'] }
 map('/api/v1/records') { run Container['api.records_controller'] }
