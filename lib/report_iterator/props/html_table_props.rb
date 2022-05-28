@@ -14,6 +14,15 @@ module ReportIterator
       def item_adapter
         html_table_item_adapter
       end
+
+      def compatible?(report)
+        file = Nokogiri::HTML(report.document.read)
+        !report.document.metadata['filename'].include?('.csv') && file.css('table').size == 1
+      end
+
+      def report=(report)
+        @report = Nokogiri::HTML(report.document.read)
+      end
     end
   end
 end

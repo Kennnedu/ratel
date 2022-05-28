@@ -16,6 +16,15 @@ module ReportIterator
         html_item_adapter
       end
 
+      def compatible?(report)
+        file = Nokogiri::HTML(report.document.read)
+        !report.document.metadata['filename'].include?('.csv') && file.css('table').size > 1 && !file.text.include?('БНБ Банк')
+      end
+
+      def report=(report)
+        @report = Nokogiri::HTML(report.document.read.force_encoding('windows-1251').encode('utf-8'))
+      end
+
       protected
 
       def initial_query

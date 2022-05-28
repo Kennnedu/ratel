@@ -26,6 +26,14 @@ module ReportIterator
         csv_item_adapter
       end
 
+      def compatible?(report)
+        report.document.metadata['filename'].include?('.csv')
+      end
+
+      def report=(report)
+        @report = report.document.read.force_encoding('windows-1251').encode('utf-8')
+      end
+
       protected
 
       def initial_query
